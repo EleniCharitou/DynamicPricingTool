@@ -10,8 +10,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <%--ploty.js--%>
     <script src="https://cdn.plot.ly/plotly-2.14.0.min.js"></script>
-    <%--https://jsfiddle.net/2uc346hp/--%>
+    <%-- highcharts.js --%>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+
+
+
 </head>
 <body>
     <nav class="navbar bg-light fixed-top">
@@ -85,72 +89,113 @@
         <button id="searchButton" type="button" class="btn btn-primary" style="margin-top: 10pt">Submit</button>
     </div>
 
-<%--    <div>--%>
-<%--        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>--%>
-<%--        <script type="text/javascript">--%>
-<%--            google.charts.load('current', {'packages':['corechart']});--%>
-<%--            google.charts.setOnLoadCallback(drawChart);--%>
-
-<%--            function drawChart() {--%>
-<%--                var data = google.visualization.arrayToDataTable([--%>
-<%--                    ['Year', 'Sales', 'Expenses'],--%>
-<%--                    ['2013',  1000,      400],--%>
-<%--                    ['2014',  1170,      460],--%>
-<%--                    ['2015',  660,       1120],--%>
-<%--                    ['2016',  1030,      540]--%>
-<%--                ]);--%>
-
-<%--                var options = {--%>
-<%--                    title: 'Company Performance',--%>
-<%--                    hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},--%>
-<%--                    vAxis: {minValue: 0}--%>
-<%--                };--%>
-
-<%--                var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));--%>
-<%--                chart.draw(data, options);--%>
-<%--            }--%>
-<%--        </script>--%>
-<%--    </div>--%>
-<%--    <div id="chart_div" style="width: 100%; height: 500px;"></div>--%>
-
-<%--    input fields and submit--%>
+    <div style="width: 25%; margin: 10pt auto;">
+        File to upload:
+        <br/>
+        <input id="fileID" type="file" name="file" accept=".csv"/>
+        <br/>
+        <button id="submitFile" type="button" class="btn btn-primary" style="margin-top: 10pt">SubmitFile</button>
+    </div>
 
 
-<%--    <div>--%>
-<%--        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">--%>
-<%--        </script>--%>
-<%--        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>--%>
-<%--        <script>--%>
-<%--            var xValues = [50,60,70,80,90,100,110,120,130,140,150];--%>
-<%--            var yValues = [7,8,8,9,9,9,10,11,14,14,15];--%>
 
-<%--            var myChart = new Chart("myChart", {--%>
-<%--            type: "line",--%>
-<%--            data: {--%>
-<%--                labels: xValues,--%>
-<%--                datasets:[{--%>
-<%--                    fill: false,--%>
-<%--                    lineTension: 0,--%>
-<%--                    data: yValues--%>
-<%--                }]--%>
-<%--            },--%>
-<%--            options: {--%>
-<%--                legend: {display: false},--%>
-<%--                scales: {--%>
-<%--                    yAxes: [{ticks: {min: 6,max: 16}}],--%>
-<%--                }--%>
-<%--            }--%>
-<%--        });</script>--%>
-<%--    </div>--%>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
 
     <div id="tester" style="width:600px;height:250px;"></div>
 
-    <figure class="highcharts-figure">
-        <div id="container"></div>
-    </figure>
+
 
     <script>
         $(document).ready(function() {
+            /*const lowerBound = 100, upperBound = 300;
+
+            const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2));
+
+            const getMean = (lowerBound, upperBound) => (upperBound + lowerBound) / 2;
+
+// distance between mean and each bound of a 95% confidence interval
+// is 2 stdDeviation, so distance between the bounds is 4
+            const getStdDeviation = (lowerBound, upperBound) => (upperBound - lowerBound) / 4;
+
+            const generatePoints = (lowerBound, upperBound) => {
+                let stdDev = getStdDeviation(lowerBound, upperBound);
+                let min = lowerBound - 2 * stdDev;
+                let max = upperBound + 2 * stdDev;
+                let unit = (max - min) / 100;
+                return _.range(min, max, unit);
+            }
+
+            let mean = getMean(lowerBound, upperBound);
+            let stdDev = getStdDeviation(lowerBound, upperBound);
+            let points = generatePoints(lowerBound, upperBound);
+            let seriesData = points.map(x => ({ x, y: normalY(x, mean, stdDev)}));
+            console.log(points);
+            console.log(typeof points);*/
+
+            const object1 = [
+                0,
+                1, 1,
+                2, 2, 2,
+                3, 3, 3, 3,
+                4, 4, 4, 4, 4,
+                5, 5, 5, 5, 5, 5,
+                6, 6, 6, 6, 6,
+                7, 7, 7, 7,
+                8, 8, 8,
+                9, 9,
+                10
+            ];
+
+            const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2));
+
+            let seriesData = object1.map(x => ({ x, y: normalY(x, 5, 2.4152294576982)}));
+
+            console.log(object1);
+            console.log(typeof object1);
+
+            $('#submitFile').on('click', function () {
+                var file = document.getElementById('fileID').files[0]; //Files[0] = 1st file
+                var reader = new FileReader();
+                reader.readAsText(file, 'UTF-8');
+
+                reader.onload = () => {
+                    console.log(reader.result);
+                    console.log(typeof reader.result);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "postFile",
+                        data: {fileTest : reader.result},
+                        success: function (result) {
+                            console.log(result);
+                            Highcharts.chart('container', {
+                                chart: {
+                                    type: 'area'
+                                },
+                                series: [{
+                                    data: seriesData,
+                                }],
+                            });
+                        },
+                        error: function (xhr) {
+                            console.log("Error getting response in AJAX");
+                        }
+                    });
+
+                }
+
+            });
+
+
+
+
+
+
+
+
+
+
 
 // plot Normal Distribution------------------------------------------------------------------------------------------
             //TESTER = document.getElementById('tester');
@@ -158,100 +203,6 @@
                 x: [1, 2, 3, 4, 5],
                 y: [1, 2, 4, 8, 16] }], {
                 margin: { t: 0 } } );
-
-//plot Normal Distribution------------------------------------------------------------------------------------------
-            let n = 10000;  //numbre of samples
-            let step = 1;
-            let max = 100;
-            let min = 0;
-            let data = {};
-
-
-            const randn_bm = (min, max, skew) => {
-                var u = 0, v = 0;
-                while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
-                while(v === 0) v = Math.random();
-                let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
-
-                num = num / 10.0 + 0.5; // Translate to 0 -> 1
-                if (num > 1 || num < 0) num = randn_bm(min, max, skew); // resample between 0 and 1 if out of range
-                num = Math.pow(num, skew); // Skew
-                num *= max - min; // Stretch to fill range
-                num += min; // offset to min
-                return num;
-            }
-
-            const round_to_precision = (x, precision) => {
-                var y = +x + (precision === undefined ? 0.5 : precision/2);
-                return y - (y % (precision === undefined ? 1 : +precision));
-            }
-
-
-// Seed data with a bunch of 0s
-            for (let j=min; j<max; j+=step) {
-                data[j] = 0;
-            }
-
-// Create n samples between min and max
-            for (i=0; i<n; i+=step) {
-                let rand_num = randn_bm(min, max, 1);
-                let rounded = round_to_precision(rand_num, step)
-                data[rounded] += 1;
-            }
-
-// Count number of samples at each increment
-            let hc_data = [];
-            for (const [key, val] of Object.entries(data)) {
-                hc_data.push({"x": parseFloat(key), "y": val/n});
-            }
-
-// Sort
-            hc_data = hc_data.sort(function(a, b){
-                if(a.x < b.x) return -1;
-                if(a.x > b.x) return 1;
-                return 0;
-            });
-
-
-
-            Highcharts.chart('container', {
-                title: {
-                    text: 'Normal Distribution'
-                },
-                yAxis: {
-                    title: {
-                        text: 'Percentage chance'
-                    }
-                },
-                xAxis: {
-                    ordinal: false
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
-                plotOptions: {
-                },
-                series: [{
-                    name: 'Percent chance',
-                    data: hc_data
-                }],
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 500
-                        },
-                        chartOptions: {
-                            legend: {
-                                layout: 'horizontal',
-                                align: 'center',
-                                verticalAlign: 'bottom'
-                            }
-                        }
-                    }]
-                }
-            });
 
 
 
@@ -285,6 +236,8 @@
                     }
                 });
             });
+
+            $
         });
     </script>
 
