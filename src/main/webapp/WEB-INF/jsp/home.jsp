@@ -98,61 +98,15 @@
     </div>
 
 
+    <div id="container" style="width: 50%;margin: 0 auto"></div>
 
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
-
-    <div id="tester" style="width:600px;height:250px;"></div>
+    <%--<div id="tester" style="width:600px;height:250px;"></div>--%>
 
 
 
     <script>
         $(document).ready(function() {
-            /*const lowerBound = 100, upperBound = 300;
-
-            const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2));
-
-            const getMean = (lowerBound, upperBound) => (upperBound + lowerBound) / 2;
-
-// distance between mean and each bound of a 95% confidence interval
-// is 2 stdDeviation, so distance between the bounds is 4
-            const getStdDeviation = (lowerBound, upperBound) => (upperBound - lowerBound) / 4;
-
-            const generatePoints = (lowerBound, upperBound) => {
-                let stdDev = getStdDeviation(lowerBound, upperBound);
-                let min = lowerBound - 2 * stdDev;
-                let max = upperBound + 2 * stdDev;
-                let unit = (max - min) / 100;
-                return _.range(min, max, unit);
-            }
-
-            let mean = getMean(lowerBound, upperBound);
-            let stdDev = getStdDeviation(lowerBound, upperBound);
-            let points = generatePoints(lowerBound, upperBound);
-            let seriesData = points.map(x => ({ x, y: normalY(x, mean, stdDev)}));
-            console.log(points);
-            console.log(typeof points);*/
-
-            const object1 = [
-                0,
-                1, 1,
-                2, 2, 2,
-                3, 3, 3, 3,
-                4, 4, 4, 4, 4,
-                5, 5, 5, 5, 5, 5,
-                6, 6, 6, 6, 6,
-                7, 7, 7, 7,
-                8, 8, 8,
-                9, 9,
-                10
-            ];
-
-            const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2));
-
-            let seriesData = object1.map(x => ({ x, y: normalY(x, 5, 2.4152294576982)}));
-
-            console.log(object1);
-            console.log(typeof object1);
 
             $('#submitFile').on('click', function () {
                 var file = document.getElementById('fileID').files[0]; //Files[0] = 1st file
@@ -166,48 +120,55 @@
                     $.ajax({
                         type: "POST",
                         url: "postFile",
-                        data: {fileTest : reader.result},
+                        data: {fileTest: reader.result},
                         success: function (result) {
                             console.log(result);
+
+                            let mean = result.mean;
+                            let stdDev = result.standardDeviation;
+                            let points = result.inputValues;
+
+                            const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2));
+
+                            let seriesData = points.map(x => ({x, y: normalY(x, mean, stdDev)}));
+
                             Highcharts.chart('container', {
+                                title: {
+                                    text: 'Test Chart'
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
                                 chart: {
                                     type: 'area'
                                 },
                                 series: [{
+                                    name: 'testSeries',
                                     data: seriesData,
+                                    turboThreshold: 100000
                                 }],
+                                credits: {
+                                    enabled: false
+                                },
                             });
                         },
                         error: function (xhr) {
                             console.log("Error getting response in AJAX");
                         }
                     });
-
                 }
-
             });
-
-
-
-
-
-
-
-
-
-
 
 // plot Normal Distribution------------------------------------------------------------------------------------------
             //TESTER = document.getElementById('tester');
-            Plotly.newPlot( document.getElementById('tester'), [{
+            /*Plotly.newPlot( document.getElementById('tester'), [{
                 x: [1, 2, 3, 4, 5],
                 y: [1, 2, 4, 8, 16] }], {
-                margin: { t: 0 } } );
-
+                margin: { t: 0 } } );*/
 
 
 //notification------------------------------------------------------------------------------------------
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 $('#liveToast').toast();
             });
 //------------------------------------------------------------------------------------------

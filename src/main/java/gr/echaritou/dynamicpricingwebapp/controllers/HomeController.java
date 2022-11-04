@@ -1,20 +1,16 @@
 package gr.echaritou.dynamicpricingwebapp.controllers;
 
+import gr.echaritou.dynamicpricingwebapp.DistributionChart;
 import gr.echaritou.dynamicpricingwebapp.Input;
 import gr.echaritou.dynamicpricingwebapp.Output;
-import org.apache.commons.io.IOUtils;
-import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -43,38 +39,42 @@ public class HomeController {
         return null;
     }
 
-    @PostMapping( path = "/postFile")
+    @PostMapping(path = "/postFile", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getFile(String fileTest) throws IOException {
+    public DistributionChart getFile(String fileTest) throws IOException {
 
         System.out.println(fileTest);
 
         List<String> items = Arrays.asList(fileTest.split("\\s*\r\n\\s*"));
 
-        List<Integer> intItems = new ArrayList<>();
+        List<Double> values = new ArrayList<>();
 
-        for(String s : items) intItems.add(Integer.valueOf(s));
+        for (String s : items) values.add(Double.valueOf(s));
 
-        int length = intItems.size();
+        Collections.sort(values);
+
+        int length = values.size();
 
         double sum = 0.0;
-        double variance  = 0.0;
+        double variance = 0.0;
 
-        for(double num : intItems) {
+        for (double num : values) {
             sum += num;
         }
 
-        double mean = sum/length;
+        double mean = sum / length;
 
-        for(double num: intItems) {
-            variance  += Math.pow(num - mean, 2);
+        for (double num : values) {
+            variance += Math.pow(num - mean, 2);
         }
 
         variance /= length;
 
         double standardDeviation = Math.sqrt(variance);
 
-        return String.valueOf(standardDeviation);
+        DistributionChart distributionChart = new DistributionChart(values, mean, standardDeviation);
+
+        return distributionChart;
     }
 
 
