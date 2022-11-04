@@ -1,8 +1,6 @@
 package gr.echaritou.dynamicpricingwebapp.controllers;
 
-import gr.echaritou.dynamicpricingwebapp.DistributionChart;
-import gr.echaritou.dynamicpricingwebapp.Input;
-import gr.echaritou.dynamicpricingwebapp.Output;
+import gr.echaritou.dynamicpricingwebapp.*;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +30,6 @@ public class HomeController {
             Output output = new Output("First value is: " + input.getFirst_value() + " and second value is: " + input.getSecond_value() + ".");
             return output;
         }
-
-//        Output outputGraph = new Output("The graph is:"  + gaussianDistribution());
 
         // exception
         return null;
@@ -77,5 +73,24 @@ public class HomeController {
         return distributionChart;
     }
 
+    @GetMapping("/marketplace")
+    public String showMarketplace() {
+        return "marketplace";
+    }
+
+    @PostMapping(path = "/getParams",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @ResponseBody
+    public OutputMarketplace getShops(@RequestBody InputMarketplace inputMarket) throws IOException {
+
+        if (inputMarket != null) {
+            OutputMarketplace outputMarket = new OutputMarketplace("The number of shops is: " + inputMarket.getNumberOfShops() + " and the number of products is:" + inputMarket.getNumberOfProducts() + " and the number of customers is:" + inputMarket.getNumberOfCustomers());
+            return outputMarket;
+        }
+
+        return null;
+    }
 
 }

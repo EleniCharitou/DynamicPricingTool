@@ -5,6 +5,7 @@ public class Input {
     private String first_value;
     private String second_value;
 
+
     public String getFirst_value() {
         return first_value;
     }
@@ -20,7 +21,5 @@ public class Input {
     public void setSecond_value(String second_value) {
         this.second_value = second_value;
     }
-
-
 
 }
