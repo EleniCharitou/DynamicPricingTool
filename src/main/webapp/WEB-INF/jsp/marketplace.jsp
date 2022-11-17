@@ -41,19 +41,29 @@
     <table class="table data" id="shopTable">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Number</th>
-            <th>Actions
+            <th>Νumber Of Products</th>
+            <th>Delivery cost</th>
+            <th>Delivery time</th>
+            <th>Delivery method</th>
+            <th>Payment method</th>
+            <th>Seller reviews</th>
+            <th>Seller reputation</th>
+            <th>Average profit difference</th>
+            <th>
                 <button class="add">Add new</button>
             </th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td class="data">John Doe</td>
-            <td class="data">johndoe@john.com</td>
-            <td class="data">666-666-666</td>
+            <td class="data">12883</td>
+            <td class="data">5</td>
+            <td class="data">2.5</td>
+            <td class="data">true</td>
+            <td class="data">false</td>
+            <td class="data">5</td>
+            <td class="data">4</td>
+            <td class="data">0</td>
             <td>
                 <button class="save">Save</button>
                 <button class="edit">Edit</button>
@@ -70,8 +80,10 @@
     <br/>
     <input id="dataProductsID" type="file" name="file1" accept=".csv" style="margin-top: 10pt"/>
     <br/>
+    File with orders to upload :
     <input id="dataOrdersID" type="file" name="file2" accept=".csv" style="margin-top: 10pt"/>
     <br/>
+    File with dataViews to upload :
     <input id="dataViewsID" type="file" name="file3" accept=".csv" style="margin-top: 10pt"/>
     <br/>
     <button id="submitFile" type="button" class="btn btn-primary" style="margin-top: 10pt">Submit File</button>
@@ -82,7 +94,7 @@
 </div>
 
 <script>
-    $('#submitButton').on('click', function () {
+    /*$('#submitButton').on('click', function () {
 
         let shops = $('#shops').val();
         let products = $('#products').val();
@@ -108,7 +120,7 @@
                 console.log("Error getting response in AJAX");
             }
         });
-    });
+    });*/
 
 
     $(document).on('click', '.edit', function () {
@@ -148,6 +160,11 @@
             '<td class="data"></td>' +
             '<td class="data"></td>' +
             '<td class="data"></td>' +
+            '<td class="data"></td>' +
+            '<td class="data"></td>' +
+            '<td class="data"></td>' +
+            '<td class="data"></td>' +
+            '<td class="data"></td>' +
             '<td>' +
             '   <button class="save">Save</button>' +
             '   <button class="edit">Edit</button> ' +
@@ -158,36 +175,46 @@
 
     $(document).ready(function () {
 
+        let dataProducts;
+        let testArray = [];
 
-        $('#test').on('click', function () {
-            var ajaxData = new FormData();
+        $("#dataProductsID").on("change", function () {
+            let fileReader = new FileReader();
 
-            $.each($("input[type=file]"), function (i, obj) {
-                console.log("File with index: " + i)
-                $.each(obj.files, function (j, file) {
-                    ajaxData.append('file[' + j + ']', file);
-                })
-            });
-            console.log(ajaxData)
-            let counter = 0;
-
-            var fileArray = [];
-
-            for (let value of ajaxData.values()) {
-                let reader = new FileReader();
-                console.log(value)
-                counter++;
-                console.log(counter)
-
-                reader.onload = function () {
-                    testJSON.push(reader.result);
-                }
-
-                reader.readAsText(value, "UTF-8");
+            fileReader.onload = function () {
+                console.log("dataProducts " + fileReader.result);
+                testArray[0] = fileReader.result;
             }
 
-            console.log(fileArray);
-            console.log($("#numOfCustomers").val());
+            fileReader.readAsText(this.files[0]);
+        });
+
+        $("#dataOrdersID").on("change", function () {
+            let fileReader = new FileReader();
+
+            fileReader.onload = function () {
+                console.log("dataOrders " + fileReader.result);
+                testArray[1] = fileReader.result;
+            }
+
+            fileReader.readAsText(this.files[0]);
+        });
+
+        $("#dataViewsID").on("change", function () {
+            let fileReader = new FileReader();
+
+            fileReader.onload = function () {
+                console.log("dataViews " + fileReader.result);
+                testArray[2] = fileReader.result;
+            }
+
+            fileReader.readAsText(this.files[0]);
+        });
+
+
+        $('#test').on('click', function () {
+
+            console.log(testArray);
 
             let tableColumnNames = [];
 
@@ -210,10 +237,8 @@
                 var cellVal = oCells.item(j).innerHTML;
                 tableColumnNames.push(cellVal);
 
-                console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
+                /*console.log("Value of j is: " + j + " | value of cell is: " + cellVal);*/
             }
-
-            console.log(tableColumnNames);
 
 
             let tableContents = [];
@@ -240,14 +265,45 @@
                     console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
                 }
 
-                tableContents.push(tempRow);
+                console.log(tempRow);
+
+                let tempObj = {
+                    numberOfShops: tempRow[0],
+                    deliveryCost: tempRow[1],
+                    deliveryTime: tempRow[2],
+                    deliveryMethod: tempRow[3],
+                    paymentMethod: tempRow[4],
+                    sellerReviews: tempRow[5],
+                    sellerReputation: tempRow[6],
+                    avgProfitDiff: tempRow[7]
+                }
+
+                console.log(tempObj);
+
+
+                tableContents.push(tempObj);
 
 
             }
 
-            console.log(tableContents);
+            $.ajax({
 
-            console.log(JSON.stringify(tableContents));
+                type: "POST",
+                url: "getUserInput",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    dataProducts: testArray[0],
+                    dataOrders: testArray[1],
+                    dataViews: testArray[2]
+                }),
+                success: function (result) {
+                    console.log(result);
+
+                },
+                error: function (xhr) {
+                    console.log("Error getting response in AJAX");
+                }
+            });
 
 
         });

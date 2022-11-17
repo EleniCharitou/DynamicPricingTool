@@ -1,6 +1,7 @@
 package gr.echaritou.dynamicpricingwebapp.controllers;
 
 import gr.echaritou.dynamicpricingwebapp.*;
+import gr.echaritou.dynamicpricingwebapp.input.UserInput;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static java.lang.System.out;
 
 @Controller
 @RequestMapping("/")
@@ -41,7 +40,7 @@ public class HomeController {
     @ResponseBody
     public DistributionChart getFile(String fileTest) throws IOException {
 
-        out.println(fileTest);
+        System.out.println(fileTest);
 
         List<String> items = Arrays.asList(fileTest.split("\\s*\r\n\\s*"));
 
@@ -96,6 +95,17 @@ public class HomeController {
         return null;
     }
 
+    @PostMapping(path = "/getUserInput",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @ResponseBody
+    public OutputMarketplace getUserInput(@RequestBody UserInput userInput) throws IOException {
+
+        System.out.println("Worked");
+
+        return null;
+    }
 
 
 }
