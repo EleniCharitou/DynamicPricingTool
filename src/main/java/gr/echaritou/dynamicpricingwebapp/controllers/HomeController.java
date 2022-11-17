@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static java.lang.System.out;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -39,7 +41,7 @@ public class HomeController {
     @ResponseBody
     public DistributionChart getFile(String fileTest) throws IOException {
 
-        System.out.println(fileTest);
+        out.println(fileTest);
 
         List<String> items = Arrays.asList(fileTest.split("\\s*\r\n\\s*"));
 
@@ -83,14 +85,17 @@ public class HomeController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     @ResponseBody
-    public OutputMarketplace getShops(@RequestBody InputMarketplace inputMarket) throws IOException {
+    public OutputMarketplace getMarketplace(@RequestBody InputMarketplace inputMarket) throws IOException {
 
         if (inputMarket != null) {
             OutputMarketplace outputMarket = new OutputMarketplace("The number of shops is: " + inputMarket.getNumberOfShops() + " and the number of products is:" + inputMarket.getNumberOfProducts() + " and the number of customers is:" + inputMarket.getNumberOfCustomers());
             return outputMarket;
+
         }
 
         return null;
     }
+
+
 
 }
