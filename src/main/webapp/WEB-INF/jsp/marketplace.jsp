@@ -89,44 +89,15 @@
     <button id="submitFile" type="button" class="btn btn-primary" style="margin-top: 10pt">Submit File</button>
     <button id="test" type="button" class="btn btn-primary" style="margin-top: 10pt">test</button>
     <br/>
-
-
 </div>
 
 <script>
-    /*$('#submitButton').on('click', function () {
-
-        let shops = $('#shops').val();
-        let products = $('#products').val();
-        let customers = $('#customers').val();
-
-        $.ajax({
-            type: "POST",
-            url: "getParams",
-            contentType: "application/json",
-            data: JSON.stringify({
-                numberOfShops: shops,
-                numberOfProducts: products,
-                numberOfCustomers: customers
-            }),
-            success: function (result) {
-                console.log(result);
-
-                $('#toast_body').text(result.outputMarket);
-
-                $('#liveToast').toast("show");
-            },
-            error: function (xhr) {
-                console.log("Error getting response in AJAX");
-            }
-        });
-    });*/
-
 
     $(document).on('click', '.edit', function () {
         $(this).parent().siblings('td.data').each(function () {
             var content = $(this).html();
-            $(this).html('<input value="' + content + '" />');
+            console.log(content);
+            $(this).html('<input style="width: 100%" value="' + content + '" />');
 
         });
         console.log("something was editted");
@@ -137,8 +108,13 @@
 
     $(document).on('click', '.save', function () {
 
+        let counter = 0;
+
         $('input').each(function () {
+            counter++;
+            console.log(counter);
             var content = $(this).val();
+            console.log(content);
             $(this).html(content);
             $(this).contents().unwrap();
         });
@@ -283,6 +259,13 @@
 
                 tableContents.push(tempObj);
 
+                console.log(JSON.stringify({
+                    dataProducts: testArray[0],
+                    dataOrders: testArray[1],
+                    dataViews: testArray[2],
+                    dataShops: tableContents
+                }));
+
 
             }
 
@@ -292,9 +275,11 @@
                 url: "getUserInput",
                 contentType: "application/json",
                 data: JSON.stringify({
+                    numberOfCustomers: $('#numOfCustomers').val(),
                     dataProducts: testArray[0],
                     dataOrders: testArray[1],
-                    dataViews: testArray[2]
+                    dataViews: testArray[2],
+                    dataShops: tableContents
                 }),
                 success: function (result) {
                     console.log(result);
