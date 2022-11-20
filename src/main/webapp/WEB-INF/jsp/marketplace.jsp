@@ -35,7 +35,6 @@
         <label for="numOfCustomers">Total number of customers:</label>
         <input type="number" class="form-control" id="numOfCustomers">
     </div>
-    <button id="submitButton" type="button" class="btn btn-primary" style="margin-top: 10pt">Submit</button>
 
     <%--    https://codepen.io/ruslantau/pen/vRwjNP--%>
     <table class="table data" id="shopTable">
