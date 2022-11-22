@@ -30,7 +30,13 @@
 
 <br style="line-height:100pt"/>
 
+<div id="spinner" class="pt-5" style="display: none">
+    <div class="spinner-border text-primary" role="status">
+    </div>
+</div>
+
 <div style="width: 30%; margin:0 auto;">
+
     <div class="input-marketplace">
         <label for="numOfCustomers">Total number of customers:</label>
         <input type="number" class="form-control" id="numOfCustomers">
@@ -195,9 +201,7 @@
 
             //gets table
             var oTable = document.getElementById('shopTable');
-
-            //gets rows of table
-            var rowLength = oTable.rows.length;
+            console.log(oTable);
 
             var oCells = oTable.rows.item(0).cells;
 
@@ -208,12 +212,14 @@
             for (var j = 0; j < cellLength - 1; j++) {
 
                 // get your cell info here
-
                 var cellVal = oCells.item(j).innerHTML;
                 tableColumnNames.push(cellVal);
 
-                /*console.log("Value of j is: " + j + " | value of cell is: " + cellVal);*/
+                console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
             }
+
+            //gets rows of table
+            var rowLength = oTable.rows.length;
 
 
             let tableContents = [];
@@ -240,7 +246,7 @@
                     console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
                 }
 
-                console.log(tempRow);
+                console.log("ΓΡΑΜΜΗ ΠΙΝΑΚΑ: " + tempRow);
 
                 let tempObj = {
                     numberOfShops: tempRow[0],
@@ -257,6 +263,8 @@
 
 
                 tableContents.push(tempObj);
+
+                console.log("ΠΙΝΑΚΑΣ ΜΕΧΡΙ ΤΩΡΑ: " + tableContents);
 
                 console.log(JSON.stringify({
                     dataProducts: testArray[0],
@@ -281,7 +289,7 @@
                     dataShops: tableContents
                 }),
                 success: function (result) {
-                    console.log(result);
+                    console.log(result[0] + ' ' + result[1]);
 
                 },
                 error: function (xhr) {
@@ -315,7 +323,17 @@
                 });
             }
         });
-    })
+    });
+
+    $(document).ajaxStart(function () {
+        $('#spinner').show();
+    });
+    $(document).ajaxComplete(function () {
+        $('#spinner').hide();
+    });
+    $(document).ajaxError(function () {
+        $('#spinner').hide();
+    });
 
 </script>
 

@@ -3,6 +3,7 @@ package gr.echaritou.dynamicpricingwebapp.controllers;
 import gr.echaritou.dynamicpricingwebapp.*;
 import gr.echaritou.dynamicpricingwebapp.input.UserInput;
 import gr.echaritou.dynamicpricingwebapp.org.deeplearning4j.examples.feedforward.regression.DynamicPricing;
+import org.deeplearning4j.eval.RegressionEvaluation;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -101,19 +102,21 @@ public class HomeController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     @ResponseBody
-    public OutputMarketplace getUserInput(@RequestBody UserInput userInput) throws IOException, InterruptedException {
+    public List<String> getUserInput(@RequestBody UserInput userInput) throws IOException, InterruptedException {
 
-        System.out.println("Worked");
-
-        DynamicPricing.run(userInput.getNumberOfCustomers(),
+        RegressionEvaluation[] regressionEvaluations = DynamicPricing.run(userInput.getNumberOfCustomers(),
                 userInput.getDataProducts(),
                 userInput.getDataOrders(),
                 userInput.getDataViews(),
                 userInput.getDataShops());
 
-        System.out.println("Worked");
+        List<String> stats = new ArrayList<>();
 
-        return null;
+        for (int i = 0; i < regressionEvaluations.length; i++) {
+            stats.add(regressionEvaluations[i].stats());
+        }
+
+        return stats;
     }
 
 

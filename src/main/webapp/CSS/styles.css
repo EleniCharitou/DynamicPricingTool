@@ -1,3 +1,13 @@
+#spinner {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+}
+
 /*body {
     font-family: Arial, sans-serif;
     background-color: grey;

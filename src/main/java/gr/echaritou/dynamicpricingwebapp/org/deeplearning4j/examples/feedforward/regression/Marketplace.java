@@ -1,5 +1,7 @@
 package gr.echaritou.dynamicpricingwebapp.org.deeplearning4j.examples.feedforward.regression;
 
+import gr.echaritou.dynamicpricingwebapp.input.ShopInput;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,8 +58,23 @@ public class Marketplace {
         return customerList;
     }
 
-    public void createShops(int numberOfShops) {
-        //create shops with their appropriate characteristics
+    public void createShops(List<ShopInput> shopInputList) {
+
+        for (ShopInput shop : shopInputList) {
+            shopList.add(new Shop(numberOfProducts, Double.parseDouble(shop.getDeliveryCost()),
+                    Double.parseDouble(shop.getDeliveryTime()),
+                    Boolean.parseBoolean(shop.getDeliveryMethod()),
+                    Boolean.parseBoolean(shop.getPaymentMethod()),
+                    Double.parseDouble(shop.getSellerReviews()),
+                    Double.parseDouble(shop.getSellerReputation()),
+                    Double.parseDouble(shop.getAvgProfitDiff()))
+            );
+        }
+
+        System.out.println("Create shops: done");
+
+
+        /*//create shops with their appropriate characteristics
         if (numberOfShops == 10) {
             shopList.add(new Shop(numberOfProducts, 5, 2.5, true, false, 5, 4, 0));
             shopList.add(new Shop(numberOfProducts, 5.5, 3, true, false, 4, 4, 0.03));
@@ -72,7 +89,7 @@ public class Marketplace {
         } else {
             //create only the first shop
             shopList.add(new Shop(numberOfProducts, 5, 2.5, true, false, 5, 4, 0));
-        }
+        }*/
     }
 
 
@@ -106,27 +123,20 @@ public class Marketplace {
     }
 
 
-    public void readOrders() {
-        String line = "";
-        String cvsSplitBy = ",";
+    public void readOrders(String[] orderArray) {
 
-        try (
-                InputStream inputStream = this.getClass().getResourceAsStream("/data_orders.csv");
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader br = new BufferedReader(inputStreamReader)
-        ) {
-            while ((line = br.readLine()) != null) {
+        for (int i = 0; i < orderArray.length; i++) {
 
-                //read data
-                String[] orderDetailsString = line.split(cvsSplitBy);
-                String orderId = orderDetailsString[0];
-                String datePurchased = orderDetailsString[1];
-                String customerId = orderDetailsString[2];
-                double orderTotal = Double.parseDouble(orderDetailsString[3]);
-                String productId = shopList.get(0).getProductList().get((int) (Math.random() * shopList.get(0).getProductList().size())).getProductId();
+            String[] orderDetailsString = orderArray[i].split(",");
 
-                //check product existence in database
-                //if (checkProductIndex(productId) != -1) {
+            String orderId = orderDetailsString[0];
+            String datePurchased = orderDetailsString[1];
+            String customerId = orderDetailsString[2];
+            double orderTotal = Double.parseDouble(orderDetailsString[3]);
+            String productId = shopList.get(0).getProductList().get((int) (Math.random() * shopList.get(0).getProductList().size())).getProductId();
+
+            //check product existence in database
+            //if (checkProductIndex(productId) != -1) {
 
                 //check customer existence
                 int customerIndex = checkCustomerIndex(customerId);
@@ -153,16 +163,12 @@ public class Marketplace {
                 }
                 //}
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         //sort orders chronologically
         for (int i = 0; i < customerList.size(); i++) {
             customerList.get(i).sortOrders();
         }
+        System.out.println("Orders: done");
     }
 
 
@@ -171,10 +177,7 @@ public class Marketplace {
         String cvsSplitBy = ",";
 
         try (
-                //TODO change path
-                InputStream inputStream = this.getClass().getResourceAsStream("/orderViews.csv");
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader br = new BufferedReader(inputStreamReader);
+                BufferedReader br = new BufferedReader(new FileReader("orderViews.csv"));
         ) {
             while ((line = br.readLine()) != null) {
 
@@ -225,6 +228,8 @@ public class Marketplace {
         for (int i = 0; i < customerList.size(); i++) {
             customerList.get(i).sortOrders();
         }
+
+        System.out.println("Read orderViews csv done");
     }
 
 
@@ -508,26 +513,22 @@ public class Marketplace {
     }
 
 
-    public void readViews() {
-        BufferedReader br = null;
-        String line = "";
-        String cvsSplitBy = ",";
+    public void readViews(String[] viewArray) {
 
-        try {
-            br = new BufferedReader(new FileReader("src/main/resources/data_views.csv"));
 
-            while ((line = br.readLine()) != null) {
-                //read data
-                String[] orderDetailsString = line.split(cvsSplitBy);
-                String customerId = orderDetailsString[0];
-                String dateViewed = orderDetailsString[1];
+        for (int i = 0; i < viewArray.length; i++) {
 
-                //check customer existence
-                int customerIndex = checkCustomerIndex(customerId);
+            String[] orderDetailsString = viewArray[i].split(",");
+            //read data
+            String customerId = orderDetailsString[0];
+            String dateViewed = orderDetailsString[1];
 
-                //case: customer doesn't exist, no orders
-                if (customerIndex == -1) {
-                    //do nothing
+            //check customer existence
+            int customerIndex = checkCustomerIndex(customerId);
+
+            //case: customer doesn't exist, no orders
+            if (customerIndex == -1) {
+                //do nothing
                     //case: customer exists
                 } else {
                     boolean sorted = customerList.get(customerIndex).sortView(dateViewed);
@@ -536,19 +537,7 @@ public class Marketplace {
                     }
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        System.out.println("Orders: done");
 
         //after reading all timestamps from data_views file estimate total time of sessions before every order
         for (int i = 0; i < customerList.size(); i++) {
@@ -558,7 +547,7 @@ public class Marketplace {
         }
 
         try {
-            PrintWriter pw = new PrintWriter(new File("src/main/resources/orderViews.csv"));
+            PrintWriter pw = new PrintWriter(new File("orderViews.csv"));
 
             //for every customer
             for (int i = 0; i < customerList.size(); i++) {

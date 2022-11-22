@@ -1,33 +1,38 @@
 package gr.echaritou.dynamicpricingwebapp.org.deeplearning4j.examples.feedforward.regression;
 
 import gr.echaritou.dynamicpricingwebapp.input.ShopInput;
+import org.deeplearning4j.eval.RegressionEvaluation;
 
 import java.io.IOException;
 import java.util.List;
 
 public class DynamicPricing {
 
-    public static void run(String numberOfCustomers,
-                           String dataProducts,
-                           String dataOrders,
-                           String dataView,
-                           List<ShopInput> shopInputList) throws IOException, InterruptedException {
+    public static RegressionEvaluation[] run(String numberOfCustomers,
+                                             String dataProducts,
+                                             String dataOrders,
+                                             String dataView,
+                                             List<ShopInput> shopInputList) throws IOException, InterruptedException {
 
+        String[] productArray = dataProducts.split("\\r?\\n");
+        String[] orderArray = dataOrders.split("\\r?\\n");
+        String[] viewArray = dataView.split("\\r?\\n");
 
         //marketplace	parameters
         int numbOfCustomers = Integer.parseInt(numberOfCustomers);
         int numberOfShops = shopInputList.size();
-        int numberOfProducts = dataProducts.split("\\r?\\n").length;
+        int numberOfProducts = productArray.length;
 
 
         System.out.println("simulationMarketplace");
         //create	marketplace
         Marketplace simulationMarketplace = new Marketplace(numberOfShops, numberOfProducts, numbOfCustomers);
         //create	shops
-        simulationMarketplace.createShops(numberOfShops);
+        simulationMarketplace.createShops(shopInputList);
         //create products for every shop
         for (int k = 0; k < numberOfShops; k++) {
-            simulationMarketplace.getShopList().get(k).createProducts(numberOfProducts);
+            simulationMarketplace.getShopList().get(k).createProducts(productArray);
+            System.out.println("Products for shop [" + k + "]: Done");
         }
 
         //export data for NN1 in csv format
@@ -47,10 +52,10 @@ public class DynamicPricing {
         //Case 2:
         // #TODO this works for both NNs (NN1 and NN2)
         //create customers with personal profiles, taking into account orders from orders file
-        simulationMarketplace.readOrders();
+        simulationMarketplace.readOrders(orderArray);
         //read views and combine them with order information
         // #TODO this csv is missing
-        simulationMarketplace.readViews();
+        simulationMarketplace.readViews(viewArray);
 
 
         //Case 3:
@@ -72,7 +77,7 @@ public class DynamicPricing {
         NeuralNetwork neuralNetwork1 = new NeuralNetwork(NN1numberOfInputNodes, NN1numberOfHiddenNodes, NN1numberOfOutputNodes);
         neuralNetwork1.setWeights(NN1numberOfInputNodes, NN1numberOfHiddenNodes);
         neuralNetwork1.setWeights(NN1numberOfHiddenNodes, NN1numberOfOutputNodes);
-        neuralNetwork1.trainAndEvaluateNN1();
+        RegressionEvaluation regressionEvaluation1 = neuralNetwork1.trainAndEvaluateNN1();
 
         simulationMarketplace.setNeuralPrices();
 
@@ -89,7 +94,9 @@ public class DynamicPricing {
         NeuralNetwork neuralNetwork2 = new NeuralNetwork(NN2numberOfInputNodes, NN2numberOfHiddenNodes, NN2numberOfOutputNodes);
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfHiddenNodes);
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfOutputNodes);
-        neuralNetwork2.trainAndEvaluateNN2();
+        RegressionEvaluation regressionEvaluation2 = neuralNetwork2.trainAndEvaluateNN2();
+
+        return new RegressionEvaluation[]{regressionEvaluation1, regressionEvaluation2};
 
 
         // #TODO

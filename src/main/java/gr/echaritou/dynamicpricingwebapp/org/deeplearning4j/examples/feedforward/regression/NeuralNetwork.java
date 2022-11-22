@@ -75,7 +75,7 @@ public class NeuralNetwork {
         this.numberOfOutputNodes = newNumberOfOutputNodes;
     }
 
-    public void trainAndEvaluateNN1() throws IOException, InterruptedException {
+    public RegressionEvaluation trainAndEvaluateNN1() throws IOException, InterruptedException {
 
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
@@ -201,10 +201,11 @@ public class NeuralNetwork {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return eval;
     }
 
 
-    public void trainAndEvaluateNN2() throws IOException, InterruptedException {
+    public RegressionEvaluation trainAndEvaluateNN2() throws IOException, InterruptedException {
 
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
@@ -321,6 +322,7 @@ public class NeuralNetwork {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return eval;
     }
 
 

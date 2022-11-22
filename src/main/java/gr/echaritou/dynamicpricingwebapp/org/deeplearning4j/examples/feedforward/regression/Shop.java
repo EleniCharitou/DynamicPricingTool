@@ -1,6 +1,5 @@
 package gr.echaritou.dynamicpricingwebapp.org.deeplearning4j.examples.feedforward.regression;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -92,52 +91,39 @@ public class Shop {
         return productList;
     }
 
-    public void createProducts(int numberOfProducts) {
+    public void createProducts(String[] productArray) {
 
-        String line = "";
-        String cvsSplitBy = ",";    //use comma as separator
-        int counter = 0;
 
-        try (
-                InputStream inputStream = this.getClass().getResourceAsStream("/data_products.csv");
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader br = new BufferedReader(inputStreamReader)
-        ) {
-            while ((line = br.readLine()) != null & counter < numberOfProducts) {
+        for (int i = 0; i < productArray.length; i++) {
 
-                //read data
-                String[] productDetailsString = line.split(cvsSplitBy);
+            String[] productDetailsString = productArray[i].split(",");
 
-                //create product & set attributes
-                Product product = new Product();
-                product.setProductId(productDetailsString[0]);
-                product.setBaseCost(Double.parseDouble(productDetailsString[1]));
-                product.setBrandPower(Double.parseDouble(productDetailsString[2]));
-                double referencePrice = Double.parseDouble(productDetailsString[3]);    //local variable
-                product.setReferencePrice(referencePrice);
+            //create product & set attributes
+            Product product = new Product();
+            product.setProductId(productDetailsString[0]);
+            product.setBaseCost(Double.parseDouble(productDetailsString[1]));
+            product.setBrandPower(Double.parseDouble(productDetailsString[2]));
+            double referencePrice = Double.parseDouble(productDetailsString[3]);    //local variable
+            product.setReferencePrice(referencePrice);
 
                 //calculate price based on profit percentage
                 Random r = new Random();
                 double price = referencePrice + referencePrice * (2 * this.getAverageProfitDifference() * r.nextDouble());
                 product.setPrice(price);
 
-                //estimate relative base cost, relative price -> essential for 2nd nn, experiment with it at first nn
-                double relativePrice = (price / referencePrice) * 100;   //or  ( (price - referencePrice)  / referencePrice) *100;
-                product.setRelativePrice(relativePrice);
+            //estimate relative base cost, relative price -> essential for 2nd nn, experiment with it at first nn
+            double relativePrice = (price / referencePrice) * 100;   //or  ( (price - referencePrice)  / referencePrice) *100;
+            product.setRelativePrice(relativePrice);
 
-                //set stock, 90% probability available
-                float stockProbability = r.nextFloat();
+            //set stock, 90% probability available
+            float stockProbability = r.nextFloat();
 
-                product.setStockBool(!(stockProbability <= 0.10f));
+            product.setStockBool(!(stockProbability <= 0.10f));
 
-                productList.add(product);
-                counter++;
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            productList.add(product);
         }
+        System.out.println("Products created");
+
     }
 
 
