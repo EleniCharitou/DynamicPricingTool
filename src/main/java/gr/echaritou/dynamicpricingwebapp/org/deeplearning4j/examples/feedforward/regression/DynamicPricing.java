@@ -9,10 +9,15 @@ import java.util.List;
 public class DynamicPricing {
 
     public static RegressionEvaluation[] run(String numberOfCustomers,
+                                             String meanOfCustomers,
+                                             String standardDeviationOfCustomers,
                                              String dataProducts,
                                              String dataOrders,
                                              String dataView,
-                                             List<ShopInput> shopInputList) throws IOException, InterruptedException {
+                                             List<ShopInput> shopInputList,
+                                             String NN1InputNodes,
+                                             String NN1HiddenNodes,
+                                             String NN1OutputNodes) throws IOException, InterruptedException {
 
         String[] productArray = dataProducts.split("\\r?\\n");
         String[] orderArray = dataOrders.split("\\r?\\n");
@@ -20,6 +25,8 @@ public class DynamicPricing {
 
         //marketplace	parameters
         int numbOfCustomers = Integer.parseInt(numberOfCustomers);
+        double meanofCustomers = Double.parseDouble(meanOfCustomers);
+        double stdevOfCustomers = Double.parseDouble(standardDeviationOfCustomers);
         int numberOfShops = shopInputList.size();
         int numberOfProducts = productArray.length;
 
@@ -46,7 +53,7 @@ public class DynamicPricing {
         //Case 1:
         // #TODO this works only for first NN (NN1)
         //create random customers with random wtp (products already created)
-        simulationMarketplace.createCustomers(numbOfCustomers);
+        simulationMarketplace.createCustomers(numbOfCustomers, meanofCustomers, stdevOfCustomers);
 
 
         //Case 2:
@@ -70,10 +77,14 @@ public class DynamicPricing {
         System.out.println("NN1");
 
         //Create the NN1
-        int NN1numberOfInputNodes = 9;
-        int NN1numberOfHiddenNodes = 6;
-        int NN1numberOfOutputNodes = 1;
+//        int NN1numberOfInputNodes = 9;
+//        int NN1numberOfHiddenNodes = 6;
+//        int NN1numberOfOutputNodes = 1;
 
+        int NN1numberOfInputNodes = Integer.parseInt(NN1InputNodes);
+        int NN1numberOfHiddenNodes = Integer.parseInt(NN1HiddenNodes);
+        int NN1numberOfOutputNodes = Integer.parseInt(NN1OutputNodes);
+        // int numbOfCustomers = Integer.parseInt(numberOfCustomers);
         NeuralNetwork neuralNetwork1 = new NeuralNetwork(NN1numberOfInputNodes, NN1numberOfHiddenNodes, NN1numberOfOutputNodes);
         neuralNetwork1.setWeights(NN1numberOfInputNodes, NN1numberOfHiddenNodes);
         neuralNetwork1.setWeights(NN1numberOfHiddenNodes, NN1numberOfOutputNodes);

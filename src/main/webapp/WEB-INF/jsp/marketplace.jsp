@@ -40,13 +40,17 @@
     <div class="input-marketplace">
         <label for="numOfCustomers">Total number of customers:</label>
         <input type="number" class="form-control" id="numOfCustomers">
+        <label for="mOfCustomers"> mean :</label>
+        <input type="number" class="form-control" id="mOfCustomers">
+        <label for="stdOfCustomers">Standard deviation :</label>
+        <input type="number" class="form-control" id="stdOfCustomers">
     </div>
 
     <%--    https://codepen.io/ruslantau/pen/vRwjNP--%>
     <table class="table data" id="shopTable">
         <thead>
         <tr>
-            <th>Νumber Of Products</th>
+            <th>Number Of Products</th>
             <th>Delivery cost</th>
             <th>Delivery time</th>
             <th>Delivery method</th>
@@ -78,16 +82,40 @@
         </tbody>
     </table>
 
-</div>
+    <div style="width: 30%; margin:0 auto;">
 
-<div style="width: 25%; margin: 10pt auto;">
-    File with products to upload :
-    <br/>
-    <input id="dataProductsID" type="file" name="file1" accept=".csv" style="margin-top: 10pt"/>
-    <br/>
-    File with orders to upload :
-    <input id="dataOrdersID" type="file" name="file2" accept=".csv" style="margin-top: 10pt"/>
-    <br/>
+        <div class="input-NN1">
+            <label for="nn1InputNodes">Input nodes:</label>
+            <input type="number" class="form-control" id="nn1InputNodes">
+            <label for="nn1HiddenNodes">Hidden nodes:</label>
+            <input type="number" class="form-control" id="nn1HiddenNodes">
+            <label for="nn1OutputNodes">Output nodes:</label>
+            <input type="number" class="form-control" id="nn1OutputNodes">
+        </div>
+        <%--    <form>--%>
+        <%--        <field class="input-NN1">--%>
+        <%--            <label for="NN1InputNodes">Input of hidden nodes:</label>--%>
+        <%--            <input type="number" class="form-control" id="nn1InputNodes">--%>
+        <%--        </field>--%>
+        <%--        <field>--%>
+        <%--            <label for="NN1HiddenNodes">  mean :</label>--%>
+        <%--            <input type="number" class="form-control" id="nn1HiddenNodes">--%>
+        <%--        </field>--%>
+        <%--        <field>--%>
+        <%--            <label for="NN1OutputNodes">Standard deviation :</label>--%>
+        <%--            <input type="number" class="form-control" id="nn1OutputNodes">--%>
+        <%--        </field>--%>
+        <%--    </form>--%>
+    </div>
+
+    <div style="width: 25%; margin: 10pt auto;">
+        File with products to upload :
+        <br/>
+        <input id="dataProductsID" type="file" name="file1" accept=".csv" style="margin-top: 10pt"/>
+        <br/>
+        File with orders to upload :
+        <input id="dataOrdersID" type="file" name="file2" accept=".csv" style="margin-top: 10pt"/>
+        <br/>
     File with dataViews to upload :
     <input id="dataViewsID" type="file" name="file3" accept=".csv" style="margin-top: 10pt"/>
     <br/>
@@ -270,11 +298,19 @@
                     dataProducts: testArray[0],
                     dataOrders: testArray[1],
                     dataViews: testArray[2],
-                    dataShops: tableContents
+                    dataShops: tableContents,
+
                 }));
+
+                console.log(JSON.stringify({
+                    NN1InputNodes: $('#nn1InputNodes').val(),
+                    NN1HiddenNodes: $('#nn1HiddenNodes').val(),
+                    NN1OutputNodes: $('#nn1OutputNodes').val()
+                }))
 
 
             }
+
 
             $.ajax({
 
@@ -283,9 +319,14 @@
                 contentType: "application/json",
                 data: JSON.stringify({
                     numberOfCustomers: $('#numOfCustomers').val(),
+                    meanOfCustomers: $('#mOfCustomers').val(),
+                    standardDeviationOfCustomers: $('#stdOfCustomers').val(),
                     dataProducts: testArray[0],
                     dataOrders: testArray[1],
                     dataViews: testArray[2],
+                    inputNodesNN1: $('#nn1InputNodes').val(),
+                    hiddenNodesNN1: $('#nn1HiddenNodes').val(),
+                    outputNodesNN1: $('#nn1OutputNodes').val(),
                     dataShops: tableContents
                 }),
                 success: function (result) {

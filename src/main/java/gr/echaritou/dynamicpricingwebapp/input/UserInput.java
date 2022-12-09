@@ -5,11 +5,17 @@ import java.util.List;
 public class UserInput {
 
     private String numberOfCustomers;
+    private String meanOfCustomers;
+    private String standardDeviationOfCustomers;
     private String dataProducts;
 
     private String dataOrders;
 
     private String dataViews;
+
+    private String inputNodesNN1;
+    private String hiddenNodesNN1;
+    private String outputNodesNN1;
 
     private List<ShopInput> dataShops;
 
@@ -19,6 +25,22 @@ public class UserInput {
 
     public void setNumberOfCustomers(String numberOfCustomers) {
         this.numberOfCustomers = numberOfCustomers;
+    }
+
+    public String getMeanOfCustomers() {
+        return meanOfCustomers;
+    }
+
+    public void setMeanOfCustomers(String meanOfCustomers) {
+        this.meanOfCustomers = meanOfCustomers;
+    }
+
+    public String getStandardDeviationOfCustomers() {
+        return standardDeviationOfCustomers;
+    }
+
+    public void setStandardDeviationOfCustomers(String standardDeviationOfCustomers) {
+        this.standardDeviationOfCustomers = standardDeviationOfCustomers;
     }
 
     public String getDataProducts() {
@@ -47,6 +69,30 @@ public class UserInput {
 
     public List<ShopInput> getDataShops() {
         return dataShops;
+    }
+
+    public String getInputNodesNN1() {
+        return inputNodesNN1;
+    }
+
+    public void setInputNodesNN1(String inputNodesNN1) {
+        this.inputNodesNN1 = inputNodesNN1;
+    }
+
+    public String getHiddenNodesNN1() {
+        return hiddenNodesNN1;
+    }
+
+    public void setHiddenNodesNN1(String hiddenNodesNN1) {
+        this.hiddenNodesNN1 = hiddenNodesNN1;
+    }
+
+    public String getOutputNodesNN1() {
+        return outputNodesNN1;
+    }
+
+    public void setOutputNodesNN1(String outputNodesNN1) {
+        this.outputNodesNN1 = outputNodesNN1;
     }
 
     public void setDataShops(List<ShopInput> dataShops) {

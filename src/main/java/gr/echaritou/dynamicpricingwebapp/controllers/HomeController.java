@@ -105,10 +105,16 @@ public class HomeController {
     public List<String> getUserInput(@RequestBody UserInput userInput) throws IOException, InterruptedException {
 
         RegressionEvaluation[] regressionEvaluations = DynamicPricing.run(userInput.getNumberOfCustomers(),
+                userInput.getMeanOfCustomers(),
+                userInput.getStandardDeviationOfCustomers(),
                 userInput.getDataProducts(),
                 userInput.getDataOrders(),
                 userInput.getDataViews(),
-                userInput.getDataShops());
+                userInput.getDataShops(),
+                userInput.getInputNodesNN1(),
+                userInput.getHiddenNodesNN1(),
+                userInput.getOutputNodesNN1()
+        );
 
         List<String> stats = new ArrayList<>();
 

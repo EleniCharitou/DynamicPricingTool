@@ -339,6 +339,7 @@ public class NeuralNetwork {
             }
             counter++;
         }
+        System.out.println("Weights: OK");
         return weightsArray;
     }
 }

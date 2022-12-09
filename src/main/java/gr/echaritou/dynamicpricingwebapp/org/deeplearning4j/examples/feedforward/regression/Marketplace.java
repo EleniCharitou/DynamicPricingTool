@@ -93,7 +93,7 @@ public class Marketplace {
     }
 
 
-    public void createCustomers(int numberOfCustomers) {
+    public void createCustomers(int numberOfCustomers, double meanOfCustomers, double standardDeviationOfCustomers) {
 
         for (int i = 0; i < numberOfCustomers; i++) {
 
@@ -108,7 +108,7 @@ public class Marketplace {
 
                 //scan products
                 double basePriceTemp = this.shopList.get(0).getProductList().get(j).getReferencePrice(); //base cost is the same for every eshop
-                double wtpAverage = 0.95 * basePriceTemp;
+                double wtpAverage = meanOfCustomers * basePriceTemp;    //meanOfCustomers instead of 0.95
 
                 //normal distribution
                 double wtp = (rand.nextGaussian() * 0.3 * wtpAverage);
