@@ -10,10 +10,21 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Marketplace</title>
-    <link rel="stylesheet" type="text/css" href="../../CSS/styles.css">
+    <%--Links for table, site: https://webdesignerwall.com/wdw-snippet/table-with-add-and-delete-and-edit-actions?fbclid=IwAR3xA6UKsPeE3ah_4bOcMcqPiGsQrHdvyTmHapgeoIKoks-7izrqifL3w5k--%>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <%-- Bootstrap --%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <%--CSS--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vscStyle.css">
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
             crossorigin="anonymous"></script>
@@ -22,167 +33,298 @@
 
 </head>
 <body>
-<nav class="navbar bg-light fixed-top">
+<nav class="navbar fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="home">Dynamic Pricing</a>
+        <a class="navbar-brand" id="logo" href="home">LOGO</a>
+        <a class="navbar-brand" id="home" href="home">Home</a>
+        <a class="navbar-brand" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
+            Pricing</a>
+        <a class="navbar-brand" id="university" href="#">Aristotle University of Thessaloniki</a>  <!--  or anything -->
     </div>
 </nav>
 
-<br style="line-height:100pt"/>
 
-<div id="spinner" class="pt-5" style="display: none">
-    <div class="spinner-border text-primary" role="status">
-    </div>
-</div>
-
-<div style="width: 30%; margin:0 auto;">
-
-    <div class="input-marketplace">
-        <label for="numOfCustomers">Total number of customers:</label>
-        <input type="number" class="form-control" id="numOfCustomers">
-        <label for="mOfCustomers"> mean :</label>
-        <input type="number" class="form-control" id="mOfCustomers">
-        <label for="stdOfCustomers">Standard deviation :</label>
-        <input type="number" class="form-control" id="stdOfCustomers">
+<div class="modelBody">
+    <%--Spinner-loading--%>
+    <div id="spinner" class="pt-5" style="display: none">
+        <div class="spinner-border text-primary" role="status">
+        </div>
     </div>
 
-    <%--    https://codepen.io/ruslantau/pen/vRwjNP--%>
-    <table class="table data" id="shopTable">
-        <thead>
-        <tr>
-            <th>Number Of Products</th>
-            <th>Delivery cost</th>
-            <th>Delivery time</th>
-            <th>Delivery method</th>
-            <th>Payment method</th>
-            <th>Seller reviews</th>
-            <th>Seller reputation</th>
-            <th>Average profit difference</th>
-            <th>
-                <button class="add">Add new</button>
-            </th>
-        </tr>
-        </thead>
+    <%--Customer's input --%>
+    <div class="input-marketplace" style="margin: 3%; width: 90%">
+        <table class="table firstInput" id="firstInputs">
+            <tbody>
+            <tr>
+                <td style="text-align:center;">
+                    <label for="numOfCustomers">Number of customers:</label>
+                </td>
+                <td style="text-align:center;">
+                    <input type="number" class="form-control" id="numOfCustomers" style="width: 40%" value="1000">
+                </td>
+                <td style="text-align:center;">
+                    <label for="mOfCustomers">mean:</label>
+                </td>
+                <td style="text-align:center;">
+                    <input type="number" class="form-control" id="mOfCustomers" style="width: 40%" value="0.95">
+                </td>
+                <td style="text-align:center;">
+                    <label for="stdOfCustomers">standard deviation:</label>
+                </td>
+                <td style="text-align:center;">
+                    <input type="number" class="form-control" id="stdOfCustomers" style="width: 40%" value="0.3">
+                </td>
+            </tbody>
+        </table>
+    </div>
+    <%--Shops --%>
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-10"><h2>Shop <b>Details</b></h2></div>
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-info add-new-shop"><i class="fa fa-plus"></i> Add New
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <table id="tableOfShops" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Shops</th>
+                    <th>Delivery cost</th>
+                    <th>Delivery time</th>
+                    <th>Delivery method</th>
+                    <th>Payment method</th>
+                    <th>Seller reviews</th>
+                    <th>Seller reputation</th>
+                    <th>Average profit difference</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="data">1</td>
+                    <td class="data">5</td>
+                    <td class="data">2.5</td>
+                    <td class="data">true</td>
+                    <td class="data">false</td>
+                    <td class="data">5</td>
+                    <td class="data">4</td>
+                    <td class="data">0</td>
+                    <td class="tableButton">
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete #c62828 red darken-3" title="Delete" data-toggle="tooltip"><i
+                                class="material-icons">&#xE872;</i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="data">2</td>
+                    <td class="data">5.5</td>
+                    <td class="data">3</td>
+                    <td class="data">true</td>
+                    <td class="data">false</td>
+                    <td class="data">4</td>
+                    <td class="data">4</td>
+                    <td class="data">0.03</td>
+                    <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                class="material-icons">&#xE872;</i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="data">3</td>
+                    <td class="data">6</td>
+                    <td class="data">2</td>
+                    <td class="data">true</td>
+                    <td class="data">true</td>
+                    <td class="data">4</td>
+                    <td class="data">5</td>
+                    <td class="data">0.03</td>
+                    <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                class="material-icons">&#xE872;</i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="data">4</td>
+                    <td class="data">4.5</td>
+                    <td class="data">3.5</td>
+                    <td class="data">true</td>
+                    <td class="data">false</td>
+                    <td class="data">2</td>
+                    <td class="data">3</td>
+                    <td class="data">0.005</td>
+                    <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                class="material-icons">&#xE872;</i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="data">5</td>
+                    <td class="data">5</td>
+                    <td class="data">4</td>
+                    <td class="data">true</td>
+                    <td class="data">false</td>
+                    <td class="data">5</td>
+                    <td class="data">4</td>
+                    <td class="data">0.05</td>
+                    <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                class="material-icons">&#xE872;</i></a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <%--Upload files--%>
+    <h2>Upload files</h2>
+    <div class="card1">
+        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Products</h5>
+        <input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"
+               style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
+        <p class="card-text" style="width: 20%; font-size: 16px; margin-left: 50px;">Product ID | Price | ...</p>
+    </div>
+    <div class="card2">
+        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Orders</h5>
+        <input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"
+               style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
+        <p class="card-text" style="width: 20%; font-size: 16px; margin-left: 50px;">Order ID | Price | ...</p>
+    </div>
+    <div class="card3">
+        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Data Views</h5>
+        <input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"
+               style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
+        <p class="card-text" style="width: 20%; font-size: 16px; margin-left: 50px;">Order ID | Timestamp</p>
+    </div>
+
+    <%--NN inputs--%>
+    <table class="table" id="nnTable">
+
         <tbody>
         <tr>
-            <td class="data">12883</td>
-            <td class="data">5</td>
-            <td class="data">2.5</td>
-            <td class="data">true</td>
-            <td class="data">false</td>
-            <td class="data">5</td>
-            <td class="data">4</td>
-            <td class="data">0</td>
+            <td style="font-weight: bold; text-align:center;"> NN1</td>
+            <td style="text-align:center;"></td>
+            <td style="font-weight: bold; text-align:center;"> NN2</td>
+            <td style="text-align:center;"></td>
+        </tr>
+        <tr>
+            <td style="text-align:center" for="nn1InputNodes">Input nodes:</td>
             <td>
-                <button class="save">Save</button>
-                <button class="edit">Edit</button>
-                <button class="delete">Delete</button>
+                <input type="number" class="nnInputs" id="nn1InputNodes" name="nnInputs" value="9" style="width: 30%;">
+            </td>
+            <td style="text-align:center" for="nn2InputNodes">Input nodes:</td>
+            <td>
+                <input type="number" class="nnInputs" id="nn2InputNodes" name="nnInputs" value="6" style="width: 30%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center" for="nn1HiddenNodes">Hidden nodes:</td>
+            <td>
+                <input type="number" id="nn1HiddenNodes" name="nnInputs" class="nnInputs" value="6" style="width: 30%;">
+            </td>
+            <td style="text-align:center" for="nn2HiddenNodes">HIdden nodes:</td>
+            <td>
+                <input type="number" id="nn2HiddenNodes" name="nnInputs" class="nnInputs" value="6" style="width: 30%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center" for="nn1OutputNodes">Output nodes:</td>
+            <td>
+                <input type="number" id="nn1OutputNodes" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+            </td>
+            <td style="text-align:center" for="nn2OutputNodes">Output nodes:</td>
+            <td>
+                <input type="number" id="nn2OutputNodes" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
             </td>
         </tr>
         </tbody>
     </table>
-
-    <div style="width: 30%; margin:0 auto;">
-
-        <div class="input-NN1">
-            <label for="nn1InputNodes">Input nodes:</label>
-            <input type="number" class="form-control" id="nn1InputNodes">
-            <label for="nn1HiddenNodes">Hidden nodes:</label>
-            <input type="number" class="form-control" id="nn1HiddenNodes">
-            <label for="nn1OutputNodes">Output nodes:</label>
-            <input type="number" class="form-control" id="nn1OutputNodes">
-        </div>
-        <%--    <form>--%>
-        <%--        <field class="input-NN1">--%>
-        <%--            <label for="NN1InputNodes">Input of hidden nodes:</label>--%>
-        <%--            <input type="number" class="form-control" id="nn1InputNodes">--%>
-        <%--        </field>--%>
-        <%--        <field>--%>
-        <%--            <label for="NN1HiddenNodes">  mean :</label>--%>
-        <%--            <input type="number" class="form-control" id="nn1HiddenNodes">--%>
-        <%--        </field>--%>
-        <%--        <field>--%>
-        <%--            <label for="NN1OutputNodes">Standard deviation :</label>--%>
-        <%--            <input type="number" class="form-control" id="nn1OutputNodes">--%>
-        <%--        </field>--%>
-        <%--    </form>--%>
+    <div class="HomeButtons">
+        <button id="test" type="button" class="button3" style="margin-top: 10pt" ,>test</button>
     </div>
 
-    <div style="width: 25%; margin: 10pt auto;">
-        File with products to upload :
-        <br/>
-        <input id="dataProductsID" type="file" name="file1" accept=".csv" style="margin-top: 10pt"/>
-        <br/>
-        File with orders to upload :
-        <input id="dataOrdersID" type="file" name="file2" accept=".csv" style="margin-top: 10pt"/>
-        <br/>
-    File with dataViews to upload :
-    <input id="dataViewsID" type="file" name="file3" accept=".csv" style="margin-top: 10pt"/>
-    <br/>
-    <button id="submitFile" type="button" class="btn btn-primary" style="margin-top: 10pt">Submit File</button>
-    <button id="test" type="button" class="btn btn-primary" style="margin-top: 10pt">test</button>
-    <br/>
 </div>
 
 <script>
-
-    $(document).on('click', '.edit', function () {
-        $(this).parent().siblings('td.data').each(function () {
-            var content = $(this).html();
-            console.log(content);
-            $(this).html('<input style="width: 100%" value="' + content + '" />');
-
-        });
-        console.log("something was editted");
-        $(this).siblings('.save').show();
-        $(this).siblings('.delete').hide();
-        $(this).hide();
-    });
-
-    $(document).on('click', '.save', function () {
-
-        let counter = 0;
-
-        $('input').each(function () {
-            counter++;
-            console.log(counter);
-            var content = $(this).val();
-            console.log(content);
-            $(this).html(content);
-            $(this).contents().unwrap();
-        });
-        $(this).siblings('.edit').show();
-        console.log("something was saved");
-        $(this).siblings('.delete').show();
-        $(this).hide();
-
-    });
-
-
-    $(document).on('click', '.delete', function () {
-        $(this).parents('tr').remove();
-    });
-
-    $('.add').click(function () {
-        $(this).parents('table').append(
-            '<tr>' +
-            '<td class="data"></td>' +
-            '<td class="data"></td>' +
-            '<td class="data"></td>' +
-            '<td class="data"></td>' +
-            '<td class="data"></td>' +
-            '<td class="data"></td>' +
-            '<td class="data"></td>' +
-            '<td class="data"></td>' +
-            '<td>' +
-            '   <button class="save">Save</button>' +
-            '   <button class="edit">Edit</button> ' +
-            '   <button class="delete">Delete</button>' +
-            '</td>' +
-            '</tr>');
-    });
-
+    //Shops actions
     $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        var actions = $("table td:last-child").html();
+        let lineCounter = 5;
+// Append table with add row form on add new button click
+        $(".add-new-shop").click(function () {
+            $(this).attr("disabled", "disabled");
+            var index = $("table tbody tr:last-child").index();
+            let row = '<tr>' +
+                '<td><input type="text" class="form-control" name="shops" id="shops"></td>' +
+                '<td><input type="text" class="form-control" name="numberOfProducts" id="numberOfProducts"></td>' +
+                '<td><input type="text" class="form-control" name="deliveryCost" id="deliveryCost"></td>' +
+                '<td><input type="text" class="form-control" name="deliveryTime" id="deliveryTime"></td>' +
+                '<td><input type="text" class="form-control" name="deliveryMethod" id="deliveryMethod"></td>' +
+                '<td><input type="text" class="form-control" name="paymentMethod" id="phone"></td>' +
+                '<td><input type="text" class="form-control" name="sellerReviews" id="sellerReviews"></td>' +
+                '<td><input type="text" class="form-control" name="sellerReputation" id="sellerReputation"></td>' +
+                '<td><input type="text" class="form-control" name="AverageProfitDiff" id="AverageProfitDiff"></td>' +
+                '<td>' + actions + '</td>' +
+                '</tr>';
+            $("table").append(row);
+            $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+// Add row on add button click
+        $(document).on("click", ".add", function () {
+            let empty = false;
+            let input = $(this).parents("tr").find('input[type="text"]');
+            input.each(function () {
+                if (!$(this).val()) {
+                    $(this).addClass("error");
+                    empty = true;
+                } else {
+                    $(this).removeClass("error");
+                }
+            });
+            $(this).parents("tr").find(".error").first().focus();
+            if (!empty) {
+                input.each(function () {
+                    $(this).parent("td").html($(this).val());
+                });
+                $(this).parents("tr").find(".add, .edit").toggle();
+                $(".add-new-shop").removeAttr("disabled");
+            }
+        });
+// Edit row on edit button click
+        $(document).on("click", ".edit", function () {
+            $(this).parents("tr").find("td:not(:last-child)").each(function () {
+                $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+            });
+            $(this).parents("tr").find(".add, .edit").toggle();
+            $(".add-new-shop").attr("disabled", "disabled");
+        });
+// Delete row on delete button click
+        $(document).on("click", ".delete", function () {
+            $(this).parents("tr").remove();
+            $(".add-new-shop").removeAttr("disabled");
+        });
+    });
+
+    //read files
+    $(document).ready(function () {
+
+//other inputs
 
         let dataProducts;
         let testArray = [];
@@ -220,7 +362,7 @@
             fileReader.readAsText(this.files[0]);
         });
 
-
+//Submit all inputs
         $('#test').on('click', function () {
 
             console.log(testArray);
@@ -228,7 +370,7 @@
             let tableColumnNames = [];
 
             //gets table
-            var oTable = document.getElementById('shopTable');
+            var oTable = document.getElementById('tableOfShops');
             console.log(oTable);
 
             var oCells = oTable.rows.item(0).cells;
@@ -327,6 +469,9 @@
                     inputNodesNN1: $('#nn1InputNodes').val(),
                     hiddenNodesNN1: $('#nn1HiddenNodes').val(),
                     outputNodesNN1: $('#nn1OutputNodes').val(),
+                    inputNodesNN2: $('#nn2InputNodes').val(),
+                    hiddenNodesNN2: $('#nn2HiddenNodes').val(),
+                    outputNodesNN2: $('#nn2OutputNodes').val(),
                     dataShops: tableContents
                 }),
                 success: function (result) {

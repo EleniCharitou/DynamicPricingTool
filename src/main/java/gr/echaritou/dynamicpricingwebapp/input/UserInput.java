@@ -17,6 +17,11 @@ public class UserInput {
     private String hiddenNodesNN1;
     private String outputNodesNN1;
 
+    private String inputNodesNN2;
+
+    private String hiddenNodesNN2;
+
+    private String outputNodesNN2;
     private List<ShopInput> dataShops;
 
     public String getNumberOfCustomers() {
@@ -93,6 +98,30 @@ public class UserInput {
 
     public void setOutputNodesNN1(String outputNodesNN1) {
         this.outputNodesNN1 = outputNodesNN1;
+    }
+
+    public String getInputNodesNN2() {
+        return inputNodesNN2;
+    }
+
+    public void setInputNodesNN2(String inputNodesNN2) {
+        this.inputNodesNN2 = inputNodesNN2;
+    }
+
+    public String getHiddenNodesNN2() {
+        return hiddenNodesNN2;
+    }
+
+    public void setHiddenNodesNN2(String hiddenNodesNN2) {
+        this.hiddenNodesNN2 = hiddenNodesNN2;
+    }
+
+    public String getOutputNodesNN2() {
+        return outputNodesNN2;
+    }
+
+    public void setOutputNodesNN2(String outputNodesNN2) {
+        this.outputNodesNN2 = outputNodesNN2;
     }
 
     public void setDataShops(List<ShopInput> dataShops) {

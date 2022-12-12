@@ -113,7 +113,10 @@ public class HomeController {
                 userInput.getDataShops(),
                 userInput.getInputNodesNN1(),
                 userInput.getHiddenNodesNN1(),
-                userInput.getOutputNodesNN1()
+                userInput.getOutputNodesNN1(),
+                userInput.getInputNodesNN2(),
+                userInput.getHiddenNodesNN2(),
+                userInput.getOutputNodesNN2()
         );
 
         List<String> stats = new ArrayList<>();
