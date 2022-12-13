@@ -25,7 +25,7 @@ import java.util.Random;
 
 public class NeuralNetwork {
 
-    //Random number generator seed, for reproducability
+    //Random number generator seed, for reproducibility
     public static final int seed = 12345;
     //Number of epochs (full passes of the data)
     public static final int nEpochs = 1; // #TODO this was 20000, takes for ever

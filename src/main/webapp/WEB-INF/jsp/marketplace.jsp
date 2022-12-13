@@ -52,32 +52,33 @@
     </div>
 
     <%--Customer's input --%>
-    <div class="input-marketplace" style="margin: 3%; width: 90%">
-        <table class="table firstInput" id="firstInputs">
-            <tbody>
-            <tr>
-                <td style="text-align:center;">
-                    <label for="numOfCustomers">Number of customers:</label>
-                </td>
-                <td style="text-align:center;">
-                    <input type="number" class="form-control" id="numOfCustomers" style="width: 40%" value="1000">
-                </td>
-                <td style="text-align:center;">
-                    <label for="mOfCustomers">mean:</label>
-                </td>
-                <td style="text-align:center;">
-                    <input type="number" class="form-control" id="mOfCustomers" style="width: 40%" value="0.95">
-                </td>
-                <td style="text-align:center;">
-                    <label for="stdOfCustomers">standard deviation:</label>
-                </td>
-                <td style="text-align:center;">
-                    <input type="number" class="form-control" id="stdOfCustomers" style="width: 40%" value="0.3">
-                </td>
-            </tbody>
-        </table>
-    </div>
-    <%--Shops --%>
+        <div class="input-marketplace" style="margin: 3%; width: 90%">
+            <table class="table firstInput" id="firstInputs">
+                <tbody>
+                <tr>
+                    <td style="text-align:center;">
+                        <label for="numOfCustomers">Number of customers:</label>
+                    </td>
+                    <td style="text-align:center;">
+                        <input type="number" class="form-control" id="numOfCustomers" style="width: 40%" value="1000">
+                    </td>
+                    <td style="text-align:center;">
+                        <label for="mOfCustomers">mean:</label>
+                    </td>
+                    <td style="text-align:center;">
+                        <input type="number" class="form-control" id="mOfCustomers" style="width: 40%" value="0.95">
+                    </td>
+                    <td style="text-align:center;">
+                        <label for="stdOfCustomers">standard deviation:</label>
+                    </td>
+                    <td style="text-align:center;">
+                        <input type="number" class="form-control" id="stdOfCustomers" style="width: 40%" value="0.3">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <%--Shops --%>
     <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
@@ -183,14 +184,13 @@
                                 class="material-icons">&#xE872;</i></a>
                     </td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
     </div>
 
 
-    <%--Upload files--%>
+        <%--Upload files--%>
     <h2>Upload files</h2>
     <div class="card1">
         <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Products</h5>
@@ -253,9 +253,9 @@
         </tr>
         </tbody>
     </table>
-    <div class="HomeButtons">
-        <button id="test" type="button" class="button3" style="margin-top: 10pt" ,>test</button>
-    </div>
+        <div class="HomeButtons">
+            <button id="test" type="button" class="button3" style="margin-top: 10pt" ,>test/Submit</button>
+        </div>
 
 </div>
 
@@ -263,15 +263,14 @@
     //Shops actions
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
-        var actions = $("table td:last-child").html();
+        let actions = $("#tableOfShops td:last-child").html();
         let lineCounter = 5;
 // Append table with add row form on add new button click
         $(".add-new-shop").click(function () {
             $(this).attr("disabled", "disabled");
-            var index = $("table tbody tr:last-child").index();
+            var index = $("#tableOfShops tbody tr:last-child").index();
             let row = '<tr>' +
                 '<td><input type="text" class="form-control" name="shops" id="shops"></td>' +
-                '<td><input type="text" class="form-control" name="numberOfProducts" id="numberOfProducts"></td>' +
                 '<td><input type="text" class="form-control" name="deliveryCost" id="deliveryCost"></td>' +
                 '<td><input type="text" class="form-control" name="deliveryTime" id="deliveryTime"></td>' +
                 '<td><input type="text" class="form-control" name="deliveryMethod" id="deliveryMethod"></td>' +
@@ -281,8 +280,8 @@
                 '<td><input type="text" class="form-control" name="AverageProfitDiff" id="AverageProfitDiff"></td>' +
                 '<td>' + actions + '</td>' +
                 '</tr>';
-            $("table").append(row);
-            $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            $("#tableOfShops").append(row);
+            $("#tableOfShops tbody tr").eq(index + 1).find(".add, .edit").toggle();
             $('[data-toggle="tooltip"]').tooltip();
         });
 // Add row on add button click
@@ -448,7 +447,12 @@
                     NN1InputNodes: $('#nn1InputNodes').val(),
                     NN1HiddenNodes: $('#nn1HiddenNodes').val(),
                     NN1OutputNodes: $('#nn1OutputNodes').val()
-                }))
+                }));
+                console.log(JSON.stringify({
+                    NN2InputNodes: $('#nn2InputNodes').val(),
+                    NN2HiddenNodes: $('#nn2HiddenNodes').val(),
+                    NN2OutputNodes: $('#nn2OutputNodes').val()
+                }));
 
 
             }
