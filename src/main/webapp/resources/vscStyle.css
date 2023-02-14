@@ -1,0 +1,308 @@
+/* color:   #1a1d26   //steel gray
+            #fbfcfe   //link water
+            #fe6235   //portland orange
+            #6e6d72   //dark silver */
+nav {
+    background-color: #1a1d26;
+
+}
+
+.navbar .navbar-brand {
+    color: #fbfcfe;
+    font-size: 20px;
+}
+
+.navbar .navbar-brand:hover {
+    color: #fe6235;
+}
+
+h2 {
+    margin-top: 5%;
+    font-weight: bold;
+    padding-left: 4%;
+}
+
+.HomeButtons {
+    text-align: center;
+}
+
+.button1, .button2, .button3 {
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+    letter-spacing: 1px;
+    line-height: 12px;
+    border-radius: 40px;
+    background: transparent;
+    transition: all 0.3s ease 0s;
+    box-sizing: border-box;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.button1 {
+    color: #6e6d72;
+    border: 2px solid #6e6d72;
+    background-color: #fbfcfe;
+}
+
+.button2 {
+    color: #fe6235;
+    border: 2px solid #fe6235;
+    background-color: #fbfcfe;
+}
+
+.button3 {
+    color: #fbfcfe;
+    border: 2px solid #fe6235;
+    background-color: #fe6235;
+}
+
+.button1:hover {
+    color: #fbfcfe;
+    background: #6e6d72;
+    border: 2px solid #6e6d72;
+}
+
+.button2:hover {
+    color: #fbfcfe;
+    background: #fe6235;
+    border: 2px solid #fe6235;
+}
+
+
+/* General div in marketplace */
+.modelBody {
+    padding: 3%;
+    width: 100%;
+}
+
+.form-control {
+    font-size: 16px;
+}
+
+/* cards with files */
+/*.row{*/
+/*    width: 90%;*/
+/*    margin-left: auto;*/
+/*    margin-right: auto;*/
+/*}*/
+.card1, .card2, .card3 {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+}
+
+.column {
+    width: 300px;
+    padding: 0px 5px;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+
+/*#custom-file-input{*/
+/*    border-radius: 40px;*/
+/*}*/
+/* Download */
+.btn {
+    background-color: #fe6235;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn :hover {
+    background-color: lightsalmon;
+    color: white;
+
+}
+
+
+/* table */
+.table {
+    --bs-table-striped-bg: transparent !important;
+    --bs-table-border-color: transparent;
+    --bs-table-bg: transparent;
+    border: 1px solid #000;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+table,
+table td .data {
+    border: 10px solid #000;
+    margin-right: 3%;
+
+}
+
+td {
+    height: 20px;
+    width: 160px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.add, .edit, .delete, .save {
+    border-radius: 40px;
+    margin: 2px 2px 2px 2px;
+    border-width: 0px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/*only underline input
+#name {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  outline:none;
+  box-shadow:none;
+} */
+
+#nnTable {
+    margin-top: 4%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    border: transparent;
+}
+
+/* Shop table responsive 181-->263 */
+body {
+    color: #404E67;
+    background: #F5F7FA;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.table-wrapper {
+    width: 90%;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.table-title {
+    padding-bottom: 10px;
+    margin: 0 0 10px;
+}
+
+.table-title h2 {
+    margin: 6px 0 0;
+    font-size: 22px;
+}
+
+.table-title .add-new-shop {
+    float: right;
+    text-shadow: none;
+    min-width: 100px;
+    color: #fe6235;
+    border: 2px solid #fe6235;
+    background-color: #fbfcfe;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+    letter-spacing: 1px;
+    line-height: 12px;
+    border-radius: 40px;
+    transition: all 0.3s ease 0s;
+    box-sizing: border-box;
+    padding: 10px;
+    text-decoration: none;
+
+}
+
+.table-title .add-new-shop:hover {
+    background-color: #fe6235;
+    border: 2px solid #fe6235;
+    color: #fbfcfe;
+}
+
+.table-title .add-new-shop i {
+    margin-right: 4px;
+}
+
+table.table {
+    table-layout: fixed;
+    border: none;
+}
+
+table.table tr th, table.table tr td {
+    border-color: transparent;
+}
+
+table.table th i {
+    font-size: 13px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+table.table th:last-child {
+    width: 100px;
+}
+
+table.table td a {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+    min-width: 24px;
+}
+
+table.table td a.add {
+    color: #27C46B;
+}
+
+table.table td a.edit {
+    color: #FFC107;
+}
+
+.table table-bordered td a.delete {
+    color: #E34724;
+}
+
+table.table td i {
+    font-size: 19px;
+}
+
+table.table td a.add i {
+    font-size: 24px;
+    margin-right: -1px;
+    position: relative;
+    top: 3px;
+}
+
+table.table .form-control {
+    height: 32px;
+    line-height: 32px;
+    box-shadow: none;
+    border-radius: 2px;
+}
+
+table.table .form-control.error {
+    border-color: #f50000;
+}
+
+table.table td .add {
+    display: none;
+}
+
+table.table td a.delete {
+    color: red;
+}

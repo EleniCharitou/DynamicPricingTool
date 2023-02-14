@@ -191,27 +191,29 @@
 
 
         <%--Upload files--%>
-    <h2>Upload files</h2>
-    <div class="card1">
-        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Products</h5>
-        <input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"
-               style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
-        <p class="card-text" style="width: 20%; font-size: 16px; margin-left: 50px;">Product ID | Price | ...</p>
-    </div>
-    <div class="card2">
-        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Orders</h5>
-        <input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"
-               style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
-        <p class="card-text" style="width: 20%; font-size: 16px; margin-left: 50px;">Order ID | Price | ...</p>
-    </div>
-    <div class="card3">
-        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Data Views</h5>
-        <input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"
-               style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
-        <p class="card-text" style="width: 20%; font-size: 16px; margin-left: 50px;">Order ID | Timestamp</p>
-    </div>
+        <h2>Upload files</h2>
+        <div class="card1">
+            <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Products</h5>
+            <input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"
+                   style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
+            <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Product ID | Base cost |
+                Brand power | Price | </p>
+        </div>
+        <div class="card2">
+            <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Orders</h5>
+            <input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"
+                   style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
+            <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Order ID | date of purchase |
+                customer ID | Total of order |</p>
+        </div>
+        <div class="card3">
+            <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Data Views</h5>
+            <input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"
+                   style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
+            <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Customer ID | Timestamp</p>
+        </div>
 
-    <%--NN inputs--%>
+        <%--NN inputs--%>
     <table class="table" id="nnTable">
 
         <tbody>
@@ -236,7 +238,7 @@
             <td>
                 <input type="number" id="nn1HiddenNodes" name="nnInputs" class="nnInputs" value="6" style="width: 30%;">
             </td>
-            <td style="text-align:center" for="nn2HiddenNodes">HIdden nodes:</td>
+            <td style="text-align:center" for="nn2HiddenNodes">Hidden nodes:</td>
             <td>
                 <input type="number" id="nn2HiddenNodes" name="nnInputs" class="nnInputs" value="6" style="width: 30%;">
             </td>
@@ -251,10 +253,69 @@
                 <input type="number" id="nn2OutputNodes" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
             </td>
         </tr>
+
+        <tr>
+            <td style="font-weight: bold">
+                Training & evaluation params
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center" for="nn1Seed">Seed :</td>
+            <td>
+                <input type="number" id="nn1Seed" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+            </td>
+            <td style="text-align:center" for="nn2Seed"> Seed :</td>
+            <td>
+                <input type="number" id="nn2Seed" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center" for="nn1NEpochs">nEpochs :</td>
+            <td>
+                <input type="number" id="nn1NEpochs" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+            </td>
+            <td style="text-align:center" for="nn2NEpochs">nEpochs :</td>
+            <td>
+                <input type="number" id="nn2NEpochs" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center" for="nn1NSamples">nSamples:</td>
+            <td>
+                <input type="number" id="nn1NSamples" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+            </td>
+            <td style="text-align:center" for="nn2NSamples">nSamples:</td>
+            <td>
+                <input type="number" id="nn2NSamples" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center" for="nn1BatchSize">Batch size :</td>
+            <td>
+                <input type="number" id="nn1BatchSize" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+            </td>
+            <td style="text-align:center" for="nn2BatchSize">Batch size :</td>
+            <td>
+                <input type="number" id="nn2BatchSize" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center" for="nn1LearningRate">Learning Rate :</td>
+            <td>
+                <input type="number" id="nn1LearningRate" name="nnInputs" class="nnInputs" value="1"
+                       style="width: 30%;">
+            </td>
+            <td style="text-align:center" for="nn2LearningRate">Learning Rate :</td>
+            <td>
+                <input type="number" id="nn2LearningRate" name="nnInputs" class="nnInputs" value="1"
+                       style="width: 30%;">
+            </td>
+        </tr>
+
         </tbody>
     </table>
         <div class="HomeButtons">
-            <button id="test" type="button" class="button3" style="margin-top: 10pt" ,>test/Submit</button>
+            <button id="test" type="button" class="button3" style="margin-top: 10pt" ,>Submit</button>
         </div>
 
 </div>
@@ -439,9 +500,11 @@
                     dataProducts: testArray[0],
                     dataOrders: testArray[1],
                     dataViews: testArray[2],
-                    dataShops: tableContents,
+                    dataShops: tableContents
 
                 }));
+                console.log("ΠΙΝΑΚΑΣ wtp: " + testArray);
+
 
                 console.log(JSON.stringify({
                     NN1InputNodes: $('#nn1InputNodes').val(),
@@ -452,6 +515,18 @@
                     NN2InputNodes: $('#nn2InputNodes').val(),
                     NN2HiddenNodes: $('#nn2HiddenNodes').val(),
                     NN2OutputNodes: $('#nn2OutputNodes').val()
+                }));
+                console.log(JSON.stringify({
+                    seed1: $('#nn1Seed').val(),
+                    nEpochsNN1: $('#nn1NEpochs').val(),
+                    nSamplesNN1: $('#nn1NSamples').val(),
+                    batchSizeNN1: $('#nn1BatchSize').val(),
+                    learningRateNN1: $('#nn1LearningRate').val(),
+                    seed2: $('#nn2Seed').val(),
+                    nEpochsNN2: $('#nn2NEpochs').val(),
+                    nSamplesNN2: $('#nn2NSamples').val(),
+                    batchSizeNN2: $('#nn2BatchSize').val(),
+                    learningRateNN2: $('#nn2LearningRate').val()
                 }));
 
 
@@ -476,7 +551,18 @@
                     inputNodesNN2: $('#nn2InputNodes').val(),
                     hiddenNodesNN2: $('#nn2HiddenNodes').val(),
                     outputNodesNN2: $('#nn2OutputNodes').val(),
-                    dataShops: tableContents
+                    dataShops: tableContents,
+                    seedsNN1: $('#nn1Seed').val(),
+                    nEpochsNN1: $('#nn1NEpochs').val(),
+                    nSamplesNN1: $('#nn1NSamples').val(),
+                    batchSizeNN1: $('#nn1BatchSize').val(),
+                    learningRateNN1: $('#nn1LearningRate').val(),
+                    seedsNN2: $('#nn2seed').val(),
+                    nEpochsNN2: $('#nn2NEpochs').val(),
+                    nSamplesNN2: $('#nn2NSamples').val(),
+                    batchSizeNN2: $('#nn2BatchSize').val(),
+                    learningRateNN2: $('#nn2LearningRate').val()
+
                 }),
                 success: function (result) {
                     console.log(result[0] + ' ' + result[1]);

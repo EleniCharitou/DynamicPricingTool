@@ -119,6 +119,9 @@ public class Marketplace {
             }
             customer.setWtp(wtpArray);
             customerList.add(customer);
+            System.out.println("Customer : " + customer);
+            System.out.println("Customer List : " + customerList);
+
         }
     }
 

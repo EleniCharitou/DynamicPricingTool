@@ -107,8 +107,6 @@ public class DynamicPricing {
         int NN2numberOfInputNodes = Integer.parseInt(NN2InputNodes);
         int NN2numberOfHiddenNodes = Integer.parseInt(NN2HiddenNodes);
         int NN2numberOfOutputNodes = Integer.parseInt(NN2OutputNodes);
-
-
         NeuralNetwork neuralNetwork2 = new NeuralNetwork(NN2numberOfInputNodes, NN2numberOfHiddenNodes, NN2numberOfOutputNodes);
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfHiddenNodes);
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfOutputNodes);

@@ -26,7 +26,7 @@ import java.util.Random;
 public class NeuralNetwork {
 
     //Random number generator seed, for reproducibility
-    public static final int seed = 12345;
+    public static final int seed = 1234;
     //Number of epochs (full passes of the data)
     public static final int nEpochs = 1; // #TODO this was 20000, takes for ever
     //Number of data points
@@ -80,7 +80,17 @@ public class NeuralNetwork {
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
         rr.initialize(new FileSplit(new File("inputNormalised_NN1.csv")));
+
+        // Main constructor for multi-label regression (i.e., regression with multiple outputs).
+        // Can also be used for single output regression with labelIndexFrom == labelIndexTo
+        //@param recordReader      RecordReader to get data from
+        //@param labelIndexFrom    Index of the first regression target
+        //@param labelIndexTo      Index of the last regression target, inclusive
+        //@param batchSize         Mini-batch size
+        //@param regression        Require regression = true. Mainly included to avoid clashing with other constructors previously defined :/
         DataSetIterator iterator = new RecordReaderDataSetIterator(rr, batchSize, 1, 1, true);
+        System.out.println("Reader NN1 normalised : " + rr);
+
 
         //Load the test/evaluation data:
         RecordReader rrTest = new CSVRecordReader();
