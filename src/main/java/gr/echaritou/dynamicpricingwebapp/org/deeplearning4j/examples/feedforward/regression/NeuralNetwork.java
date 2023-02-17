@@ -39,12 +39,24 @@ public class NeuralNetwork {
     private int numberOfInputNodes;
     private int numberOfHiddenNodes;
     private int numberOfOutputNodes;
+    private int numberOfSeeds;
+
+    private int numberOfnEpochs;
+    private int numberOfnSamples;
+    private int numberOfBatchSizes;
+
+    private double numberOfLearningRate;
 
     //Constructor
-    NeuralNetwork(int numberOfInputNodes, int numberOfHiddenNodes, int numberOfOutputNodes) {
+    NeuralNetwork(int numberOfInputNodes, int numberOfHiddenNodes, int numberOfOutputNodes, int numberOfSeeds, int numberOfnEpochs, int numberOfnSamples, int numberOfBatchSizes, double numberOfLearningRate) {
         this.numberOfInputNodes = numberOfInputNodes;
         this.numberOfHiddenNodes = numberOfHiddenNodes;
         this.numberOfOutputNodes = numberOfOutputNodes;
+        this.numberOfSeeds = numberOfSeeds;
+        this.numberOfnEpochs = numberOfnEpochs;
+        this.numberOfnSamples = numberOfnSamples;
+        this.numberOfBatchSizes = numberOfBatchSizes;
+        this.numberOfLearningRate = numberOfLearningRate;
     }
 
     // Getters
@@ -75,6 +87,46 @@ public class NeuralNetwork {
         this.numberOfOutputNodes = newNumberOfOutputNodes;
     }
 
+    public int getNumberOfSeeds() {
+        return numberOfSeeds;
+    }
+
+    public void setNumberOfSeeds(int numberOfSeeds) {
+        this.numberOfSeeds = numberOfSeeds;
+    }
+
+    public int getNumberOfnEpochs() {
+        return numberOfnEpochs;
+    }
+
+    public void setNumberOfnEpochs(int numberOfnEpochs) {
+        this.numberOfnEpochs = numberOfnEpochs;
+    }
+
+    public int getNumberOfnSamples() {
+        return numberOfnSamples;
+    }
+
+    public void setNumberOfnSamples(int numberOfnSamples) {
+        this.numberOfnSamples = numberOfnSamples;
+    }
+
+    public int getNumberOfBatchSizes() {
+        return numberOfBatchSizes;
+    }
+
+    public void setNumberOfBatchSizes(int numberOfBatchSizes) {
+        this.numberOfBatchSizes = numberOfBatchSizes;
+    }
+
+    public double getNumberOfLearningRate() {
+        return numberOfLearningRate;
+    }
+
+    public void setNumberOfLearningRate(double numberOfLearningRate) {
+        this.numberOfLearningRate = numberOfLearningRate;
+    }
+
     public RegressionEvaluation trainAndEvaluateNN1() throws IOException, InterruptedException {
 
         //Load the training data:
@@ -88,20 +140,20 @@ public class NeuralNetwork {
         //@param labelIndexTo      Index of the last regression target, inclusive
         //@param batchSize         Mini-batch size
         //@param regression        Require regression = true. Mainly included to avoid clashing with other constructors previously defined :/
-        DataSetIterator iterator = new RecordReaderDataSetIterator(rr, batchSize, 1, 1, true);
+        DataSetIterator iterator = new RecordReaderDataSetIterator(rr, numberOfBatchSizes, 1, 1, true);
         System.out.println("Reader NN1 normalised : " + rr);
 
 
         //Load the test/evaluation data:
         RecordReader rrTest = new CSVRecordReader();
         rrTest.initialize(new FileSplit(new File("inputNormalised_NN1.csv"))); //experimentData1
-        DataSetIterator testIter = new RecordReaderDataSetIterator(rrTest, batchSize, 1, 1, true);
+        DataSetIterator testIter = new RecordReaderDataSetIterator(rrTest, numberOfBatchSizes, 1, 1, true);
 
         //build the neural network
         //MultiLayerNetwork net = new MultiLayerNetwork(new NeuralNetConfiguration.Builder()
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
-                .seed(seed)
-                .updater(new Nesterovs(learningRate, 0.9))
+                .seed(numberOfSeeds)
+                .updater(new Nesterovs(numberOfLearningRate, 0.9))
                 .list()
                 .layer(0, new DenseLayer.Builder().nIn(numberOfInputNodes).nOut(numberOfHiddenNodes)
                         .weightInit(WeightInit.XAVIER)
@@ -128,7 +180,7 @@ public class NeuralNetwork {
         model.getLayer(1).setParams(paramsLayer1);
 
         //Train the network on the full data set, and evaluate it periodically
-        for (int n = 0; n < nEpochs; n++) {
+        for (int n = 0; n < numberOfnEpochs; n++) {
             System.out.println("Epoch " + n);
             model.fit(iterator);
         }
@@ -220,20 +272,20 @@ public class NeuralNetwork {
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
         rr.initialize(new FileSplit(new File("inputNormalised_NN2.csv")));
-        DataSetIterator iterator = new RecordReaderDataSetIterator(rr, batchSize, 1, 1, true);
+        DataSetIterator iterator = new RecordReaderDataSetIterator(rr, numberOfBatchSizes, 1, 1, true);
 
         //Load the test/evaluation data:
         RecordReader rrTest = new CSVRecordReader();
         rrTest.initialize(new FileSplit(new File("inputNormalised_NN2.csv"))); //experimentData1
-        DataSetIterator testIter = new RecordReaderDataSetIterator(rrTest, batchSize, 1, 1, true);
+        DataSetIterator testIter = new RecordReaderDataSetIterator(rrTest, numberOfBatchSizes, 1, 1, true);
 
-        numberOfInputNodes = 6;
-        numberOfHiddenNodes = 6;
+//        numberOfInputNodes = 6;
+//        numberOfHiddenNodes = 6;
 
         //build the neural network
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
-                .seed(seed)
-                .updater(new Nesterovs(learningRate, 0.9))
+                .seed(numberOfSeeds)
+                .updater(new Nesterovs(numberOfLearningRate, 0.9))
                 .list()
                 .layer(0, new DenseLayer.Builder().nIn(numberOfInputNodes).nOut(numberOfHiddenNodes)
                         .weightInit(WeightInit.XAVIER)
@@ -250,7 +302,7 @@ public class NeuralNetwork {
         model.setListeners(new ScoreIterationListener(10));  //Print score every 10 parameter updates
 
         //Train the network on the full data set, and evaluate in periodically
-        for (int n = 0; n < nEpochs; n++) {
+        for (int n = 0; n < numberOfnEpochs; n++) {
             System.out.println("Epoch " + n);
             model.fit(iterator);
         }

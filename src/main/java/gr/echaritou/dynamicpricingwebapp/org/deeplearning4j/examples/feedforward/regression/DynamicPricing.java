@@ -18,9 +18,19 @@ public class DynamicPricing {
                                              String NN1InputNodes,
                                              String NN1HiddenNodes,
                                              String NN1OutputNodes,
+                                             String seed1,
+                                             String nEpochs1,
+                                             String nSamples1,
+                                             String batchSize1,
+                                             String learningRate1,
                                              String NN2InputNodes,
                                              String NN2HiddenNodes,
-                                             String NN2OutputNodes) throws IOException, InterruptedException {
+                                             String NN2OutputNodes,
+                                             String seed2,
+                                             String nEpochs2,
+                                             String nSamples2,
+                                             String batchSize2,
+                                             String learningRate2) throws IOException, InterruptedException {
 
         String[] productArray = dataProducts.split("\\r?\\n");
         String[] orderArray = dataOrders.split("\\r?\\n");
@@ -75,7 +85,7 @@ public class DynamicPricing {
         simulationMarketplace.readOrderViews();
 
 
-        // #TODO 2 NN call are made here, lot of unused methods and variables
+        // #TODO 2 NN call are made here, lots of unused methods and variables
 
         System.out.println("NN1");
 
@@ -87,8 +97,14 @@ public class DynamicPricing {
         int NN1numberOfInputNodes = Integer.parseInt(NN1InputNodes);
         int NN1numberOfHiddenNodes = Integer.parseInt(NN1HiddenNodes);
         int NN1numberOfOutputNodes = Integer.parseInt(NN1OutputNodes);
+        int NN1numberOfSeeds = Integer.parseInt(seed1);
+        int NN1numberOfnEpochs = Integer.parseInt(nEpochs1);
+        int NN1numberOfnSamples = Integer.parseInt(nSamples1);
+        int NN1numberOfBatchSizes = Integer.parseInt(batchSize1);
+        double NN1numberOfLearningRate1 = Double.parseDouble(learningRate1);
 
-        NeuralNetwork neuralNetwork1 = new NeuralNetwork(NN1numberOfInputNodes, NN1numberOfHiddenNodes, NN1numberOfOutputNodes);
+
+        NeuralNetwork neuralNetwork1 = new NeuralNetwork(NN1numberOfInputNodes, NN1numberOfHiddenNodes, NN1numberOfOutputNodes, NN1numberOfSeeds, NN1numberOfnEpochs, NN1numberOfnSamples, NN1numberOfBatchSizes, NN1numberOfLearningRate1);
         neuralNetwork1.setWeights(NN1numberOfInputNodes, NN1numberOfHiddenNodes);
         neuralNetwork1.setWeights(NN1numberOfHiddenNodes, NN1numberOfOutputNodes);
         RegressionEvaluation regressionEvaluation1 = neuralNetwork1.trainAndEvaluateNN1();
@@ -107,7 +123,14 @@ public class DynamicPricing {
         int NN2numberOfInputNodes = Integer.parseInt(NN2InputNodes);
         int NN2numberOfHiddenNodes = Integer.parseInt(NN2HiddenNodes);
         int NN2numberOfOutputNodes = Integer.parseInt(NN2OutputNodes);
-        NeuralNetwork neuralNetwork2 = new NeuralNetwork(NN2numberOfInputNodes, NN2numberOfHiddenNodes, NN2numberOfOutputNodes);
+        int NN2numberOfSeeds = Integer.parseInt(seed2);
+        int NN2numberOfnEpochs = Integer.parseInt(nEpochs2);
+        int NN2numberOfnSamples = Integer.parseInt(nSamples2);
+        int NN2numberOfBatchSizes = Integer.parseInt(batchSize2);
+        double NN2numberOfLearningRate1 = Double.parseDouble(learningRate2);
+
+
+        NeuralNetwork neuralNetwork2 = new NeuralNetwork(NN2numberOfInputNodes, NN2numberOfHiddenNodes, NN2numberOfOutputNodes, NN2numberOfSeeds, NN2numberOfnEpochs, NN2numberOfnSamples, NN2numberOfBatchSizes, NN2numberOfLearningRate1);
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfHiddenNodes);
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfOutputNodes);
         RegressionEvaluation regressionEvaluation2 = neuralNetwork2.trainAndEvaluateNN2();

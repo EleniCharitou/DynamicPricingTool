@@ -518,15 +518,15 @@
                 }));
                 console.log(JSON.stringify({
                     seed1: $('#nn1Seed').val(),
-                    nEpochsNN1: $('#nn1NEpochs').val(),
-                    nSamplesNN1: $('#nn1NSamples').val(),
-                    batchSizeNN1: $('#nn1BatchSize').val(),
-                    learningRateNN1: $('#nn1LearningRate').val(),
+                    nEpochs1: $('#nn1NEpochs').val(),
+                    nSamples1: $('#nn1NSamples').val(),
+                    batchSize1: $('#nn1BatchSize').val(),
+                    learningRate1: $('#nn1LearningRate').val(),
                     seed2: $('#nn2Seed').val(),
-                    nEpochsNN2: $('#nn2NEpochs').val(),
-                    nSamplesNN2: $('#nn2NSamples').val(),
-                    batchSizeNN2: $('#nn2BatchSize').val(),
-                    learningRateNN2: $('#nn2LearningRate').val()
+                    nEpochs2: $('#nn2NEpochs').val(),
+                    nSamples2: $('#nn2NSamples').val(),
+                    batchSize2: $('#nn2BatchSize').val(),
+                    learningRate2: $('#nn2LearningRate').val()
                 }));
 
 
@@ -557,12 +557,11 @@
                     nSamplesNN1: $('#nn1NSamples').val(),
                     batchSizeNN1: $('#nn1BatchSize').val(),
                     learningRateNN1: $('#nn1LearningRate').val(),
-                    seedsNN2: $('#nn2seed').val(),
+                    seedsNN2: $('#nn2Seed').val(),
                     nEpochsNN2: $('#nn2NEpochs').val(),
                     nSamplesNN2: $('#nn2NSamples').val(),
                     batchSizeNN2: $('#nn2BatchSize').val(),
                     learningRateNN2: $('#nn2LearningRate').val()
-
                 }),
                 success: function (result) {
                     console.log(result[0] + ' ' + result[1]);
@@ -610,7 +609,6 @@
     $(document).ajaxError(function () {
         $('#spinner').hide();
     });
-
 </script>
 
 

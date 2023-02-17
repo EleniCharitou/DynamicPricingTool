@@ -114,10 +114,19 @@ public class HomeController {
                 userInput.getInputNodesNN1(),
                 userInput.getHiddenNodesNN1(),
                 userInput.getOutputNodesNN1(),
+                userInput.getSeedsNN1(),
+                userInput.getnEpochsNN1(),
+                userInput.getnSamplesNN1(),
+                userInput.getBatchSizeNN1(),
+                userInput.getLearningRateNN1(),
                 userInput.getInputNodesNN2(),
                 userInput.getHiddenNodesNN2(),
-                userInput.getOutputNodesNN2()
-        );
+                userInput.getOutputNodesNN2(),
+                userInput.getSeedsNN2(),
+                userInput.getnEpochsNN2(),
+                userInput.getnSamplesNN2(),
+                userInput.getBatchSizeNN2(),
+                userInput.getLearningRateNN2());
 
         List<String> stats = new ArrayList<>();
 
