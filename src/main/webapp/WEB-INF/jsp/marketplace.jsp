@@ -46,10 +46,11 @@
 
 <div class="modelBody">
     <%--Spinner-loading--%>
-    <div id="spinner" class="pt-5" style="display: none">
-        <div class="spinner-border text-primary" role="status">
-        </div>
+    <div class="loader" id="loader" style="display: none">
+
     </div>
+    <div id="cover"></div>
+
 
     <%--Customer's input --%>
         <div class="input-marketplace" style="margin: 3%; width: 90%">
@@ -191,29 +192,29 @@
 
 
         <%--Upload files--%>
-        <h2>Upload files</h2>
-        <div class="card1">
-            <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Products</h5>
-            <input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"
-                   style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
-            <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Product ID | Base cost |
-                Brand power | Price | </p>
-        </div>
-        <div class="card2">
-            <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Orders</h5>
-            <input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"
-                   style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
-            <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Order ID | date of purchase |
-                customer ID | Total of order |</p>
-        </div>
-        <div class="card3">
-            <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Data Views</h5>
-            <input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"
-                   style="text-align: center; border-radius: 40px; width: 20%; font-size: 16px;"/>
-            <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Customer ID | Timestamp</p>
-        </div>
+    <h2>Upload files</h2>
+    <div class="card1">
+        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Products</h5>
+        <input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"
+               style="text-align: center; border-radius: 40px; width: 40%; font-size: 14px;"/>
+        <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Product ID | Base cost |
+            Brand power | Price | </p>
+    </div>
+    <div class="card2">
+        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Orders</h5>
+        <input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"
+               style="text-align: center; border-radius: 40px; width: 40%; font-size: 14px;"/>
+        <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Order ID | date of purchase |
+            customer ID | Total of order |</p>
+    </div>
+    <div class="card3">
+        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Data Views</h5>
+        <input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"
+               style="text-align: center; border-radius: 40px; width: 40%; font-size: 14px;"/>
+        <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Customer ID | Timestamp</p>
+    </div>
 
-        <%--NN inputs--%>
+    <%--NN inputs--%>
     <table class="table" id="nnTable">
 
         <tbody>
@@ -601,13 +602,16 @@
     });
 
     $(document).ajaxStart(function () {
-        $('#spinner').show();
+        $('#loader').show();
+        $("#cover").fadeIn(100);
     });
     $(document).ajaxComplete(function () {
-        $('#spinner').hide();
+        $('#loader').hide();
+        $("#cover").fadeOut(100);
     });
     $(document).ajaxError(function () {
-        $('#spinner').hide();
+        $('#loader').hide();
+        $("#cover").fadeOut(100);
     });
 </script>
 
