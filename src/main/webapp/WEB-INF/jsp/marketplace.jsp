@@ -263,11 +263,11 @@
         <tr>
             <td style="text-align:center" for="nn1Seed">Seed :</td>
             <td>
-                <input type="number" id="nn1Seed" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+                <input type="number" id="nn1Seed" name="nnInputs" class="nnInputs" value="1234" style="width: 30%;">
             </td>
             <td style="text-align:center" for="nn2Seed"> Seed :</td>
             <td>
-                <input type="number" id="nn2Seed" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+                <input type="number" id="nn2Seed" name="nnInputs" class="nnInputs" value="1234" style="width: 30%;">
             </td>
         </tr>
         <tr>
@@ -283,32 +283,34 @@
         <tr>
             <td style="text-align:center" for="nn1NSamples">nSamples:</td>
             <td>
-                <input type="number" id="nn1NSamples" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+                <input type="number" id="nn1NSamples" name="nnInputs" class="nnInputs" value="1000" style="width: 30%;">
             </td>
             <td style="text-align:center" for="nn2NSamples">nSamples:</td>
             <td>
-                <input type="number" id="nn2NSamples" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+                <input type="number" id="nn2NSamples" name="nnInputs" class="nnInputs" value="1000" style="width: 30%;">
             </td>
         </tr>
         <tr>
             <td style="text-align:center" for="nn1BatchSize">Batch size :</td>
             <td>
-                <input type="number" id="nn1BatchSize" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+                <input type="number" id="nn1BatchSize" name="nnInputs" class="nnInputs" value="1000"
+                       style="width: 30%;">
             </td>
             <td style="text-align:center" for="nn2BatchSize">Batch size :</td>
             <td>
-                <input type="number" id="nn2BatchSize" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+                <input type="number" id="nn2BatchSize" name="nnInputs" class="nnInputs" value="1000"
+                       style="width: 30%;">
             </td>
         </tr>
         <tr>
             <td style="text-align:center" for="nn1LearningRate">Learning Rate :</td>
             <td>
-                <input type="number" id="nn1LearningRate" name="nnInputs" class="nnInputs" value="1"
+                <input type="number" id="nn1LearningRate" name="nnInputs" class="nnInputs" value="0.000000011"
                        style="width: 30%;">
             </td>
             <td style="text-align:center" for="nn2LearningRate">Learning Rate :</td>
             <td>
-                <input type="number" id="nn2LearningRate" name="nnInputs" class="nnInputs" value="1"
+                <input type="number" id="nn2LearningRate" name="nnInputs" class="nnInputs" value="0.00000001"
                        style="width: 30%;">
             </td>
         </tr>
