@@ -428,6 +428,9 @@
 //Submit all inputs
         $('#test').on('click', function () {
 
+            $('#loader').show();
+            $("#cover").fadeIn(100);
+
             console.log(testArray);
 
             let tableColumnNames = [];
@@ -579,33 +582,10 @@
         });
 
 
-        $('#submitFile').on('click', function () {
-            var file = document.getElementById('dataProductsID').files[0];
-            var reader = new FileReader();
-            reader.readAsText(file, 'UTF-8');
-
-            reader.onload = () => {
-                console.log(reader.result);
-                console.log(typeof reader.result);
-
-                $.ajax({
-                    type: "POST",
-                    url: "postFile",
-                    data: {fileTest: reader.result},
-                    success: function (result) {
-                        console.log(result);
-                    },
-                    error: function (xhr) {
-                        console.log("Error getting response in AJAX");
-                    }
-                });
-            }
-        });
     });
 
     $(document).ajaxStart(function () {
-        $('#loader').show();
-        $("#cover").fadeIn(100);
+
     });
     $(document).ajaxComplete(function () {
         $('#loader').hide();
