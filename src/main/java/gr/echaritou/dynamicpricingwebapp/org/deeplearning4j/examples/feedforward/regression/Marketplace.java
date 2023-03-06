@@ -119,8 +119,6 @@ public class Marketplace {
             }
             customer.setWtp(wtpArray);
             customerList.add(customer);
-            System.out.println("Customer : " + customer);
-            System.out.println("Customer List : " + customerList);
 
         }
     }
@@ -172,6 +170,7 @@ public class Marketplace {
             customerList.get(i).sortOrders();
         }
         System.out.println("Orders: done");
+        System.out.println(orderArray.length);
     }
 
 

@@ -112,35 +112,34 @@
     <%--<div id="tester" style="width:600px;height:250px;"></div>--%>
 
 
+<script>
+    $(document).ready(function () {
 
-    <script>
-        $(document).ready(function() {
+        $('#submitFile').on('click', function () {
+            var file = document.getElementById('fileID').files[0]; //Files[0] = 1st file
+            var reader = new FileReader();
+            reader.readAsText(file, 'UTF-8');
 
-            $('#submitFile').on('click', function () {
-                var file = document.getElementById('fileID').files[0]; //Files[0] = 1st file
-                var reader = new FileReader();
-                reader.readAsText(file, 'UTF-8');
+            reader.onload = () => {
+                // console.log(reader.result);
+                // console.log(typeof reader.result);
 
-                reader.onload = () => {
-                    console.log(reader.result);
-                    console.log(typeof reader.result);
+                $.ajax({
+                    type: "POST",
+                    url: "postFile",
+                    data: {fileTest: reader.result},
+                    success: function (result) {
+                        // console.log(result);
 
-                    $.ajax({
-                        type: "POST",
-                        url: "postFile",
-                        data: {fileTest: reader.result},
-                        success: function (result) {
-                            console.log(result);
+                        let mean = result.mean;
+                        let stdDev = result.standardDeviation;
+                        let points = result.inputValues;
 
-                            let mean = result.mean;
-                            let stdDev = result.standardDeviation;
-                            let points = result.inputValues;
+                        const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2));
 
-                            const normalY = (x, mean, stdDev) => Math.exp((-0.5) * Math.pow((x - mean) / stdDev, 2));
+                        let seriesData = points.map(x => ({x, y: normalY(x, mean, stdDev)}));
 
-                            let seriesData = points.map(x => ({x, y: normalY(x, mean, stdDev)}));
-
-                            Highcharts.chart('container', {
+                        Highcharts.chart('container', {
                                 title: {
                                     text: 'Test Chart'
                                 },
@@ -193,7 +192,7 @@
                         second_value: secondValue
                     }),
                     success: function (result) {
-                        console.log(result);
+                        // console.log(result);
                         /*alert(result.outputString);*/
 
                         $('#toast_body').text(result.outputString);

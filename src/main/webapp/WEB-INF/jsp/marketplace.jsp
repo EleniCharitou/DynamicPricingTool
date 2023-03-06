@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <%-- Bootstrap --%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -50,8 +50,35 @@
 
     </div>
     <div id="cover"></div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
 
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>
 
+    </div>
+    <script>
+        // Get the modal
+        let modal = document.getElementById("myModal");
+
+        // Get the <span> element that closes the modal
+        let span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
     <%--Customer's input --%>
         <div class="input-marketplace" style="margin: 3%; width: 90%">
             <table class="table firstInput" id="firstInputs">
@@ -582,19 +609,21 @@
         });
 
 
-    });
 
     $(document).ajaxStart(function () {
-
+        $('#myModal').show();
     });
-    $(document).ajaxComplete(function () {
-        $('#loader').hide();
-        $("#cover").fadeOut(100);
-    });
-    $(document).ajaxError(function () {
-        $('#loader').hide();
-        $("#cover").fadeOut(100);
-    });
+        $(document).ajaxComplete(function () {
+            $('#loader').hide();
+            $("#cover").fadeOut(100);
+            $('#myModal').hide();
+        });
+        $(document).ajaxError(function () {
+            $('#loader').hide();
+            $("#cover").fadeOut(100);
+            $('#myModal').hide();
+        });
+    })
 </script>
 
 
