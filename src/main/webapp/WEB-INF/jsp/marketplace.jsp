@@ -30,7 +30,8 @@
             crossorigin="anonymous"></script>
     <%-- jQuery --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    <%--plotly.js   PIE--%>
+    <script src='https://cdn.plot.ly/plotly-2.18.2.min.js'></script>
 </head>
 <body>
 <nav class="navbar fixed-top">
@@ -55,30 +56,16 @@
 
         <!-- Modal content -->
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
+            <p style=“font-weight:bold”> Your input stats: </p>
+            <div id="modalData">
+
+
+            </div>
+            <div id='pieBaseCost'><!-- Plotly chart will be drawn inside this DIV --></div>
+
         </div>
 
     </div>
-    <script>
-        // Get the modal
-        let modal = document.getElementById("myModal");
-
-        // Get the <span> element that closes the modal
-        let span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
     <%--Customer's input --%>
         <div class="input-marketplace" style="margin: 3%; width: 90%">
             <table class="table firstInput" id="firstInputs">
@@ -359,7 +346,7 @@
 // Append table with add row form on add new button click
         $(".add-new-shop").click(function () {
             $(this).attr("disabled", "disabled");
-            var index = $("#tableOfShops tbody tr:last-child").index();
+            let index = $("#tableOfShops tbody tr:last-child").index();
             let row = '<tr>' +
                 '<td><input type="text" class="form-control" name="shops" id="shops"></td>' +
                 '<td><input type="text" class="form-control" name="deliveryCost" id="deliveryCost"></td>' +
@@ -455,34 +442,109 @@
 //Submit all inputs
         $('#test').on('click', function () {
 
+            $('#modalData').html("<b>Hello</b>");
+
             $('#loader').show();
             $("#cover").fadeIn(100);
 
             console.log(testArray);
 
+            //Read data from data_products.csv, so I can print middle results/stats
+            let lines = testArray[0].split("\r\n");
+            console.log(lines);
+
+            let dataProducts = [];
+            let prodID = [];
+            let baseCost = [];
+            let brandPower = [];
+            let price = [];
+            for (let i = 0; i < lines.length; i++) {
+                dataProducts = lines[i].split(",");
+
+                prodID.push(dataProducts[0]);
+                baseCost.push(dataProducts[1]);
+                brandPower.push(dataProducts[2]);
+                price.push(dataProducts[3]);
+            }
+            dataProducts = [];
+            dataProducts.push(prodID);
+            dataProducts.push(baseCost);
+            dataProducts.push(brandPower);
+            dataProducts.push(price);
+
+            console.log(dataProducts);
+            console.log(baseCost);
+
+            // range of baseCosts-pies
+            let range_1 = 0;     //0-10
+            let range_2 = 0;     //10-50
+            let range_3 = 0;     //50++
+            // average base cost
+            let averageBaseCost = 0;
+            let sum = 0;
+            baseCost.forEach((num) => {
+                sum += parseFloat(num);
+                if (num < 10) {
+                    range_1 += 1;
+                } else if (num >= 10 && num < 50) {
+                    range_2++;
+                } else {
+                    range_3++;
+                }
+            });
+
+//pie base cost
+            let data = [{
+                values: [range_1, range_2, range_3],
+                labels: ['0-10', '10-50', '50 ++'],
+                type: 'pie'
+            }];
+
+            let layout = {
+                height: 400,
+                width: 500
+            };
+
+            Plotly.newPlot('pieBaseCost', data, layout);
+
+            console.log("Sum:" + sum);
+            console.log(baseCost.length);
+            averageBaseCost = sum / baseCost.length;
+            console.log("Average Base Cost " + averageBaseCost);
+            console.log("Ranges: " + range_1 + "|" + range_2 + "|" + range_3);
+
+
+// print alert NumberOfProducts in modal
+            //alert("Number of Products " + lines.length);
+            $('#modalData').html(lines.length);
+
             let tableColumnNames = [];
 
             //gets table
-            var oTable = document.getElementById('tableOfShops');
-            console.log(oTable);
+            let oTable = document.getElementById('tableOfShops');
+            /*
+                        console.log(oTable);
+            */
 
-            var oCells = oTable.rows.item(0).cells;
+            let oCells = oTable.rows.item(0).cells;
 
             //gets amount of cells of current row
-            var cellLength = oCells.length;
+            let cellLength = oCells.length;
 
             //loops through each cell in current row
-            for (var j = 0; j < cellLength - 1; j++) {
+            for (let j = 0; j < cellLength - 1; j++) {
 
                 // get your cell info here
-                var cellVal = oCells.item(j).innerHTML;
+                let cellVal = oCells.item(j).innerHTML;
                 tableColumnNames.push(cellVal);
 
-                console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
+                /*
+                                console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
+                */
             }
 
             //gets rows of table
-            var rowLength = oTable.rows.length;
+            let rowLength = oTable.rows.length;
 
 
             let tableContents = [];
@@ -506,10 +568,12 @@
                     cellVal = oCells.item(j).innerHTML;
                     tempRow.push(cellVal);
 
-                    console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
+                    /*
+                                        console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
+                    */
                 }
 
-                console.log("ΓΡΑΜΜΗ ΠΙΝΑΚΑ: " + tempRow);
+                /*console.log("ΓΡΑΜΜΗ ΠΙΝΑΚΑ: " + tempRow);*/
 
                 let tempObj = {
                     numberOfShops: tempRow[0],
@@ -522,12 +586,12 @@
                     avgProfitDiff: tempRow[7]
                 }
 
-                console.log(tempObj);
+                /*console.log(tempObj);*/
 
 
                 tableContents.push(tempObj);
 
-                console.log("ΠΙΝΑΚΑΣ ΜΕΧΡΙ ΤΩΡΑ: " + tableContents);
+                /*console.log("ΠΙΝΑΚΑΣ ΜΕΧΡΙ ΤΩΡΑ: " + tableContents);
 
                 console.log(JSON.stringify({
                     dataProducts: testArray[0],
@@ -536,10 +600,10 @@
                     dataShops: tableContents
 
                 }));
-                console.log("ΠΙΝΑΚΑΣ wtp: " + testArray);
+                console.log("ΠΙΝΑΚΑΣ wtp: " + testArray);*/
 
 
-                console.log(JSON.stringify({
+                /*console.log(JSON.stringify({
                     NN1InputNodes: $('#nn1InputNodes').val(),
                     NN1HiddenNodes: $('#nn1HiddenNodes').val(),
                     NN1OutputNodes: $('#nn1OutputNodes').val()
@@ -560,7 +624,7 @@
                     nSamples2: $('#nn2NSamples').val(),
                     batchSize2: $('#nn2BatchSize').val(),
                     learningRate2: $('#nn2LearningRate').val()
-                }));
+                }));*/
 
 
             }

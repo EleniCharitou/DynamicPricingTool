@@ -419,6 +419,7 @@ body {
 /* Modal Content */
 .modal-content {
     background-color: #fefefe;
+    font-size: 16px;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
