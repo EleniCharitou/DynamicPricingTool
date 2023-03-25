@@ -58,20 +58,36 @@
         <!-- Modal content -->
         <div class="modal-content">
             <p class="stats"> Statistics: </p>
-            <div id="modalData">
+            <%--pre-result from data_product.csv                --%>
+            <div class="flex-container">
+                <div class="card" id="modalData"></div>
+                <div class="card" id="averageBaseCost"></div>
+                <div class="card" id="averagePrice"></div>
             </div>
-            <div id='pieBaseCost'><!-- Plotly chart will be drawn inside this DIV --></div>
-            <div id='marginPriceBaseCost'><!-- Linear Plotly chart will be drawn inside this DIV --></div>
+            <div class="flex-container">
+                <div id='piePrice'><!-- Plotly chart will be drawn inside this DIV --></div>
+                <div id='marginPriceBaseCost'><!-- Linear Plotly chart will be drawn inside this DIV --></div>
+            </div>
+            <%--pre-result from data_orders.csv                --%>
+            <div class="flex-container">
+                <div class="card" id="orders"></div>
+                <div class="card" id="averageTotal"></div>
+
+            </div>
+            <div class="flex-container">
+                <div id='pieTotal'><!-- Plotly chart will be drawn inside this DIV --></div>
+
+            </div>
         </div>
 
     </div>
     <%--Customer's input --%>
-        <div class="input-marketplace" style="margin: 3%; width: 90%">
-            <table class="table firstInput" id="firstInputs">
-                <tbody>
-                <tr>
-                    <td style="text-align:center;">
-                        <label for="numOfCustomers">Number of customers:</label>
+    <div class="input-marketplace" style="margin: 3%; width: 90%">
+        <table class="table firstInput" id="firstInputs">
+            <tbody>
+            <tr>
+                <td style="text-align:center;">
+                    <label for="numOfCustomers">Number of customers:</label>
                     </td>
                     <td style="text-align:center;">
                         <input type="number" class="form-control" id="numOfCustomers" style="width: 40%" value="1000">
@@ -209,21 +225,21 @@
     <div class="card1">
         <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Products</h5>
         <input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"
-               style="text-align: center; border-radius: 40px; width: 40%; font-size: 14px;"/>
+               style="text-align: center; border-radius: 40px; width: 40%; font-size: 17px;"/>
         <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Product ID | Base cost |
             Brand power | Price | </p>
     </div>
     <div class="card2">
         <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Orders</h5>
         <input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"
-               style="text-align: center; border-radius: 40px; width: 40%; font-size: 14px;"/>
+               style="text-align: center; border-radius: 40px; width: 40%; font-size: 17px;"/>
         <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Order ID | date of purchase |
             customer ID | Total of order |</p>
     </div>
     <div class="card3">
         <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Data Views</h5>
         <input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"
-               style="text-align: center; border-radius: 40px; width: 40%; font-size: 14px;"/>
+               style="text-align: center; border-radius: 40px; width: 40%; font-size: 17px;"/>
         <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Customer ID | Timestamp</p>
     </div>
 
@@ -447,7 +463,9 @@
             $("#cover").fadeIn(100);
 
             console.log(testArray);
-            //Read data from data_products.csv, so I can print middle results/stats
+// -----------------------------------------------------------------------Visualization of input  data-----------------------------------------------------------------------
+
+//Read data from data_products.csv, so I can print middle results/stats
             let lines = testArray[0].split("\r\n");
             console.log(lines);
 
@@ -462,7 +480,7 @@
                 prodID.push(dataProducts[0]);
                 baseCost.push(dataProducts[1]);
                 brandPower.push(dataProducts[2]);
-                price.push(parseFloat(dataProducts[3]));
+                price.push(parseFloat(dataProducts[3]));            //price values ready for use
             }
             dataProducts = [];
             dataProducts.push(prodID);
@@ -474,43 +492,51 @@
             console.log(baseCost);
             console.log("priceTable: " + price);
 
-            // range of baseCosts-pies
+// range of Price-pies
             let range_1 = 0;     //0-10
             let range_2 = 0;     //10-50
             let range_3 = 0;     //50++
-            // average base cost
             let averageBaseCost = 0;
-            let sum = 0;
+            let averagePrice = 0;
+            let sumBaseCost = 0;
+            let sumOfPrices = 0;
             let margin = [];
-            s
             let xArray = [];
             for (let i = 0; i < baseCost.length; i++) {
-                xArray.push(i + 1);       // array for x axis-margin
-                sum += parseFloat(baseCost[i]);
-
-                //ranges for pie
-                if (baseCost[i] < 10) {
+                xArray.push(i + 1);       // array for x axis-margin |here xArray=12883
+                sumBaseCost += parseFloat(baseCost[i]);
+                sumOfPrices += price[i];
+//Price ranges for pie
+                if (price[i] < 10) {
                     range_1 += 1;
-                } else if (baseCost[i] >= 10 && baseCost[i] < 50) {
+                } else if (price[i] >= 10 && price[i] < 50) {
                     range_2++;
                 } else {
                     range_3++;
                 }
-                // margin=price/baseCost
+//margin=price/baseCost
                 margin.push(price[i] / parseFloat(baseCost[i]));
             }
-            console.log("Margin: " + margin);
-            //pie base cost
+//pie price data
             let data = [{
                 values: [range_1, range_2, range_3],
                 labels: ['0-10€', '10-50€', '50€ or more '],
                 type: 'pie'
             }];
+// https://plotly.com/javascript/setting-graph-size/
             let layout = {
-                height: 400,
-                width: 500
+                autosize: false,
+                width: 500,
+                height: 500,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 65
+                }
             };
-            Plotly.newPlot('pieBaseCost', data, layout);
+            Plotly.newPlot('piePrice', data, layout);
+
 // linear chart
             let trace1 = {
                 x: xArray,
@@ -528,18 +554,108 @@
                 type: 'scatter'
             };
             let dataLinear = [trace1, trace2, trace3];
-            Plotly.newPlot('marginPriceBaseCost', dataLinear);
-            console.log("Sum:" + sum);
-            console.log(baseCost.length);
-            averageBaseCost = sum / baseCost.length;
-            console.log("Average Base Cost " + averageBaseCost);
-            console.log("Ranges: " + range_1 + "|" + range_2 + "|" + range_3);
+            Plotly.newPlot('marginPriceBaseCost', dataLinear, layout);
 
+            averageBaseCost = sumBaseCost / baseCost.length;
+            averagePrice = sumOfPrices / price.length;
 
 // print alert NumberOfProducts in modal
             //alert("Number of Products " + lines.length);
             $('#modalData').html("Number of Products: " + lines.length);
+            $('#averageBaseCost').html("Average base cost: " + averageBaseCost.toFixed(2));
+            $('#averagePrice').html("Average price per product: " + averagePrice.toFixed(2));
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Read data from data_orders.csv
+            let orders = testArray[1].split("\r\n");
+            console.log(orders);
 
+            let dataOrders = [];
+            let orderID = [];
+            let datePurchased = [];
+            let customerId = [];
+            let orderTotal = [];
+            for (let i = 0; i < orders.length; i++) {
+                dataOrders = orders[i].split(",");
+
+                orderID.push(dataOrders[0]);
+                datePurchased.push(dataOrders[1]);
+                customerId.push(dataOrders[2]);
+                orderTotal.push(parseFloat(dataOrders[3]));
+            }
+            dataOrders = [];
+            dataOrders.push(orderID);
+            dataOrders.push(datePurchased);
+            dataOrders.push(customerId);
+            dataOrders.push(orderTotal);
+
+            // ranges for pie, based on the total of orders(euros)
+            let rangeOrder_1 = 0;
+            let rangeOrder_2 = 0;
+            let rangeOrder_3 = 0;
+            let rangeOrder_4 = 0;
+            let rangeOrder_5 = 0;
+            let rangeOrder_6 = 0;
+            let rangeOrder_7 = 0;
+            let rangeOrder_8 = 0;
+            let rangeOrder_9 = 0;
+            let rangeOrder_10 = 0;
+
+            let averageTotal = 0;
+            let sumTotal = 0;
+
+            for (let i = 0; i < orderID.length; i++) {
+                sumTotal += orderTotal[i];
+//Order total ranges for pie
+                if (orderTotal[i] < 10) {
+                    rangeOrder_1 += 1;
+                } else if (orderTotal[i] >= 10 && orderTotal[i] < 20) {
+                    rangeOrder_2++;
+                } else if (orderTotal[i] >= 20 && orderTotal[i] < 30) {
+                    rangeOrder_3++;
+                } else if (orderTotal[i] >= 30 && orderTotal[i] < 40) {
+                    rangeOrder_4++;
+                } else if (orderTotal[i] >= 40 && orderTotal[i] < 50) {
+                    rangeOrder_5++;
+                } else if (orderTotal[i] >= 50 && orderTotal[i] < 60) {
+                    rangeOrder_6++;
+                } else if (orderTotal[i] >= 60 && orderTotal[i] < 70) {
+                    rangeOrder_7++;
+                } else if (orderTotal[i] >= 70 && orderTotal[i] < 80) {
+                    rangeOrder_8++;
+                } else if (orderTotal[i] >= 80 && orderTotal[i] < 90) {
+                    rangeOrder_9++;
+                } else {
+                    rangeOrder_10++;
+                }
+
+            }
+            averageTotal = sumTotal / orderTotal.length;
+//pie order total data
+            let dataTotal = [{
+                values: [rangeOrder_1, rangeOrder_2, rangeOrder_3, rangeOrder_4, rangeOrder_5, rangeOrder_6],
+                labels: ['0-10€', '10-20€', '20-30€', '30-40€', '40-50€', '50-60€', '60-70€', '70-80€', '80-90€', '90€ or more '],
+                type: 'pie'
+            }];
+// https://plotly.com/javascript/setting-graph-size/
+            let layoutOrder = {
+                autosize: false,
+                width: 500,
+                height: 500,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 65
+                },
+                title: "Ranges of orders total"
+            };
+            Plotly.newPlot('pieTotal', dataTotal, layoutOrder);
+
+
+// print in modal
+            $('#orders').html("Number of Orders: " + orders.length);
+            $('#averageTotal').html("Average total of order: " + averageTotal.toFixed(2));       //mean of orders euros
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
             let tableColumnNames = [];
 
             //gets table

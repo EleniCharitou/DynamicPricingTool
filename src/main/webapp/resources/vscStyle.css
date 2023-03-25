@@ -188,12 +188,14 @@ html, body {
     height: 100%;
 }
 
+
+/*Change this and add it to the modal (Your data is being loaded/prepared...(cube)*/
 .loader {
     width: 48px;
     height: 48px;
     margin: auto;
-    position: fixed; /* or absolute */
-    top: 50%;
+    position: fixed;
+    top: 2%;
     left: 50%;
     z-index: 11;
 }
@@ -427,21 +429,29 @@ body {
     width: 90%;
 }
 
-/* The Close Button */
-/*.close {*/
-/*    color: #aaaaaa;*/
-/*    float: right !important;*/
-/*    font-size: 28px;*/
-/*    font-weight: bold;*/
-/*}*/
-
-/*.close:hover,*/
-/*.close:focus {*/
-/*    color: #000;*/
-/*    text-decoration: none;*/
-/*    cursor: pointer;*/
-/*}*/
 .stats {
     font-weight: bold;
     text-align: center;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-container > div {
+    margin: auto;
+    padding: 15px;
+}
+
+.card {
+    text-align: center;
+    width: 20%;
+    height: 55px;
+    border-radius: 15px;
+    background: #f2f2f2;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+}
+
+#piePrice, #marginPriceBaseCost {
+    margin-top: 10px;
 }
