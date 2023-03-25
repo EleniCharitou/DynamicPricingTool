@@ -32,6 +32,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <%--plotly.js   PIE--%>
     <script src='https://cdn.plot.ly/plotly-2.18.2.min.js'></script>
+
 </head>
 <body>
 <nav class="navbar fixed-top">
@@ -56,13 +57,11 @@
 
         <!-- Modal content -->
         <div class="modal-content">
-            <p style=“font-weight:bold”> Your input stats: </p>
+            <p class="stats"> Statistics: </p>
             <div id="modalData">
-
-
             </div>
             <div id='pieBaseCost'><!-- Plotly chart will be drawn inside this DIV --></div>
-
+            <div id='marginPriceBaseCost'><!-- Linear Plotly chart will be drawn inside this DIV --></div>
         </div>
 
     </div>
@@ -448,7 +447,6 @@
             $("#cover").fadeIn(100);
 
             console.log(testArray);
-
             //Read data from data_products.csv, so I can print middle results/stats
             let lines = testArray[0].split("\r\n");
             console.log(lines);
@@ -464,7 +462,7 @@
                 prodID.push(dataProducts[0]);
                 baseCost.push(dataProducts[1]);
                 brandPower.push(dataProducts[2]);
-                price.push(dataProducts[3]);
+                price.push(parseFloat(dataProducts[3]));
             }
             dataProducts = [];
             dataProducts.push(prodID);
@@ -474,6 +472,7 @@
 
             console.log(dataProducts);
             console.log(baseCost);
+            console.log("priceTable: " + price);
 
             // range of baseCosts-pies
             let range_1 = 0;     //0-10
@@ -482,31 +481,54 @@
             // average base cost
             let averageBaseCost = 0;
             let sum = 0;
-            baseCost.forEach((num) => {
-                sum += parseFloat(num);
-                if (num < 10) {
+            let margin = [];
+            s
+            let xArray = [];
+            for (let i = 0; i < baseCost.length; i++) {
+                xArray.push(i + 1);       // array for x axis-margin
+                sum += parseFloat(baseCost[i]);
+
+                //ranges for pie
+                if (baseCost[i] < 10) {
                     range_1 += 1;
-                } else if (num >= 10 && num < 50) {
+                } else if (baseCost[i] >= 10 && baseCost[i] < 50) {
                     range_2++;
                 } else {
                     range_3++;
                 }
-            });
-
-//pie base cost
+                // margin=price/baseCost
+                margin.push(price[i] / parseFloat(baseCost[i]));
+            }
+            console.log("Margin: " + margin);
+            //pie base cost
             let data = [{
                 values: [range_1, range_2, range_3],
-                labels: ['0-10', '10-50', '50 ++'],
+                labels: ['0-10€', '10-50€', '50€ or more '],
                 type: 'pie'
             }];
-
             let layout = {
                 height: 400,
                 width: 500
             };
-
             Plotly.newPlot('pieBaseCost', data, layout);
-
+// linear chart
+            let trace1 = {
+                x: xArray,
+                y: price,
+                type: 'scatter'
+            };
+            let trace2 = {
+                x: xArray,
+                y: baseCost,
+                type: 'scatter'
+            };
+            let trace3 = {
+                x: xArray,
+                y: margin,
+                type: 'scatter'
+            };
+            let dataLinear = [trace1, trace2, trace3];
+            Plotly.newPlot('marginPriceBaseCost', dataLinear);
             console.log("Sum:" + sum);
             console.log(baseCost.length);
             averageBaseCost = sum / baseCost.length;
@@ -516,7 +538,7 @@
 
 // print alert NumberOfProducts in modal
             //alert("Number of Products " + lines.length);
-            $('#modalData').html(lines.length);
+            $('#modalData').html("Number of Products: " + lines.length);
 
             let tableColumnNames = [];
 

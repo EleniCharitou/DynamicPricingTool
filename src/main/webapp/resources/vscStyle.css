@@ -10,6 +10,7 @@ nav {
 .navbar .navbar-brand {
     color: #fbfcfe;
     font-size: 20px;
+    text-align: center;
 }
 
 .navbar .navbar-brand:hover {
@@ -421,22 +422,26 @@ body {
     background-color: #fefefe;
     font-size: 16px;
     margin: auto;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #888;
-    width: 80%;
+    width: 90%;
 }
 
 /* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right !important;
-    font-size: 28px;
-    font-weight: bold;
-}
+/*.close {*/
+/*    color: #aaaaaa;*/
+/*    float: right !important;*/
+/*    font-size: 28px;*/
+/*    font-weight: bold;*/
+/*}*/
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+/*.close:hover,*/
+/*.close:focus {*/
+/*    color: #000;*/
+/*    text-decoration: none;*/
+/*    cursor: pointer;*/
+/*}*/
+.stats {
+    font-weight: bold;
+    text-align: center;
 }
