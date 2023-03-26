@@ -78,10 +78,13 @@
                 <div id="pieOrderTime"></div>
                 <div id="scatterTime"></div>
             </div>
+            <div class="flex-container">
+                <div id="views"></div>
+            </div>
         </div>
 
     </div>
-    <%--Customer's input --%>
+        <%--Customer's input --%>
     <div class="input-marketplace" style="margin: 3%; width: 90%">
         <table class="table firstInput" id="firstInputs">
             <tbody>
@@ -596,7 +599,7 @@
             dataOrders.push(customerId);
             dataOrders.push(orderTotal);
 
-            // ranges for pie, based on the total of orders(euros)
+// ranges for pie, based on the total of orders(euros)
             let rangeOrder_1 = 0;
             let rangeOrder_2 = 0;
             let rangeOrder_3 = 0;
@@ -726,6 +729,84 @@
 // print in modal
             $('#orders').html("Number of Orders: " + orders.length);
             $('#averageTotal').html("Average total of order: " + averageTotal.toFixed(2));       //mean of orders euros
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Read data from data_views.csv
+            let views = testArray[2].split("\r\n");
+
+            let dataViews = [];
+            let custID = [];
+            let date = [];
+            let time = [];
+            let hours = [];
+            let h_1 = 0;
+            let h_2 = 0;
+            let h_3 = 0;
+            let h_4 = 0;
+            let h_5 = 0;
+            let h_6 = 0;
+            let h_7 = 0;
+            let h_8 = 0;
+            let h_9 = 0;
+            let h_10 = 0;
+            let h_11 = 0;
+            let h_12 = 0;
+
+            for (let i = 0; i < views.length; i++) {
+                dataViews = views[i].split(",");
+
+                custID.push(dataViews[0]);
+                date.push(dataViews[1]);
+                time[i] = new Date(date[i]);
+                hours[i] = time[i].getHours();
+
+                if (hours[i] < 2) {
+                    h_1++;
+                } else if (hours[i] >= 2 && hours[i] < 4) {
+                    h_2++;
+                } else if (hours[i] >= 4 && hours[i] < 6) {
+                    h_3++;
+                } else if (hours[i] >= 6 && hours[i] < 8) {
+                    h_4++;
+                } else if (hours[i] >= 8 && hours[i] < 10) {
+                    h_5++;
+                } else if (hours[i] >= 10 && hours[i] < 12) {
+                    h_6++;
+                } else if (hours[i] >= 12 && hours[i] < 14) {
+                    h_7++;
+                } else if (hours[i] >= 14 && hours[i] < 16) {
+                    h_8++;
+                } else if (hours[i] >= 16 && hours[i] < 18) {
+                    h_9++;
+                } else if (hours[i] >= 18 && hours[i] < 20) {
+                    h_10++;
+                } else if (hours[i] >= 20 && hours[i] < 22) {
+                    h_11++;
+                } else if (hours[i] >= 22 && hours[i] < 24) {
+                    h_12++;
+                }
+            }
+
+//bubble plot
+            let traceViews = {
+                type: 'bar',
+                x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                y: [h_1, h_2, h_3, h_4, h_5, h_6, h_7, h_8, h_9, h_10, h_11, h_12],
+                marker: {
+                    color: 'lightsalmon',
+                    line: {
+                        width: 0.5
+                    }
+                }
+            };
+            let dataView = [traceViews];
+            let layoutViews = {
+                width: 600,
+                title: 'Views',
+                font: {size: 11}
+            };
+            let configV = {responsive: true}
+
+            Plotly.newPlot('views', dataView, layoutViews, configV);
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
             let tableColumnNames = [];
 
