@@ -422,9 +422,9 @@ body {
 /* Modal Content */
 .modal-content {
     background-color: #fefefe;
-    font-size: 16px;
+    font-size: 12px;
     margin: auto;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #888;
     width: 90%;
 }

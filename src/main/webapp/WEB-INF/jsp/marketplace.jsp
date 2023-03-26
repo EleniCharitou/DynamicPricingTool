@@ -72,11 +72,11 @@
             <div class="flex-container">
                 <div class="card" id="orders"></div>
                 <div class="card" id="averageTotal"></div>
-
             </div>
             <div class="flex-container">
                 <div id='pieTotal'><!-- Plotly chart will be drawn inside this DIV --></div>
-
+                <div id="pieOrderTime"></div>
+                <div id="scatterTime"></div>
             </div>
         </div>
 
@@ -467,7 +467,6 @@
 
 //Read data from data_products.csv, so I can print middle results/stats
             let lines = testArray[0].split("\r\n");
-            console.log(lines);
 
             let dataProducts = [];
             let prodID = [];
@@ -488,9 +487,6 @@
             dataProducts.push(brandPower);
             dataProducts.push(price);
 
-            console.log(dataProducts);
-            console.log(baseCost);
-            console.log("priceTable: " + price);
 
 // range of Price-pies
             let range_1 = 0;     //0-10
@@ -526,14 +522,16 @@
 // https://plotly.com/javascript/setting-graph-size/
             let layout = {
                 autosize: false,
-                width: 500,
-                height: 500,
+                width: 350,
+                height: 300,
                 margin: {
                     l: 50,
                     r: 50,
                     b: 50,
                     t: 65
-                }
+                },
+                font: {size: 11},
+                title: ''
             };
             Plotly.newPlot('piePrice', data, layout);
 
@@ -554,7 +552,18 @@
                 type: 'scatter'
             };
             let dataLinear = [trace1, trace2, trace3];
-            Plotly.newPlot('marginPriceBaseCost', dataLinear, layout);
+            let layoutLinear = {
+                width: 350,
+                height: 300,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 65
+                },
+                font: {size: 11}
+            }
+            Plotly.newPlot('marginPriceBaseCost', dataLinear, layoutLinear, {scrollZoom: true});
 
             averageBaseCost = sumBaseCost / baseCost.length;
             averagePrice = sumOfPrices / price.length;
@@ -567,7 +576,6 @@
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Read data from data_orders.csv
             let orders = testArray[1].split("\r\n");
-            console.log(orders);
 
             let dataOrders = [];
             let orderID = [];
@@ -602,6 +610,20 @@
 
             let averageTotal = 0;
             let sumTotal = 0;
+            let datePur = [];
+            let timePur = [];
+            let timeRange_1 = 0;
+            let timeRange_2 = 0;
+            let timeRange_3 = 0;
+            let timeRange_4 = 0;
+            let timeRange_5 = 0;
+            let timeRange_6 = 0;
+            let timeRange_7 = 0;
+            let timeRange_8 = 0;
+            let timeRange_9 = 0;
+            let timeRange_10 = 0;
+            let timeRange_11 = 0;
+            let timeRange_12 = 0;
 
             for (let i = 0; i < orderID.length; i++) {
                 sumTotal += orderTotal[i];
@@ -628,7 +650,35 @@
                     rangeOrder_10++;
                 }
 
+                datePur[i] = datePurchased[i].split(" ");
+                timePur[i] = datePur[i][1].split(":");
+                if (timePur[i][0] < 2) {
+                    timeRange_1++;
+                } else if (timePur[i][0] >= 2 && timePur[i][0] < 4) {
+                    timeRange_2++;
+                } else if (timePur[i][0] >= 4 && timePur[i][0] < 6) {
+                    timeRange_3++;
+                } else if (timePur[i][0] >= 6 && timePur[i][0] < 8) {
+                    timeRange_4++;
+                } else if (timePur[i][0] >= 8 && timePur[i][0] < 10) {
+                    timeRange_5++;
+                } else if (timePur[i][0] >= 10 && timePur[i][0] < 12) {
+                    timeRange_6++;
+                } else if (timePur[i][0] >= 12 && timePur[i][0] < 14) {
+                    timeRange_7++;
+                } else if (timePur[i][0] >= 14 && timePur[i][0] < 16) {
+                    timeRange_8++;
+                } else if (timePur[i][0] >= 16 && timePur[i][0] < 18) {
+                    timeRange_9++;
+                } else if (timePur[i][0] >= 18 && timePur[i][0] < 20) {
+                    timeRange_10++;
+                } else if (timePur[i][0] >= 20 && timePur[i][0] < 22) {
+                    timeRange_11++;
+                } else if (timePur[i][0] >= 22 && timePur[i][0] < 24) {
+                    timeRange_12++;
+                }
             }
+
             averageTotal = sumTotal / orderTotal.length;
 //pie order total data
             let dataTotal = [{
@@ -639,18 +689,39 @@
 // https://plotly.com/javascript/setting-graph-size/
             let layoutOrder = {
                 autosize: false,
-                width: 500,
-                height: 500,
+                width: 350,
+                height: 350,
                 margin: {
                     l: 50,
                     r: 50,
                     b: 50,
                     t: 65
                 },
-                title: "Ranges of orders total"
+                title: "Ranges of order total",
+                font: {size: 11}
             };
             Plotly.newPlot('pieTotal', dataTotal, layoutOrder);
+//time of orders
+            let traceTime = {
+                type: 'bar',
+                x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                y: [timeRange_1, timeRange_2, timeRange_3, timeRange_4, timeRange_5, timeRange_6, timeRange_7, timeRange_8, timeRange_9, timeRange_10, timeRange_11, timeRange_12],
+                marker: {
+                    color: 'lightsalmon',
+                    line: {
+                        width: 0.5
+                    }
+                }
+            };
+            let dataTime = [traceTime];
+            let layoutTime = {
+                width: 600,
+                title: 'Time of purchase',
+                font: {size: 11}
+            };
+            let config = {responsive: true}
 
+            Plotly.newPlot('scatterTime', dataTime, layoutTime, config);
 
 // print in modal
             $('#orders').html("Number of Orders: " + orders.length);
@@ -675,10 +746,6 @@
                 // get your cell info here
                 let cellVal = oCells.item(j).innerHTML;
                 tableColumnNames.push(cellVal);
-
-                /*
-                                console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
-                */
             }
 
             //gets rows of table
