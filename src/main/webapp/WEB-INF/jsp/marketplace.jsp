@@ -81,69 +81,75 @@
             <div class="flex-container">
                 <div id="views"></div>
             </div>
+            <div id="final"></div>
         </div>
 
     </div>
         <%--Customer's input --%>
-    <div class="input-marketplace" style="margin: 3%; width: 90%">
-        <table class="table firstInput" id="firstInputs">
-            <tbody>
-            <tr>
-                <td style="text-align:center;">
-                    <label for="numOfCustomers">Number of customers:</label>
+        <div class="input-marketplace" style="margin: 1%; width: 90%">
+            <table class="table firstInput" id="firstInputs">
+                <tbody>
+                <tr>
+                    <td style="text-align:center;">
+                        <div class="input-group">
+                            <input type="number" class="input" id="numOfCustomers" required="" autocomplete="off">
+                            <label for="numOfCustomers" class="user-label">Number of customers:</label>
+                        </div>
                     </td>
                     <td style="text-align:center;">
-                        <input type="number" class="form-control" id="numOfCustomers" style="width: 40%" value="1000">
+                        <div class="input-group">
+                            <input type="number" class="input" id="mOfCustomers" required="" autocomplete="off">
+                            <label for="mOfCustomers" class="user-label">mean:</label>
+                        </div>
                     </td>
                     <td style="text-align:center;">
-                        <label for="mOfCustomers">mean:</label>
-                    </td>
-                    <td style="text-align:center;">
-                        <input type="number" class="form-control" id="mOfCustomers" style="width: 40%" value="0.95">
-                    </td>
-                    <td style="text-align:center;">
-                        <label for="stdOfCustomers">standard deviation:</label>
-                    </td>
-                    <td style="text-align:center;">
-                        <input type="number" class="form-control" id="stdOfCustomers" style="width: 40%" value="0.3">
+                        <div class="input-group">
+                            <input type="number" class="input" id="stdOfCustomers" required="" autocomplete="off">
+                            <label for="stdOfCustomers" class="user-label">standard deviation:</label>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
         <%--Shops --%>
-    <div class="container">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-10"><h2>Shop <b>Details</b></h2></div>
-                    <div class="col-sm-1">
-                        <button type="button" class="btn btn-info add-new-shop"><i class="fa fa-plus"></i> Add New
-                        </button>
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-10"><h2>Shop Details</h2></div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-info add-new-shop"><i class="fa fa-plus"></i> Add New
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <table id="tableOfShops" class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>Shops</th>
-                    <th>Delivery cost</th>
-                    <th>Delivery time</th>
-                    <th>Delivery method</th>
-                    <th>Payment method</th>
-                    <th>Seller reviews</th>
-                    <th>Seller reputation</th>
-                    <th>Average profit difference</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="data">1</td>
-                    <td class="data">5</td>
-                    <td class="data">2.5</td>
-                    <td class="data">true</td>
-                    <td class="data">false</td>
-                    <td class="data">5</td>
+                <table id="tableOfShops" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Shop</th>
+                        <th>Delivery cost [€]</th>
+                        <th>Delivery time</th>
+                        //duration-waiting
+                        <th>Classic or Advantage</th>
+                        //Delivery method
+                        <th>COD</th>
+                        //Payment method
+                        <th>Reviews' average</th>
+                        //Average reviews for a specific store/seller
+                        <th>Seller reputation</th>
+                        <th>!!!Average profit difference</th>
+                        //pricing strategy
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="data">1</td>
+                        <td class="data">5</td>
+                        <td class="data">2.5</td>
+                        <td class="data">true</td>
+                        <td class="data">false</td>
+                        <td class="data">5</td>
                     <td class="data">4</td>
                     <td class="data">0</td>
                     <td class="tableButton">
@@ -542,21 +548,24 @@
             let trace1 = {
                 x: xArray,
                 y: price,
-                type: 'scatter'
+                type: 'scatter',
+                name: 'Price'
             };
             let trace2 = {
                 x: xArray,
                 y: baseCost,
-                type: 'scatter'
+                type: 'scatter',
+                name: 'Base cost'
             };
             let trace3 = {
                 x: xArray,
                 y: margin,
-                type: 'scatter'
+                type: 'scatter',
+                name: 'Margin'
             };
             let dataLinear = [trace1, trace2, trace3];
             let layoutLinear = {
-                width: 350,
+                width: 500,
                 height: 300,
                 margin: {
                     l: 50,
@@ -948,6 +957,17 @@
                 }),
                 success: function (result) {
                     console.log(result[0] + ' ' + result[1]);
+                    // let final = 'Column MSE MAE RMSE RSE R^2 col_0 1.00908e-08 1.00908e-08 1.00453e-04 1.00000e+00 4.69345e-04 ,Column MSE MAE RMSE RSE R^2 col_0 1.00256e-08 1.00256e-08 1.00128e-04 1.00000e+00 4.64134e-04';
+                    // let finalTable = final.split(",");
+                    // console.log(final);
+                    // console.log(finalTable);
+                    //
+                    // $('#final').html("Final results: " + finalTable);
+                    let nn1Results = result[0];
+                    let nn2Results = result[1];
+
+                    let newWindow = window.open();
+                    newWindow.document.write(result[0] + "\n" + result[1]);
 
                 },
                 error: function (xhr) {
