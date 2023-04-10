@@ -130,16 +130,16 @@
                         <th>Shop</th>
                         <th>Delivery cost [€]</th>
                         <th>Delivery time</th>
-                        //duration-waiting
+<%--                        //duration-waiting--%>
                         <th>Classic or Advantage</th>
-                        //Delivery method
+                        <%--                        //Delivery method--%>
                         <th>COD</th>
-                        //Payment method
+                        <%--                        //Payment method--%>
                         <th>Reviews' average</th>
-                        //Average reviews for a specific store/seller
+                        <%--                        //Average reviews for a specific store/seller--%>
                         <th>Seller reputation</th>
                         <th>!!!Average profit difference</th>
-                        //pricing strategy
+                        <%--                        //pricing strategy--%>
                     </tr>
                     </thead>
                     <tbody>
