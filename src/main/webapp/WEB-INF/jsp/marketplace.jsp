@@ -132,7 +132,7 @@
                         <th>Delivery time</th>
 <%--                        //duration-waiting--%>
                         <th>Classic or Advantage</th>
-                        <%--                        //Delivery method--%>
+<%--                        //Delivery method--%>
                         <th>COD</th>
                         <%--                        //Payment method--%>
                         <th>Reviews' average</th>

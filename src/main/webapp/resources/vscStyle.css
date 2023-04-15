@@ -457,8 +457,7 @@ body {
 
 .input {
     border: solid 1.5px #9e9e9e;
-    border-radius: 0rem;
-    width: 100%;
+    border-radius: 1rem;
     background: none;
     padding: 1rem;
     font-size: 1rem;
@@ -485,4 +484,8 @@ body {
     background-color: #F5F7FA;
     padding: 0 .2em;
     color: black;
+}
+
+.tableResult {
+    margin: 0.5%;
 }

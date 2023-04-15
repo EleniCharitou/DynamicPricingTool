@@ -4,11 +4,14 @@ import gr.echaritou.dynamicpricingwebapp.*;
 import gr.echaritou.dynamicpricingwebapp.input.UserInput;
 import gr.echaritou.dynamicpricingwebapp.org.deeplearning4j.examples.feedforward.regression.DynamicPricing;
 import org.deeplearning4j.eval.RegressionEvaluation;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,7 +26,7 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping( path = "/getData",
+    @PostMapping(path = "/getData",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -104,6 +107,8 @@ public class HomeController {
     @ResponseBody
     public List<String> getUserInput(@RequestBody UserInput userInput) throws IOException, InterruptedException {
 
+        long startTime = System.currentTimeMillis();
+
         RegressionEvaluation[] regressionEvaluations = DynamicPricing.run(userInput.getNumberOfCustomers(),
                 userInput.getMeanOfCustomers(),
                 userInput.getStandardDeviationOfCustomers(),
@@ -128,14 +133,117 @@ public class HomeController {
                 userInput.getBatchSizeNN2(),
                 userInput.getLearningRateNN2());
 
+        long endTime = System.currentTimeMillis();
+        long seconds = (endTime - startTime) / 1000;
+
         List<String> stats = new ArrayList<>();
 
         for (int i = 0; i < regressionEvaluations.length; i++) {
             stats.add(regressionEvaluations[i].stats());
         }
 
+        String sql = "INSERT INTO history(" +
+                "data_products," +
+                "data_orders," +
+                "data_views," +
+                "input_fields," +
+                "result," +
+                "run_time) " +
+                "VALUES(?,?,?,?,?,?)";
+
+        JSONObject inputJSON = new JSONObject();
+
+        inputJSON.put("numberOfCustomers", userInput.getNumberOfCustomers());
+        inputJSON.put("meanOfCustomers", userInput.getMeanOfCustomers());
+        inputJSON.put("standardDeviationOfCustomers", userInput.getStandardDeviationOfCustomers());
+        inputJSON.put("dataShops", userInput.getDataShops());
+        inputJSON.put("inputNodesNN1", userInput.getInputNodesNN1());
+        inputJSON.put("hiddenNodesNN1", userInput.getHiddenNodesNN1());
+        inputJSON.put("outputNodesNN1", userInput.getOutputNodesNN1());
+        inputJSON.put("inputNodesNN2", userInput.getInputNodesNN2());
+        inputJSON.put("hiddenNodesNN2", userInput.getHiddenNodesNN2());
+        inputJSON.put("outputNodesNN2", userInput.getOutputNodesNN2());
+        inputJSON.put("seedsNN1", userInput.getSeedsNN1());
+        inputJSON.put("nEpochsNN1", userInput.getnEpochsNN1());
+        inputJSON.put("nSamplesNN1", userInput.getnSamplesNN1());
+        inputJSON.put("batchSizeNN1", userInput.getBatchSizeNN1());
+        inputJSON.put("learningRateNN1", userInput.getLearningRateNN1());
+        inputJSON.put("seedsNN2", userInput.getSeedsNN2());
+        inputJSON.put("nEpochsNN2", userInput.getnEpochsNN2());
+        inputJSON.put("nSamplesNN2", userInput.getnSamplesNN2());
+        inputJSON.put("batchSizeNN2", userInput.getBatchSizeNN2());
+        inputJSON.put("learningRateNN2", userInput.getLearningRateNN2());
+
+        System.out.println(inputJSON);
+
+        try {
+            // db parameters
+            String url = "jdbc:sqlite:history.db";
+            // create a connection to the database
+            Connection conn = DriverManager.getConnection(url);
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, userInput.getDataProducts());
+            pstmt.setString(2, userInput.getDataOrders());
+            pstmt.setString(3, userInput.getDataViews());
+            pstmt.setString(4, inputJSON.toString());
+            pstmt.setString(5, "stats");
+            pstmt.setString(6, String.valueOf(seconds));
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return stats;
     }
 
+    @GetMapping("/history")
+    public String showHistoryPage() {
+        return "history";
+    }
 
+    @PostMapping(path = "/getHistory",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    @ResponseBody
+    public String getHistoryFromDB() {
+
+        String sql = "SELECT * FROM history";
+
+        JSONObject outputJSON = new JSONObject();
+
+        try {
+            String url = "jdbc:sqlite:history.db";
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            JSONArray arrayJSON = new JSONArray();
+
+            // loop through the result set
+            while (rs.next()) {
+                JSONObject dbRowJSON = new JSONObject();
+
+                dbRowJSON.put("data_products", rs.getString("data_products"));
+                dbRowJSON.put("data_orders", rs.getString("data_orders"));
+                dbRowJSON.put("data_views", rs.getString("data_views"));
+                dbRowJSON.put("input_fields", rs.getString("input_fields"));
+                dbRowJSON.put("result", rs.getString("result"));
+                dbRowJSON.put("timestamp", rs.getTimestamp("timestamp"));
+                dbRowJSON.put("run_time", rs.getString("run_time"));
+
+                arrayJSON.put(dbRowJSON);
+
+            }
+
+
+            outputJSON.put("output", arrayJSON);
+            System.out.println("test");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return outputJSON.toString();
+
+    }
 }
