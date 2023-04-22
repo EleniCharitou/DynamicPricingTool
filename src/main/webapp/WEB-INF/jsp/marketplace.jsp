@@ -508,7 +508,9 @@
             let margin = [];
             let xArray = [];
             for (let i = 0; i < baseCost.length; i++) {
-                xArray.push(i + 1);       // array for x axis-margin |here xArray=12883
+                if (i <= 100) {
+                    xArray.push(i + 1);       // array for x axis-margin |here xArray=12883
+                }
                 sumBaseCost += parseFloat(baseCost[i]);
                 sumOfPrices += price[i];
 //Price ranges for pie
@@ -521,6 +523,7 @@
                 }
 //margin=price/baseCost
                 margin.push(price[i] / parseFloat(baseCost[i]));
+
             }
 //pie price data
             let data = [{
@@ -573,8 +576,12 @@
                     b: 50,
                     t: 65
                 },
-                font: {size: 11}
-            }
+                font: {size: 11},
+                yaxis: {
+                    type: 'log',
+                    autorange: true
+                }
+            };
             Plotly.newPlot('marginPriceBaseCost', dataLinear, layoutLinear, {scrollZoom: true});
 
             averageBaseCost = sumBaseCost / baseCost.length;

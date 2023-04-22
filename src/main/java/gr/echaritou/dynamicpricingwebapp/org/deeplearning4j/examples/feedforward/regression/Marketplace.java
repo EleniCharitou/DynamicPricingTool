@@ -479,7 +479,11 @@ public class Marketplace {
 
                     //normalize data
                     for (int i = 1; i < numberOfColumns - 1; i++) {  //currently not normalise base cost,price   //int i=0;i<numberOfColumns;i++
-                        dataDouble[i] = (dataDouble[i] - meanValues[i]) / range[i];
+                        if (range[i] != 0) {
+                            dataDouble[i] = (dataDouble[i] - meanValues[i]) / range[i];
+                        } else {
+                            dataDouble[i] = 0;
+                        }
                     }
 
                     //write data
