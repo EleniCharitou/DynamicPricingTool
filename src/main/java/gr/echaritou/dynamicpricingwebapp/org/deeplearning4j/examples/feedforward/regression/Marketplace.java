@@ -111,14 +111,15 @@ public class Marketplace {
                 double wtpAverage = meanOfCustomers * basePriceTemp;    //meanOfCustomers instead of 0.95
 
                 //normal distribution
-                double wtp = (rand.nextGaussian() * 0.3 * wtpAverage);
-                while (Math.abs(wtp) > 0.3 * wtpAverage) //check for exceptional cases and adjust to the closest bound 
-                    wtp = (rand.nextGaussian() * 0.3 * wtpAverage);
+                double wtp = (rand.nextGaussian() * standardDeviationOfCustomers * wtpAverage);     //standardDeviationOfCustomers = 0.3 or 30%
+                while (Math.abs(wtp) > standardDeviationOfCustomers * wtpAverage) //check for exceptional cases and adjust to the closest bound
+                    wtp = (rand.nextGaussian() * standardDeviationOfCustomers * wtpAverage);
                 wtp = wtp + wtpAverage;
                 wtpArray[j] = wtp;
             }
             customer.setWtp(wtpArray);
             customerList.add(customer);
+
 
         }
     }
@@ -159,7 +160,10 @@ public class Marketplace {
                         customerList.get(customerIndex).addOrder(newOrder);
                         //case: customer exists, order exists, add product
                     } else {
-                        customerList.get(customerIndex).getOrderList().get(orderIndex).addProduct(productId);
+                        customerList.get(customerIndex)
+                                .getOrderList()
+                                .get(orderIndex)
+                                .addProduct(productId);
                     }
                 }
                 //}
@@ -177,7 +181,6 @@ public class Marketplace {
     public void readOrderViews() {
         String line = "";
         String cvsSplitBy = ",";
-
         try (
                 BufferedReader br = new BufferedReader(new FileReader("orderViews.csv"));
         ) {
@@ -220,6 +223,7 @@ public class Marketplace {
                     }
                 }
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -624,5 +628,98 @@ public class Marketplace {
                 }
             }
         }
+    }
+
+
+    public void shopsComparison() {    // double X, I will utilize it later, it's percentage
+        double X = 0.15;
+        int randomShop = 0;
+        double shopPrice = 0;
+        double customerWTP = 35.5;
+        double[][] shopsComparison = new double[10][];
+        String line = "";
+        String cvsSplitBy = ",";
+        try (
+                BufferedReader br = new BufferedReader(new FileReader("orderViews.csv"));
+        ) {
+            while ((line = br.readLine()) != null) {
+                //read data
+                String[] orderDetailsString = line.split(cvsSplitBy);
+                String orderId = orderDetailsString[0];
+//                String datePurchased = orderDetailsString[1];
+                String customId = orderDetailsString[2];
+//                double orderTotal = Double.parseDouble(orderDetailsString[3]);
+                String productId = orderDetailsString[4];
+//                double timeSpent = Double.parseDouble(orderDetailsString[5]);
+//                int pageViews = (int) Double.parseDouble(orderDetailsString[6]);
+
+                for (int i = 0; i < productId.length(); i++) {
+//                    String productId = shopList.get(0).getProductList().get((int) (Math.random() * shopList.get(0).getProductList().size())).getProductId();
+                    randomShop = new Random().nextInt(9 - 0 + 1) + 0;   //random shop from 1 to 10
+                    System.out.println("# of shop: " + randomShop);
+                    shopPrice = shopList.get(randomShop).getPriceByProductId(productId) * shopList.get(randomShop).getAverageProfitDifference();     //price of this shop baseCost*avgProfit
+                    // baseCost + (baseCost* avgProfit);    maybe price is already calculated, to check this
+//                    double[] customerWTP = customerList.get(i).getWtp();        //   skaei--BOOM
+//                    getWtpByProductId // maybe If I create this in Customer.java, is easier
+
+                    customerWTP = 56.4;
+                    while (customerWTP < shopPrice) {
+                        shopsComparison[randomShop][0]++;    //views of the shop
+                        shopsComparison[randomShop][1]++;    //orders of the shop
+                        shopsComparison[randomShop][2] += shopPrice;    //shop's sum of sales
+                        shopsComparison[randomShop][3]++;    //shop's sum of base cost of the product
+                    }
+                    //case, where all shops sale this product more expensive than the wtp of the customer, keep the cheaper shop
+
+//                    shopsComparison[4][randomShop]= 23;//shopsComparison[2][randomShop]-shopsComparison[3][randomShop];    //gains of the shop:  shopsComparison[2][numberOfShop]-shopsComparison[3][numberOfShop]
+                }
+
+            }
+            System.out.println("views: " + Arrays.deepToString(shopsComparison));
+//            System.out.println("orders: " + Arrays.toString(shopsComparison[1]));
+//            System.out.println("sum : " +shopsComparison[2]);
+//            System.out.println("base Cost: " +shopsComparison[3]);
+//            System.out.println("gain: " +shopsComparison[4]);
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        double salesWorth = 0;      // 𝛼𝜉ί𝛼 𝜋𝜔𝜆ή𝜎𝜀𝜔𝜈 orderTotalSum
+        double baseCostSum = 0;     //𝛼𝜉ί𝛼 𝜋𝜌𝜊𝜄ό𝜈𝜏𝜔𝜈  sumBaseCost of products have been sold
+        int numberOfVisits = 0;     //lines of [data_views.csv]
+// Ποσοστό μετατροπών              conversionPercentage      views, which become orders : numberOfOrders/numberOfVisits = conversionPercentage
+//        double conversionPercentage = numberOfOrders/numberOfVisits;
+
+//        for (int i = 0; i < orderArray.length; i++) {
+//            String[] orderDetailsString = orderArray[i].split(",");
+//
+//            double orderTotal = Double.parseDouble(orderDetailsString[3]);
+////          String productId = shopList.get(0).getProductList().get((int) (Math.random() * shopList.get(0).getProductList().size())).getProductId();
+//            String productId =  orderDetailsString[4];
+//
+//            salesWorth += orderTotal;
+//           // baseCostSum += baseCost[i];
+//        }
+////        for(int j = 0; j < orderView.length; j++){
+////
+////        }
+//
+//        X = 0.15;            //input param - coefficient of operational costs
+//        numberOfVisits = viewArray.length;          //12883, data_views.csv
+//
+//        // 𝜇𝜄𝜅𝜏ά 𝜅έ𝜌𝛿𝜂 = 𝛼𝜉ί𝛼 𝜋𝜔𝜆ή𝜎𝜀𝜔𝜈 − 𝛼𝜉ί𝛼 𝜋𝜌𝜊𝜄ό𝜈𝜏𝜔𝜈
+//        double grossRevenue = salesWorth - baseCostSum;
+//        // λειτουργικά έξοδα = Χ ∗ αξία προιόντων
+//        double operationalCosts = X * baseCostSum;
+//        // 𝜅𝛼𝜃𝛼𝜌ά 𝜅έ𝜌𝛿𝜂 = 𝜇𝜄𝜅𝜏ά 𝜅έ𝜌𝛿𝜂 − 𝜆𝜀𝜄𝜏𝜊𝜐𝜌𝛾𝜄𝜅ά έ𝜉𝜊𝛿𝛼 =
+//        double gain = grossRevenue - operationalCosts;
+//        System.out.println("Αξια πωλήσεων" +salesWorth);
+//        System.out.println("# επισκέψεων" +numberOfVisits);
+//        System.out.println("Μικτά κέρδη" +grossRevenue);
+//        System.out.println("Λειτουργικά έξοδα" +operationalCosts);
     }
 }

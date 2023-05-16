@@ -7,11 +7,15 @@ public class UserInput {
     private String numberOfCustomers;
     private String meanOfCustomers;
     private String standardDeviationOfCustomers;
+
+    private String dataTrainingPercentage;
     private String dataProducts;
 
     private String dataOrders;
 
     private String dataViews;
+    public String data_inputNN2;
+
 
     private String inputNodesNN1;
     private String hiddenNodesNN1;
@@ -61,6 +65,14 @@ public class UserInput {
         this.standardDeviationOfCustomers = standardDeviationOfCustomers;
     }
 
+    public String getDataTrainingPercentage() {
+        return dataTrainingPercentage;
+    }
+
+    public void setDataTrainingPercentage(String dataTrainingPercentage) {
+        this.dataTrainingPercentage = dataTrainingPercentage;
+    }
+
     public String getDataProducts() {
         return dataProducts;
     }
@@ -83,6 +95,14 @@ public class UserInput {
 
     public void setDataViews(String dataViews) {
         this.dataViews = dataViews;
+    }
+
+    public String getData_inputNN2() {
+        return data_inputNN2;
+    }
+
+    public void setData_inputNN2(String data_inputNN2) {
+        this.data_inputNN2 = data_inputNN2;
     }
 
     public String getInputNodesNN1() {

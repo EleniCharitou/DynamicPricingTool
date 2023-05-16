@@ -18,6 +18,7 @@ public class DynamicPricing {
                                              String NN1InputNodes,
                                              String NN1HiddenNodes,
                                              String NN1OutputNodes,
+                                             String dataTrainingPercentage,
                                              String seed1,
                                              String nEpochs1,
                                              String nSamples1,
@@ -51,8 +52,10 @@ public class DynamicPricing {
         simulationMarketplace.createShops(shopInputList);
         //create products for every shop
         for (int k = 0; k < numberOfShops; k++) {
-            simulationMarketplace.getShopList().get(k).createProducts(productArray);
-            System.out.println("Products for shop [" + k + "]: Done");
+//            String[] poductsOfEachShop =
+            simulationMarketplace.getShopList().get(k).createProducts(productArray);    //products for each shop creation
+            //here I will call my calculations 5.7
+//simulationMarketplace.shopsComparison();
         }
 
         //export data for NN1 in csv format
@@ -83,6 +86,7 @@ public class DynamicPricing {
         //create customers with personal profiles, reading orders and views all-together
         // #TODO this csv is missing
         simulationMarketplace.readOrderViews();
+        //topothetisi productId pou agoarastike se ena apo ta shop,ean wtp <= prriceOfShop
 
 
         // #TODO 2 NN call are made here, lots of unused methods and variables
@@ -102,9 +106,10 @@ public class DynamicPricing {
         int NN1numberOfnSamples = Integer.parseInt(nSamples1);
         int NN1numberOfBatchSizes = Integer.parseInt(batchSize1);
         double NN1numberOfLearningRate1 = Double.parseDouble(learningRate1);
+        double trainingPercent = Double.parseDouble(dataTrainingPercentage);
 
 
-        NeuralNetwork neuralNetwork1 = new NeuralNetwork(NN1numberOfInputNodes, NN1numberOfHiddenNodes, NN1numberOfOutputNodes, NN1numberOfSeeds, NN1numberOfnEpochs, NN1numberOfnSamples, NN1numberOfBatchSizes, NN1numberOfLearningRate1);
+        NeuralNetwork neuralNetwork1 = new NeuralNetwork(NN1numberOfInputNodes, NN1numberOfHiddenNodes, NN1numberOfOutputNodes, trainingPercent, NN1numberOfSeeds, NN1numberOfnEpochs, NN1numberOfnSamples, NN1numberOfBatchSizes, NN1numberOfLearningRate1);
         neuralNetwork1.setWeights(NN1numberOfInputNodes, NN1numberOfHiddenNodes);
         neuralNetwork1.setWeights(NN1numberOfHiddenNodes, NN1numberOfOutputNodes);
         RegressionEvaluation regressionEvaluation1 = neuralNetwork1.trainAndEvaluateNN1();
@@ -130,7 +135,7 @@ public class DynamicPricing {
         double NN2numberOfLearningRate1 = Double.parseDouble(learningRate2);
 
 
-        NeuralNetwork neuralNetwork2 = new NeuralNetwork(NN2numberOfInputNodes, NN2numberOfHiddenNodes, NN2numberOfOutputNodes, NN2numberOfSeeds, NN2numberOfnEpochs, NN2numberOfnSamples, NN2numberOfBatchSizes, NN2numberOfLearningRate1);
+        NeuralNetwork neuralNetwork2 = new NeuralNetwork(NN2numberOfInputNodes, NN2numberOfHiddenNodes, NN2numberOfOutputNodes, trainingPercent, NN2numberOfSeeds, NN2numberOfnEpochs, NN2numberOfnSamples, NN2numberOfBatchSizes, NN2numberOfLearningRate1);
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfHiddenNodes);
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfOutputNodes);
         RegressionEvaluation regressionEvaluation2 = neuralNetwork2.trainAndEvaluateNN2();

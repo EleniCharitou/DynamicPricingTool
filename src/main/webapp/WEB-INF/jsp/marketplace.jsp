@@ -108,6 +108,12 @@
                             <label for="stdOfCustomers" class="user-label">standard deviation:</label>
                         </div>
                     </td>
+                    <td style="text-align:center;">
+                        <div class="input-group">
+                            <input type="number" class="input" id="trainingPercentage" required="" autocomplete="off">
+                            <label for="trainingPercentage" class="user-label">Percentage of training data:</label>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -223,10 +229,95 @@
                                 class="material-icons">&#xE872;</i></a>
                     </td>
                 </tr>
-                </tbody>
-            </table>
+                    <tr>
+                        <td class="data">6</td>
+                        <td class="data">5</td>
+                        <td class="data">3</td>
+                        <td class="data">true</td>
+                        <td class="data">true</td>
+                        <td class="data">5</td>
+                        <td class="data">4</td>
+                        <td class="data">-0.05</td>
+                        <td class="tableButton">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete #c62828 red darken-3" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">7</td>
+                        <td class="data">5.5</td>
+                        <td class="data">5</td>
+                        <td class="data">false</td>
+                        <td class="data">true</td>
+                        <td class="data">4</td>
+                        <td class="data">5</td>
+                        <td class="data">0.05</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">8</td>
+                        <td class="data">4</td>
+                        <td class="data">5</td>
+                        <td class="data">true</td>
+                        <td class="data">true</td>
+                        <td class="data">3</td>
+                        <td class="data">3</td>
+                        <td class="data">-0.05</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">9</td>
+                        <td class="data">5</td>
+                        <td class="data">3</td>
+                        <td class="data">true</td>
+                        <td class="data">false</td>
+                        <td class="data">5</td>
+                        <td class="data">5</td>
+                        <td class="data">-0.05</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">10</td>
+                        <td class="data">5</td>
+                        <td class="data">4</td>
+                        <td class="data">false</td>
+                        <td class="data">false</td>
+                        <td class="data">5</td>
+                        <td class="data">5</td>
+                        <td class="data">-0.03</td>
+                        <td>
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
 
         <%--Upload files--%>
@@ -311,11 +402,11 @@
         <tr>
             <td style="text-align:center" for="nn1NEpochs">nEpochs :</td>
             <td>
-                <input type="number" id="nn1NEpochs" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+                <input type="number" id="nn1NEpochs" name="nnInputs" class="nnInputs" value="15" style="width: 30%;">
             </td>
             <td style="text-align:center" for="nn2NEpochs">nEpochs :</td>
             <td>
-                <input type="number" id="nn2NEpochs" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
+                <input type="number" id="nn2NEpochs" name="nnInputs" class="nnInputs" value="15" style="width: 30%;">
             </td>
         </tr>
         <tr>
@@ -343,12 +434,12 @@
         <tr>
             <td style="text-align:center" for="nn1LearningRate">Learning Rate :</td>
             <td>
-                <input type="number" id="nn1LearningRate" name="nnInputs" class="nnInputs" value="0.000000011"
+                <input type="number" id="nn1LearningRate" name="nnInputs" class="nnInputs" value="0.003"
                        style="width: 30%;">
             </td>
             <td style="text-align:center" for="nn2LearningRate">Learning Rate :</td>
             <td>
-                <input type="number" id="nn2LearningRate" name="nnInputs" class="nnInputs" value="0.00000001"
+                <input type="number" id="nn2LearningRate" name="nnInputs" class="nnInputs" value="0.01"
                        style="width: 30%;">
             </td>
         </tr>
@@ -542,8 +633,8 @@
                     b: 50,
                     t: 65
                 },
+                title: "Ranges of price",
                 font: {size: 11},
-                title: ''
             };
             Plotly.newPlot('piePrice', data, layout);
 
@@ -576,6 +667,7 @@
                     b: 50,
                     t: 65
                 },
+                title: "Differences between price, base cost and margin",
                 font: {size: 11},
                 yaxis: {
                     type: 'log',
@@ -817,7 +909,7 @@
             let dataView = [traceViews];
             let layoutViews = {
                 width: 600,
-                title: 'Views',
+                title: 'Views time slot',
                 font: {size: 11}
             };
             let configV = {responsive: true}
@@ -941,6 +1033,7 @@
                     numberOfCustomers: $('#numOfCustomers').val(),
                     meanOfCustomers: $('#mOfCustomers').val(),
                     standardDeviationOfCustomers: $('#stdOfCustomers').val(),
+                    dataTrainingPercentage: $('#trainingPercentage').val(),
                     dataProducts: testArray[0],
                     dataOrders: testArray[1],
                     dataViews: testArray[2],
@@ -973,8 +1066,9 @@
                     let nn1Results = result[0];
                     let nn2Results = result[1];
 
-                    let newWindow = window.open();
-                    newWindow.document.write(result[0] + "\n" + result[1]);
+                    let newWindow = window.open("http://localhost:8080/history");
+
+                    // newWindow.document.write(result[0] + "\n" + result[1]);
 
                 },
                 error: function (xhr) {

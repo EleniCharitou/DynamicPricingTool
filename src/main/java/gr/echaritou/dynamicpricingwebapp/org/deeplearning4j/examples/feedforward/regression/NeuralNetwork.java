@@ -20,6 +20,9 @@ import org.nd4j.linalg.learning.config.Nesterovs;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -39,6 +42,8 @@ public class NeuralNetwork {
     private int numberOfInputNodes;
     private int numberOfHiddenNodes;
     private int numberOfOutputNodes;
+
+    private double trainingPercentage;
     private int numberOfSeeds;
 
     private int numberOfnEpochs;
@@ -48,10 +53,11 @@ public class NeuralNetwork {
     private double numberOfLearningRate;
 
     //Constructor
-    NeuralNetwork(int numberOfInputNodes, int numberOfHiddenNodes, int numberOfOutputNodes, int numberOfSeeds, int numberOfnEpochs, int numberOfnSamples, int numberOfBatchSizes, double numberOfLearningRate) {
+    NeuralNetwork(int numberOfInputNodes, int numberOfHiddenNodes, int numberOfOutputNodes, double trainingPercentage, int numberOfSeeds, int numberOfnEpochs, int numberOfnSamples, int numberOfBatchSizes, double numberOfLearningRate) {
         this.numberOfInputNodes = numberOfInputNodes;
         this.numberOfHiddenNodes = numberOfHiddenNodes;
         this.numberOfOutputNodes = numberOfOutputNodes;
+        this.trainingPercentage = trainingPercentage;
         this.numberOfSeeds = numberOfSeeds;
         this.numberOfnEpochs = numberOfnEpochs;
         this.numberOfnSamples = numberOfnSamples;
@@ -85,6 +91,14 @@ public class NeuralNetwork {
 
     public void setNumberOfOutputNodes(int newNumberOfOutputNodes) {
         this.numberOfOutputNodes = newNumberOfOutputNodes;
+    }
+
+    public double getTrainingPercentage() {
+        return trainingPercentage;
+    }
+
+    public void setTrainingPercentage(double trainingPercentage) {
+        this.trainingPercentage = trainingPercentage;
     }
 
     public int getNumberOfSeeds() {
@@ -127,11 +141,44 @@ public class NeuralNetwork {
         this.numberOfLearningRate = numberOfLearningRate;
     }
 
-    public RegressionEvaluation trainAndEvaluateNN1() throws IOException, InterruptedException {
+    public void splitDataset(String inputFile, String trainingData, String testingData, double dataTrainingPercentage) {
+//count lines of the csv file
+        inputFile = "inputNormalised_NN1.csv";
+        Path path = Paths.get(inputFile);
+        long lines = 0;
+        try {
+            lines = Files.lines(path).count();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+// split csv file in training and testing files
+        trainingData = "trainingData.csv";
+        testingData = "testingData.csv";
+        double percentage = dataTrainingPercentage;
+        try (BufferedReader br = new BufferedReader(new FileReader(inputFile));
+             FileWriter fw1 = new FileWriter(trainingData);
+             FileWriter fw2 = new FileWriter(testingData)) {
+            String line;
+            int lineNumber = 0;
+            while ((line = br.readLine()) != null) {
+                lineNumber++;
+                if (lineNumber <= lines * percentage) {
+                    fw1.write(line + "\n");
+                } else {
+                    fw2.write(line + "\n");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public RegressionEvaluation trainAndEvaluateNN1() throws IOException, InterruptedException {
+        splitDataset("inputNormalised_NN1.csv", "trainingData.csv", "testingData.csv", trainingPercentage);
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
-        rr.initialize(new FileSplit(new File("inputNormalised_NN1.csv")));
+        FileSplit fs1 = new FileSplit(new File("trainingData.csv"));
+        rr.initialize(fs1);
 
         // Main constructor for multi-label regression (i.e., regression with multiple outputs).
         // Can also be used for single output regression with labelIndexFrom == labelIndexTo
@@ -146,7 +193,8 @@ public class NeuralNetwork {
 
         //Load the test/evaluation data:
         RecordReader rrTest = new CSVRecordReader();
-        rrTest.initialize(new FileSplit(new File("inputNormalised_NN1.csv"))); //experimentData1
+        FileSplit fs2 = new FileSplit(new File("testingData.csv"));
+        rrTest.initialize(fs2); //experimentData1
         DataSetIterator testIter = new RecordReaderDataSetIterator(rrTest, numberOfBatchSizes, 1, 1, true);
 
         //build the neural network

@@ -119,6 +119,7 @@ public class HomeController {
                 userInput.getInputNodesNN1(),
                 userInput.getHiddenNodesNN1(),
                 userInput.getOutputNodesNN1(),
+                userInput.getDataTrainingPercentage(),
                 userInput.getSeedsNN1(),
                 userInput.getnEpochsNN1(),
                 userInput.getnSamplesNN1(),
@@ -146,6 +147,7 @@ public class HomeController {
                 "data_products," +
                 "data_orders," +
                 "data_views," +
+                "input_NN2," +
                 "input_fields," +
                 "result," +
                 "run_time) " +
@@ -156,6 +158,7 @@ public class HomeController {
         inputJSON.put("numberOfCustomers", userInput.getNumberOfCustomers());
         inputJSON.put("meanOfCustomers", userInput.getMeanOfCustomers());
         inputJSON.put("standardDeviationOfCustomers", userInput.getStandardDeviationOfCustomers());
+        inputJSON.put("dataTrainingPercentage", userInput.getDataTrainingPercentage());
         inputJSON.put("dataShops", userInput.getDataShops());
         inputJSON.put("inputNodesNN1", userInput.getInputNodesNN1());
         inputJSON.put("hiddenNodesNN1", userInput.getHiddenNodesNN1());
@@ -185,8 +188,9 @@ public class HomeController {
             pstmt.setString(1, userInput.getDataProducts());
             pstmt.setString(2, userInput.getDataOrders());
             pstmt.setString(3, userInput.getDataViews());
-            pstmt.setString(4, inputJSON.toString());
-            pstmt.setString(5, "stats");
+            pstmt.setString(4, userInput.getData_inputNN2());
+            pstmt.setString(5, inputJSON.toString());
+            pstmt.setString(6, "stats");
             pstmt.setString(6, String.valueOf(seconds));
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -226,6 +230,7 @@ public class HomeController {
                 dbRowJSON.put("data_products", rs.getString("data_products"));
                 dbRowJSON.put("data_orders", rs.getString("data_orders"));
                 dbRowJSON.put("data_views", rs.getString("data_views"));
+                dbRowJSON.put("input_NN2", rs.getString("input_NN2"));
                 dbRowJSON.put("input_fields", rs.getString("input_fields"));
                 dbRowJSON.put("result", rs.getString("result"));
                 dbRowJSON.put("timestamp", rs.getTimestamp("timestamp"));

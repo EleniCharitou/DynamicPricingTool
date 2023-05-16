@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Results-Stats</title>
     <%-- Bootstrap --%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -47,6 +47,10 @@
     const data_products = [];
     const data_orders = [];
     const data_views = [];
+    const input_NN2 = [];
+
+    // const training_data = [];
+    // const testing_data = [];
 
     function showInput(resultID) {
         $('#resultInput' + resultID).toggle();
@@ -54,7 +58,7 @@
 
     function download_data_products(id) {
 
-        var hiddenElement = document.createElement('a');
+        let hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(data_products[id]);
         hiddenElement.target = '_blank';
         hiddenElement.download = 'data_products_' + (id + 1) + '.csv';
@@ -63,7 +67,7 @@
 
     function download_data_views(id) {
 
-        var hiddenElement = document.createElement('a');
+        let hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(data_views[id]);
         hiddenElement.target = '_blank';
         hiddenElement.download = 'data_views_' + (id + 1) + '.csv';
@@ -72,12 +76,38 @@
 
     function download_data_orders(id) {
 
-        var hiddenElement = document.createElement('a');
+        let hiddenElement = document.createElement('a');
         hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(data_orders[id]);
         hiddenElement.target = '_blank';
         hiddenElement.download = 'data_orders_' + (id + 1) + '.csv';
         hiddenElement.click();
     }
+
+    // Read  data from input_NN2.csv, to print them in pies (recency, monetary, etc.)
+    function download_input_NN2(id) {
+        let hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(input_NN2[id]);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'input_NN2_' + (id + 1) + '.csv';
+        hiddenElement.click();
+    }
+
+    // function download_training_data(id) {
+    //
+    //     var hiddenElement = document.createElement('a');
+    //     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(training_data[id]);
+    //     hiddenElement.target = '_blank';
+    //     hiddenElement.download = 'training_data_' + (id + 1) + '.csv';
+    //     hiddenElement.click();
+    // }
+    // function download_testing_data(id) {
+    //
+    //     var hiddenElement = document.createElement('a');
+    //     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(testing_data[id]);
+    //     hiddenElement.target = '_blank';
+    //     hiddenElement.download = 'testing_data_' + (id + 1) + '.csv';
+    //     hiddenElement.click();
+    // }
 
     $(document).ready(function () {
 
@@ -90,23 +120,24 @@
 
                 const obj = JSON.parse(result);
 
-                for (var i = 0; i < obj.output.length; i++) {
+                for (let i = 0; i < obj.output.length; i++) {
 
                     data_products.push(obj.output[i].data_products);
                     data_orders.push(obj.output[i].data_orders);
                     data_views.push(obj.output[i].data_views);
+                    input_NN2.push(obj.output[i].input_NN2);
+                    // training_data.push(obj.output[i].training_data);
+                    // testing_data.push(obj.output[i].testing_data);
 
-                    var resultId = "result" + i;
-                    var resultButton = "resultBtn" + i;
-                    var resultInput = "resultInput" + i;
+                    let resultId = "result" + i;
+                    let resultButton = "resultBtn" + i;
+                    let resultInput = "resultInput" + i;
 
-                    var inputObj = JSON.parse(obj.output[i].input_fields);
+                    let inputObj = JSON.parse(obj.output[i].input_fields);
 
                     for (j in inputObj.dataShops) {
                         console.log(inputObj.dataShops[j].avgProfitDiff);
                     }
-
-
                     if (i !== 0) {
 
                         $("<div id=\"" + resultId + "\" class=\"mt-3\">" +
@@ -118,6 +149,10 @@
                             "<button onclick=\"download_data_products(" + i + ")\" class='tableResult'>Data Products</button>" +
                             "<button onclick=\"download_data_views(" + i + ")\" class='tableResult'>Data Views</button>" +
                             "<button onclick=\"download_data_orders(" + i + ")\" class='tableResult'>Data Orders</button>" +
+                            "<button onclick=\"download_input_NN2(" + i + ")\" class='tableResult'>Customers' characteristics</button>" +
+
+                            // "<button onclick=\"download_training_data(" + i + ")\" class='tableResult'>Training dataset</button>" +
+                            // "<button onclick=\"download_testing_data(" + i + ")\" class='tableResult'>Testing dataset</button>" +
                             "SeedsNN1: " + inputObj.seedsNN1 +
                             "</div>" +
                             "</div>" +
@@ -137,9 +172,13 @@
                             "<button onclick=\"download_data_products(" + i + ")\" class='tableResult'>Data Products</button>" +
                             "<button onclick=\"download_data_views(" + i + ")\" class='tableResult'>Data Views</button>" +
                             "<button onclick=\"download_data_orders(" + i + ")\" class='tableResult'>Data Orders</button>" +
+                            "<button onclick=\"download_input_NN2(" + i + ")\" class='tableResult'>Empty Customers' characteristics</button>" +
+                            // "<button onclick=\"download_training_data(" + i + ")\" class='tableResult'>Training dataset</button>" +
+                            // "<button onclick=\"download_testing_data(" + i + ")\" class='tableResult'>Testing dataset</button>" +
                             "Number of customer: " + inputObj.numberOfCustomers +
                             "Mean: " + inputObj.meanOfCustomers +
                             "Standard deviation: " + inputObj.standardDeviationOfCustomers +
+                            "Percentage of training data: " + inputObj.dataTrainingPercentage +
                             "SeedsNN1: " + inputObj.seedsNN1 +
                             "nEpochsNN1: " + inputObj.nEpochsNN1 +
                             "nSamplesNN1: " + inputObj.nSamplesNN1 +

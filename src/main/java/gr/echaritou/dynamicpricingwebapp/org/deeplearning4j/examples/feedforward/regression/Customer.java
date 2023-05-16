@@ -74,6 +74,26 @@ public class Customer {
             }
         });
     }
+//    public double getWtpByProductId(String productId) {
+//        for (int i = 0; i < orderList.size(); i++) {
+//
+//            if (customerId.equals(orderList.get(i).getCustomerId())) {
+////                return orderList.get(i).getPrice();
+//            }
+//        }
+//        System.out.println("Did not find product with id: " + productId);
+//        return -1;        }
+
+//    public double getNeuralPriceByProductId(String productId) {
+//        for (int i = 0; i < productList.size(); i++) {
+//            if (productId.equals(productList.get(i).getProductId())) {
+//                return productList.get(i).getNN1Price();
+//            }
+//        }
+//        System.out.println("Did not find product with id: " + productId);
+//        return -1;
+//    }
+//
 
 
     public double calculateRecency(int orderIndex) {    //in days
@@ -81,12 +101,16 @@ public class Customer {
             LocalDateTime lastOrder = orderList.get(orderIndex).getDatePurchasedDateFormat();
             LocalDateTime previousOrder = orderList.get(orderIndex - 1).getDatePurchasedDateFormat();
             double recency = (Duration.between(previousOrder, lastOrder).toDays());
+            System.out.println("RECENCY : " + recency);
+
             return recency;
         } else if (orderIndex == 0) {
             LocalDateTime lastOrder = orderList.get(orderIndex).getDatePurchasedDateFormat();
             //if it is customer's first order it is supposed that his previous order was a year ago
             LocalDateTime previousOrder = orderList.get(orderIndex).getDatePurchasedDateFormat().minusYears(1);
             double recency = (Duration.between(previousOrder, lastOrder).toDays());
+            System.out.println("recency : " + recency);
+
             return recency;
         }
         return -1;
