@@ -185,6 +185,7 @@ public class HomeController {
             // create a connection to the database
             Connection conn = DriverManager.getConnection(url);
             PreparedStatement pstmt = conn.prepareStatement(sql);
+//read csv file input_NN2.csv here   br =  |https://stackoverflow.com/questions/40548804/import-csv-into-sqlite-in-java
             pstmt.setString(1, userInput.getDataProducts());
             pstmt.setString(2, userInput.getDataOrders());
             pstmt.setString(3, userInput.getDataViews());
