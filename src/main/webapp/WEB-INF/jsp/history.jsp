@@ -45,8 +45,8 @@
 <script>
 
     const data_products = [];
-    const data_orders = [];
     const data_views = [];
+    const data_orders = [];
     const input_NN2 = [];
 
     // const training_data = [];
