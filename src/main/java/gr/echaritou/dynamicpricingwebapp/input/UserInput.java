@@ -14,8 +14,6 @@ public class UserInput {
     private String dataOrders;
 
     private String dataViews;
-    public String data_inputNN2;
-
 
     private String inputNodesNN1;
     private String hiddenNodesNN1;
@@ -95,14 +93,6 @@ public class UserInput {
 
     public void setDataViews(String dataViews) {
         this.dataViews = dataViews;
-    }
-
-    public String getData_inputNN2() {
-        return data_inputNN2;
-    }
-
-    public void setData_inputNN2(String data_inputNN2) {
-        this.data_inputNN2 = data_inputNN2;
     }
 
     public String getInputNodesNN1() {

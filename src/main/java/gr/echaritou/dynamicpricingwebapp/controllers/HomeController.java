@@ -147,7 +147,6 @@ public class HomeController {
                 "data_products," +
                 "data_orders," +
                 "data_views," +
-                "input_NN2," +
                 "input_fields," +
                 "result," +
                 "run_time) " +
@@ -185,13 +184,11 @@ public class HomeController {
             // create a connection to the database
             Connection conn = DriverManager.getConnection(url);
             PreparedStatement pstmt = conn.prepareStatement(sql);
-//read csv file input_NN2.csv here   br =  |https://stackoverflow.com/questions/40548804/import-csv-into-sqlite-in-java
             pstmt.setString(1, userInput.getDataProducts());
             pstmt.setString(2, userInput.getDataOrders());
             pstmt.setString(3, userInput.getDataViews());
-            pstmt.setString(4, userInput.getData_inputNN2());
-            pstmt.setString(5, inputJSON.toString());
-            pstmt.setString(6, "stats");
+            pstmt.setString(4, inputJSON.toString());
+            pstmt.setString(5, "stats");
             pstmt.setString(6, String.valueOf(seconds));
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -231,7 +228,6 @@ public class HomeController {
                 dbRowJSON.put("data_products", rs.getString("data_products"));
                 dbRowJSON.put("data_orders", rs.getString("data_orders"));
                 dbRowJSON.put("data_views", rs.getString("data_views"));
-                dbRowJSON.put("input_NN2", rs.getString("input_NN2"));
                 dbRowJSON.put("input_fields", rs.getString("input_fields"));
                 dbRowJSON.put("result", rs.getString("result"));
                 dbRowJSON.put("timestamp", rs.getTimestamp("timestamp"));

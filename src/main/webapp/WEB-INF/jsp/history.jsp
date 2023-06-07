@@ -83,14 +83,14 @@
         hiddenElement.click();
     }
 
-    // Read  data from input_NN2.csv, to print them in pies (recency, monetary, etc.)
-    function download_input_NN2(id) {
-        let hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(input_NN2[id]);
-        hiddenElement.target = '_blank';
-        hiddenElement.download = 'input_NN2_' + (id + 1) + '.csv';
-        hiddenElement.click();
-    }
+    // // Read  data from input_NN2.csv, to print them in pies (recency, monetary, etc.)
+    // function download_input_NN2(id) {
+    //     let hiddenElement = document.createElement('a');
+    //     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(input_NN2[id]);
+    //     hiddenElement.target = '_blank';
+    //     hiddenElement.download = 'input_NN2_' + (id + 1) + '.csv';
+    //     hiddenElement.click();
+    // }
 
     // function download_training_data(id) {
     //
@@ -125,7 +125,7 @@
                     data_products.push(obj.output[i].data_products);
                     data_orders.push(obj.output[i].data_orders);
                     data_views.push(obj.output[i].data_views);
-                    input_NN2.push(obj.output[i].input_NN2);
+                    // input_NN2.push(obj.output[i].input_NN2);
                     // training_data.push(obj.output[i].training_data);
                     // testing_data.push(obj.output[i].testing_data);
 
@@ -149,7 +149,7 @@
                             "<button onclick=\"download_data_products(" + i + ")\" class='tableResult'>Data Products</button>" +
                             "<button onclick=\"download_data_views(" + i + ")\" class='tableResult'>Data Views</button>" +
                             "<button onclick=\"download_data_orders(" + i + ")\" class='tableResult'>Data Orders</button>" +
-                            "<button onclick=\"download_input_NN2(" + i + ")\" class='tableResult'>Customers' characteristics</button>" +
+                            // "<button onclick=\"download_input_NN2(" + i + ")\" class='tableResult'>Customers' characteristics</button>" +
 
                             // "<button onclick=\"download_training_data(" + i + ")\" class='tableResult'>Training dataset</button>" +
                             // "<button onclick=\"download_testing_data(" + i + ")\" class='tableResult'>Testing dataset</button>" +
