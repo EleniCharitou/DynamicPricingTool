@@ -36,20 +36,9 @@ public class ServletInitializer extends SpringBootServletInitializer {
                 + " input_fields text NOT NULL,\n"
                 + " result text NOT NULL,\n"
                 + " timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,\n"
-                + " run_time text NOT NULL\n"
+                + " run_time text NOT NULL,\n"
+                + " customer_data text NOT NULL\n"
                 + ");";
-
-        String sql2 = "CREATE TABLE IF NOT EXISTS customer_char (\n"
-                + " id integer PRIMARY KEY,\n"
-                + " neuralPrice text NOT NULL,\n"
-                + " recency text NOT NULL,\n"
-                + " frequency text NOT NULL,\n"
-                + " monetary text NOT NULL,\n"
-                + " pageViews text NOT NULL,\n"
-                + " timeSpent text NOT NULL,\n"
-                + " personalPrice text NOT NULL\n"
-                + ");";
-        String deleteData = "DELETE FROM customer_char";
 
 
         try {
@@ -61,8 +50,6 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
             Statement stmt = conn.createStatement();
             stmt.execute(sql1);
-            stmt.execute(sql2);
-            stmt.execute(deleteData);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

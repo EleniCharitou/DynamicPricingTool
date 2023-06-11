@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -134,6 +137,8 @@ public class HomeController {
                 userInput.getBatchSizeNN2(),
                 userInput.getLearningRateNN2());
 
+        String inputNN2 = new String(Files.readAllBytes(Paths.get("input_NN2.csv")), StandardCharsets.UTF_8);
+
         long endTime = System.currentTimeMillis();
         long seconds = (endTime - startTime) / 1000;
 
@@ -149,8 +154,9 @@ public class HomeController {
                 "data_views," +
                 "input_fields," +
                 "result," +
-                "run_time) " +
-                "VALUES(?,?,?,?,?,?)";
+                "run_time," +
+                "customer_data) " +
+                "VALUES(?,?,?,?,?,?,?)";
 
         JSONObject inputJSON = new JSONObject();
 
@@ -188,8 +194,10 @@ public class HomeController {
             pstmt.setString(2, userInput.getDataOrders());
             pstmt.setString(3, userInput.getDataViews());
             pstmt.setString(4, inputJSON.toString());
-            pstmt.setString(5, "stats");
+            pstmt.setString(5, stats.toString());
             pstmt.setString(6, String.valueOf(seconds));
+            pstmt.setString(7, inputNN2);
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -232,6 +240,7 @@ public class HomeController {
                 dbRowJSON.put("result", rs.getString("result"));
                 dbRowJSON.put("timestamp", rs.getTimestamp("timestamp"));
                 dbRowJSON.put("run_time", rs.getString("run_time"));
+                dbRowJSON.put("customer_data", rs.getString("customer_data"));
 
                 arrayJSON.put(dbRowJSON);
 

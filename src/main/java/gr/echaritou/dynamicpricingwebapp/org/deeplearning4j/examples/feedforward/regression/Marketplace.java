@@ -3,9 +3,6 @@ package gr.echaritou.dynamicpricingwebapp.org.deeplearning4j.examples.feedforwar
 import gr.echaritou.dynamicpricingwebapp.input.ShopInput;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -408,19 +405,6 @@ public class Marketplace {
         String cvsSplitBy = ",";    //use comma as separator
 
         try {
-            String sql = "INSERT INTO customer_char(" +
-                    "neuralPrice," +
-                    "recency," +
-                    "frequency," +
-                    "monetary," +
-                    "pageViews," +
-                    "timeSpent," +
-                    "personalPrice) " +
-                    "VALUES(?,?,?,?,?,?,?)";
-            // use your dbname instead
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:history.db");
-            System.out.println("Connection to SQLiteCustomer has been established.");
-            PreparedStatement stmt = conn.prepareStatement(sql);
 
             if (NNid == 1) {
                 br = new BufferedReader(new FileReader("input_NN1.csv"));
@@ -434,21 +418,6 @@ public class Marketplace {
 
                 //read data
                 String[] dataString = line.split(cvsSplitBy);
-
-                if (NNid == 2) {
-                    // set values to replace question marks in prepared statement
-                    stmt.setString(1, dataString[0]);
-                    stmt.setString(2, dataString[1]);
-                    stmt.setString(3, dataString[2]);
-                    stmt.setString(4, dataString[3]);
-                    stmt.setString(5, dataString[4]);
-                    stmt.setString(6, dataString[5]);
-                    stmt.setString(7, dataString[6]);
-                    // so, know your statement is like insert into ... values (table[0], table[1], table[2])
-                    // and maybe add other fields...
-//                stmt.executeUpdate(); // insert data into table
-                    stmt.executeUpdate();
-                }
                 double[] dataDouble = Arrays.stream(dataString).mapToDouble(Double::parseDouble).toArray();
 
                 counter++;
@@ -479,8 +448,6 @@ public class Marketplace {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         } finally {
             if (br != null) {
                 try {

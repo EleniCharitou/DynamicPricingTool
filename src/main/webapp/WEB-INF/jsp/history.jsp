@@ -113,7 +113,6 @@
             success: function (result) {
 
                 const obj = JSON.parse(result);
-                console.log(obj.output1.length);
 
                 for (let i = 0; i < obj.output.length; i++) {
 
@@ -150,9 +149,6 @@
                             // "<button onclick=\"download_testing_data(" + i + ")\" class='tableResult'>Testing dataset</button>" +
                             "SeedsNN1: " + inputObj.seedsNN1 +
                             //pie recency
-
-
-                            //pie recency
                             "</div>" +
                             "</div>" +
                             "<br>").insertAfter($('#result' + (i - 1)));
@@ -171,7 +167,6 @@
                             "<button onclick=\"download_data_products(" + i + ")\" class='tableResult'>Data Products</button>" +
                             "<button onclick=\"download_data_views(" + i + ")\" class='tableResult'>Data Views</button>" +
                             "<button onclick=\"download_data_orders(" + i + ")\" class='tableResult'>Data Orders</button>" +
-                            "<button onclick=\"download_input_NN2(" + i + ")\" class='tableResult'>Empty Customers' characteristics</button>" +
                             // "<button onclick=\"download_training_data(" + i + ")\" class='tableResult'>Training dataset</button>" +
                             // "<button onclick=\"download_testing_data(" + i + ")\" class='tableResult'>Testing dataset</button>" +
                             "Number of customer: " + inputObj.numberOfCustomers +
