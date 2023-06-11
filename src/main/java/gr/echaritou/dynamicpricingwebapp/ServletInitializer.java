@@ -28,7 +28,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
     public void doSomethingAfterStartup() {
 
         Connection conn = null;
-        String sql = "CREATE TABLE IF NOT EXISTS history (\n"
+        String sql1 = "CREATE TABLE IF NOT EXISTS history (\n"
                 + " id integer PRIMARY KEY,\n"
                 + " data_products text NOT NULL,\n"
                 + " data_orders text NOT NULL,\n"
@@ -39,16 +39,30 @@ public class ServletInitializer extends SpringBootServletInitializer {
                 + " run_time text NOT NULL\n"
                 + ");";
 
+        String sql2 = "CREATE TABLE IF NOT EXISTS customer_char (\n"
+                + " id integer PRIMARY KEY,\n"
+                + " neuralPrice text NOT NULL,\n"
+                + " recency text NOT NULL,\n"
+                + " frequency text NOT NULL,\n"
+                + " monetary text NOT NULL,\n"
+                + " pageViews text NOT NULL,\n"
+                + " timeSpent text NOT NULL,\n"
+                + " personalPrice text NOT NULL\n"
+                + ");";
+        String deleteData = "DELETE FROM customer_char";
+
+
         try {
             // db parameters
             String url = "jdbc:sqlite:history.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
-
             System.out.println("Connection to SQLite has been established.");
 
             Statement stmt = conn.createStatement();
-            stmt.execute(sql);
+            stmt.execute(sql1);
+            stmt.execute(sql2);
+            stmt.execute(deleteData);
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -101,7 +101,6 @@ public class Customer {
             LocalDateTime lastOrder = orderList.get(orderIndex).getDatePurchasedDateFormat();
             LocalDateTime previousOrder = orderList.get(orderIndex - 1).getDatePurchasedDateFormat();
             double recency = (Duration.between(previousOrder, lastOrder).toDays());
-            System.out.println("RECENCY : " + recency);
 
             return recency;
         } else if (orderIndex == 0) {
@@ -109,7 +108,6 @@ public class Customer {
             //if it is customer's first order it is supposed that his previous order was a year ago
             LocalDateTime previousOrder = orderList.get(orderIndex).getDatePurchasedDateFormat().minusYears(1);
             double recency = (Duration.between(previousOrder, lastOrder).toDays());
-            System.out.println("recency : " + recency);
 
             return recency;
         }

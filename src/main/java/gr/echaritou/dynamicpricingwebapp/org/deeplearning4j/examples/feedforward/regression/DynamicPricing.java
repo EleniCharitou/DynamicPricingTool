@@ -4,6 +4,7 @@ import gr.echaritou.dynamicpricingwebapp.input.ShopInput;
 import org.deeplearning4j.eval.RegressionEvaluation;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DynamicPricing {
@@ -31,7 +32,7 @@ public class DynamicPricing {
                                              String nEpochs2,
                                              String nSamples2,
                                              String batchSize2,
-                                             String learningRate2) throws IOException, InterruptedException {
+                                             String learningRate2) throws IOException, InterruptedException, SQLException {
 
         String[] productArray = dataProducts.split("\\r?\\n");
         String[] orderArray = dataOrders.split("\\r?\\n");

@@ -105,7 +105,7 @@ public class HomeController {
             produces = MediaType.APPLICATION_JSON_VALUE)
 
     @ResponseBody
-    public List<String> getUserInput(@RequestBody UserInput userInput) throws IOException, InterruptedException {
+    public List<String> getUserInput(@RequestBody UserInput userInput) throws IOException, InterruptedException, SQLException {
 
         long startTime = System.currentTimeMillis();
 
@@ -239,7 +239,6 @@ public class HomeController {
 
 
             outputJSON.put("output", arrayJSON);
-            System.out.println("test");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -18,6 +18,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
     <%--CSS--%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vscStyle.css">
+    <%--plotly.js   PIE--%>
+    <script src='https://cdn.plot.ly/plotly-2.18.2.min.js'></script>
 
 
 </head>
@@ -83,14 +85,6 @@
         hiddenElement.click();
     }
 
-    // // Read  data from input_NN2.csv, to print them in pies (recency, monetary, etc.)
-    // function download_input_NN2(id) {
-    //     let hiddenElement = document.createElement('a');
-    //     hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(input_NN2[id]);
-    //     hiddenElement.target = '_blank';
-    //     hiddenElement.download = 'input_NN2_' + (id + 1) + '.csv';
-    //     hiddenElement.click();
-    // }
 
     // function download_training_data(id) {
     //
@@ -119,6 +113,7 @@
             success: function (result) {
 
                 const obj = JSON.parse(result);
+                console.log(obj.output1.length);
 
                 for (let i = 0; i < obj.output.length; i++) {
 
@@ -154,6 +149,10 @@
                             // "<button onclick=\"download_training_data(" + i + ")\" class='tableResult'>Training dataset</button>" +
                             // "<button onclick=\"download_testing_data(" + i + ")\" class='tableResult'>Testing dataset</button>" +
                             "SeedsNN1: " + inputObj.seedsNN1 +
+                            //pie recency
+
+
+                            //pie recency
                             "</div>" +
                             "</div>" +
                             "<br>").insertAfter($('#result' + (i - 1)));
