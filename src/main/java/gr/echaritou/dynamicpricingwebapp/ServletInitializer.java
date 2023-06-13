@@ -37,6 +37,8 @@ public class ServletInitializer extends SpringBootServletInitializer {
                 + " result text NOT NULL,\n"
                 + " timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,\n"
                 + " run_time text NOT NULL,\n"
+                + " training_data text NOT NULL,\n"
+                + " testing_data text NOT NULL,\n"
                 + " customer_data text NOT NULL\n"
                 + ");";
 

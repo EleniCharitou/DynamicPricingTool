@@ -139,6 +139,8 @@ public class HomeController {
 
         String inputNN2 = new String(Files.readAllBytes(Paths.get("input_NN2.csv")), StandardCharsets.UTF_8);
 
+        String training_data = new String(Files.readAllBytes(Paths.get("trainingData.csv")), StandardCharsets.UTF_8);
+        String testing_data = new String(Files.readAllBytes(Paths.get("testingData.csv")), StandardCharsets.UTF_8);
         long endTime = System.currentTimeMillis();
         long seconds = (endTime - startTime) / 1000;
 
@@ -155,8 +157,10 @@ public class HomeController {
                 "input_fields," +
                 "result," +
                 "run_time," +
+                "training_data," +
+                "testing_data," +
                 "customer_data) " +
-                "VALUES(?,?,?,?,?,?,?)";
+                "VALUES(?,?,?,?,?,?,?,?,?)";
 
         JSONObject inputJSON = new JSONObject();
 
@@ -196,7 +200,9 @@ public class HomeController {
             pstmt.setString(4, inputJSON.toString());
             pstmt.setString(5, stats.toString());
             pstmt.setString(6, String.valueOf(seconds));
-            pstmt.setString(7, inputNN2);
+            pstmt.setString(7, training_data);
+            pstmt.setString(8, testing_data);
+            pstmt.setString(9, inputNN2);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -240,6 +246,8 @@ public class HomeController {
                 dbRowJSON.put("result", rs.getString("result"));
                 dbRowJSON.put("timestamp", rs.getTimestamp("timestamp"));
                 dbRowJSON.put("run_time", rs.getString("run_time"));
+                dbRowJSON.put("training_data", rs.getString("training_data"));
+                dbRowJSON.put("testing_data", rs.getString("testing_data"));
                 dbRowJSON.put("customer_data", rs.getString("customer_data"));
 
                 arrayJSON.put(dbRowJSON);

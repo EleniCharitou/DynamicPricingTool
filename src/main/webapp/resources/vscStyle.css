@@ -490,3 +490,9 @@ body {
 .tableResult {
     margin: 0.5%;
 }
+
+.piesDisplay {
+    margin: 0.5%;
+    display: flex;
+    justify-content: space-around;
+}

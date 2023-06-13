@@ -920,9 +920,6 @@
 
             //gets table
             let oTable = document.getElementById('tableOfShops');
-            /*
-                        console.log(oTable);
-            */
 
             let oCells = oTable.rows.item(0).cells;
 
@@ -939,7 +936,6 @@
 
             //gets rows of table
             let rowLength = oTable.rows.length;
-
 
             let tableContents = [];
 
@@ -962,12 +958,7 @@
                     cellVal = oCells.item(j).innerHTML;
                     tempRow.push(cellVal);
 
-                    /*
-                                        console.log("Value of j is: " + j + " | value of cell is: " + cellVal);
-                    */
                 }
-
-                /*console.log("ΓΡΑΜΜΗ ΠΙΝΑΚΑ: " + tempRow);*/
 
                 let tempObj = {
                     numberOfShops: tempRow[0],
@@ -980,46 +971,7 @@
                     avgProfitDiff: tempRow[7]
                 }
 
-                /*console.log(tempObj);*/
-
-
                 tableContents.push(tempObj);
-
-                /*console.log("ΠΙΝΑΚΑΣ ΜΕΧΡΙ ΤΩΡΑ: " + tableContents);
-
-                console.log(JSON.stringify({
-                    dataProducts: testArray[0],
-                    dataOrders: testArray[1],
-                    dataViews: testArray[2],
-                    dataShops: tableContents
-
-                }));
-                console.log("ΠΙΝΑΚΑΣ wtp: " + testArray);*/
-
-
-                /*console.log(JSON.stringify({
-                    NN1InputNodes: $('#nn1InputNodes').val(),
-                    NN1HiddenNodes: $('#nn1HiddenNodes').val(),
-                    NN1OutputNodes: $('#nn1OutputNodes').val()
-                }));
-                console.log(JSON.stringify({
-                    NN2InputNodes: $('#nn2InputNodes').val(),
-                    NN2HiddenNodes: $('#nn2HiddenNodes').val(),
-                    NN2OutputNodes: $('#nn2OutputNodes').val()
-                }));
-                console.log(JSON.stringify({
-                    seed1: $('#nn1Seed').val(),
-                    nEpochs1: $('#nn1NEpochs').val(),
-                    nSamples1: $('#nn1NSamples').val(),
-                    batchSize1: $('#nn1BatchSize').val(),
-                    learningRate1: $('#nn1LearningRate').val(),
-                    seed2: $('#nn2Seed').val(),
-                    nEpochs2: $('#nn2NEpochs').val(),
-                    nSamples2: $('#nn2NSamples').val(),
-                    batchSize2: $('#nn2BatchSize').val(),
-                    learningRate2: $('#nn2LearningRate').val()
-                }));*/
-
 
             }
 
