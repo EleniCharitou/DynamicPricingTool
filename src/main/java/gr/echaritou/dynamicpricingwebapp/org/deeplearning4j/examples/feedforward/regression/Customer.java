@@ -23,6 +23,19 @@ public class Customer {
     //variables	for	2nd	NN
     private String customerId;
 
+    private final List<Product> productList = new ArrayList<Product>();
+
+    public double[] getWtpArray() {
+        return wtpArray;
+    }
+
+    public void setWtpArray(double[] wtpArray) {
+        this.wtpArray = wtpArray;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
 
     //Constructors
     Customer() {
@@ -74,27 +87,6 @@ public class Customer {
             }
         });
     }
-//    public double getWtpByProductId(String productId) {
-//        for (int i = 0; i < orderList.size(); i++) {
-//
-//            if (customerId.equals(orderList.get(i).getCustomerId())) {
-////                return orderList.get(i).getPrice();
-//            }
-//        }
-//        System.out.println("Did not find product with id: " + productId);
-//        return -1;        }
-
-//    public double getNeuralPriceByProductId(String productId) {
-//        for (int i = 0; i < productList.size(); i++) {
-//            if (productId.equals(productList.get(i).getProductId())) {
-//                return productList.get(i).getNN1Price();
-//            }
-//        }
-//        System.out.println("Did not find product with id: " + productId);
-//        return -1;
-//    }
-//
-
 
     public double calculateRecency(int orderIndex) {    //in days
         if (orderIndex > 0) {

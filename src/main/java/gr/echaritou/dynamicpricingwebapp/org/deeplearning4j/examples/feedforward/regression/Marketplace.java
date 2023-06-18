@@ -141,34 +141,34 @@ public class Marketplace {
             //check product existence in database
             //if (checkProductIndex(productId) != -1) {
 
-                //check customer existence
-                int customerIndex = checkCustomerIndex(customerId);
+            //check customer existence
+            int customerIndex = checkCustomerIndex(customerId);
 
-                //case: customer doesn't exist, no orders
-                if (customerIndex == -1) {
-                    Customer newCustomer = new Customer(customerId);
+            //case: customer doesn't exist, no orders
+            if (customerIndex == -1) {
+                Customer newCustomer = new Customer(customerId);
+                Order newOrder = new Order(orderId, datePurchased, customerId, orderTotal, productId);
+                newCustomer.addOrder(newOrder);
+                customerList.add(newCustomer);
+            } else {
+                //check order existence
+                int orderIndex = checkOrderIndex(orderId, customerIndex);
+
+                //case: customer exists, order doesn't exist
+                if (orderIndex == -1) {
                     Order newOrder = new Order(orderId, datePurchased, customerId, orderTotal, productId);
-                    newCustomer.addOrder(newOrder);
-                    customerList.add(newCustomer);
+                    newOrder.addProduct(productId);
+                    customerList.get(customerIndex).addOrder(newOrder);
+                    //case: customer exists, order exists, add product
                 } else {
-                    //check order existence
-                    int orderIndex = checkOrderIndex(orderId, customerIndex);
-
-                    //case: customer exists, order doesn't exist
-                    if (orderIndex == -1) {
-                        Order newOrder = new Order(orderId, datePurchased, customerId, orderTotal, productId);
-                        newOrder.addProduct(productId);
-                        customerList.get(customerIndex).addOrder(newOrder);
-                        //case: customer exists, order exists, add product
-                    } else {
-                        customerList.get(customerIndex)
-                                .getOrderList()
-                                .get(orderIndex)
-                                .addProduct(productId);
-                    }
+                    customerList.get(customerIndex)
+                            .getOrderList()
+                            .get(orderIndex)
+                            .addProduct(productId);
                 }
-                //}
             }
+            //}
+        }
 
         //sort orders chronologically
         for (int i = 0; i < customerList.size(); i++) {
@@ -260,7 +260,7 @@ public class Marketplace {
     public int checkOrderIndex(String orderId, int customerIndex) {
 
         if (customerList.get(customerIndex).getOrderList().size() == 0) {
-            //System.out.println("Order not found");
+            System.out.println("Order not found");
             return -1;
         }
 
@@ -542,14 +542,14 @@ public class Marketplace {
             //case: customer doesn't exist, no orders
             if (customerIndex == -1) {
                 //do nothing
-                    //case: customer exists
-                } else {
-                    boolean sorted = customerList.get(customerIndex).sortView(dateViewed);
-                    if (sorted == false) {
-                        System.out.println("Error in sorting customer views.");
-                    }
+                //case: customer exists
+            } else {
+                boolean sorted = customerList.get(customerIndex).sortView(dateViewed);
+                if (sorted == false) {
+                    System.out.println("Error in sorting customer views.");
                 }
             }
+        }
         System.out.println("Orders: done");
 
         //after reading all timestamps from data_views file estimate total time of sessions before every order
@@ -633,96 +633,72 @@ public class Marketplace {
         }
     }
 
-
-    public void shopsComparison() {    // double X, I will utilize it later, it's percentage
-        double X = 0.15;
-        int randomShop = 0;
-        double shopPrice = 0;
-        double customerWTP = 35.5;
-        double[][] shopsComparison = new double[10][];
+    public void shopsComparison() {
         String line = "";
         String cvsSplitBy = ",";
+        String[] orderViews = new String[0];
+        List<List<String>> records = new ArrayList<>();
+
+        int randomShop = 0;   //random shop from 1 to 10
+        int randomProductId = 0;   //random from 1 to 12883
+        String randomProduct = " ";            //string-productId from the random product
+        String[] randomRecord = new String[0];
+        double shopPrice = 0;
+
+        int randomCustomer = 0;   // choose randomly one from 1000 customers
+        double customerWTP = 0;
+
+        int failure = 0;
         try (
                 BufferedReader br = new BufferedReader(new FileReader("orderViews.csv"));
         ) {
             while ((line = br.readLine()) != null) {
                 //read data
-                String[] orderDetailsString = line.split(cvsSplitBy);
-                String orderId = orderDetailsString[0];
-//                String datePurchased = orderDetailsString[1];
-                String customId = orderDetailsString[2];
-//                double orderTotal = Double.parseDouble(orderDetailsString[3]);
-                String productId = orderDetailsString[4];
-//                double timeSpent = Double.parseDouble(orderDetailsString[5]);
-//                int pageViews = (int) Double.parseDouble(orderDetailsString[6]);
-
-                for (int i = 0; i < productId.length(); i++) {
-//                    String productId = shopList.get(0).getProductList().get((int) (Math.random() * shopList.get(0).getProductList().size())).getProductId();
-                    randomShop = new Random().nextInt(9 - 0 + 1) + 0;   //random shop from 1 to 10
-                    System.out.println("# of shop: " + randomShop);
-                    shopPrice = shopList.get(randomShop).getPriceByProductId(productId) * shopList.get(randomShop).getAverageProfitDifference();     //price of this shop baseCost*avgProfit
-                    // baseCost + (baseCost* avgProfit);    maybe price is already calculated, to check this
-//                    double[] customerWTP = customerList.get(i).getWtp();        //   skaei--BOOM
-//                    getWtpByProductId // maybe If I create this in Customer.java, is easier
-
-                    customerWTP = 56.4;
-                    while (customerWTP < shopPrice) {
-                        shopsComparison[randomShop][0]++;    //views of the shop
-                        shopsComparison[randomShop][1]++;    //orders of the shop
-                        shopsComparison[randomShop][2] += shopPrice;    //shop's sum of sales
-                        shopsComparison[randomShop][3]++;    //shop's sum of base cost of the product
-                    }
-                    //case, where all shops sale this product more expensive than the wtp of the customer, keep the cheaper shop
-
-//                    shopsComparison[4][randomShop]= 23;//shopsComparison[2][randomShop]-shopsComparison[3][randomShop];    //gains of the shop:  shopsComparison[2][numberOfShop]-shopsComparison[3][numberOfShop]
-                }
-
+                orderViews = line.split(cvsSplitBy);
+                records.add(Arrays.asList(orderViews));
             }
-            System.out.println("views: " + Arrays.deepToString(shopsComparison));
-//            System.out.println("orders: " + Arrays.toString(shopsComparison[1]));
-//            System.out.println("sum : " +shopsComparison[2]);
-//            System.out.println("base Cost: " +shopsComparison[3]);
-//            System.out.println("gain: " +shopsComparison[4]);
+
+            double[][] shopsComparison = new double[0][];
+            for (int j = 0; j <= 200; j++) {
+                randomShop = new Random().nextInt(9 - 0 + 1) + 0;   //random shop from 1 to 10
+                randomProductId = new Random().nextInt(numberOfProducts);   //random from 1 to 12883
+                randomProduct = records.get(randomProductId).toString();            //string-productId from the random product
+                randomRecord = randomProduct.split(", ");
+                shopPrice = shopList.get(randomShop).getPriceByProductId(randomRecord[4]) + (shopList.get(randomShop).getPriceByProductId(randomRecord[4]) * shopList.get(randomShop).getAverageProfitDifference());
+
+                randomCustomer = new Random().nextInt(numberOfCustomers);   // choose randomly one from 1000 customers
+                customerWTP = customerList.get(randomCustomer).getWtpArray()[randomProductId];
+                shopsComparison = new double[10][6];
+                shopsComparison[randomShop][0]++;       //number of visits
+                if (customerWTP >= shopPrice) {
+                    shopsComparison[randomShop][1]++;        //number of sales
+                    shopsComparison[randomShop][3] = shopsComparison[randomShop][3] + shopList.get(randomShop).getPriceByProductId(randomRecord[4]);          //baseCost of sales
+                    shopsComparison[randomShop][4] = shopsComparison[randomShop][4] + shopPrice;
+                    shopsComparison[randomShop][2] = shopsComparison[randomShop][1] / shopsComparison[randomShop][0];       //numberOfSales/numberOfVisits = conversionPercentage
+                    shopsComparison[randomShop][5] = shopsComparison[randomShop][4] - shopsComparison[randomShop][3];     // kathara kerdh
+                } else {
+                    //repeat
+                    failure++;
+                    //choose another shop and check prices
+                    randomShop = new Random().nextInt(9 - 0 + 1) + 0;   //random shop from 1 to 10
+                }
+            }
+            System.out.println("failure:   ");
+            System.out.println(failure);
 
 
+            //take 200 customers [customerId], because they already have made an order, so they have personal profile
+            // for(int i=0; i<=200; i++){
+
+            // }
+            //shopPrice = shopList.get(randomPersonalCustomer).getPriceByProductId(productId) * shopList.get(randomPersonalCustomer).getAverageProfitDifference();     //price of this shop baseCost*avgProfit
+            System.out.println(customerWTP);
+            System.out.println(Arrays.deepToString(shopsComparison));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        double salesWorth = 0;      // 𝛼𝜉ί𝛼 𝜋𝜔𝜆ή𝜎𝜀𝜔𝜈 orderTotalSum
-        double baseCostSum = 0;     //𝛼𝜉ί𝛼 𝜋𝜌𝜊𝜄ό𝜈𝜏𝜔𝜈  sumBaseCost of products have been sold
-        int numberOfVisits = 0;     //lines of [data_views.csv]
-// Ποσοστό μετατροπών              conversionPercentage      views, which become orders : numberOfOrders/numberOfVisits = conversionPercentage
-//        double conversionPercentage = numberOfOrders/numberOfVisits;
-
-//        for (int i = 0; i < orderArray.length; i++) {
-//            String[] orderDetailsString = orderArray[i].split(",");
-//
-//            double orderTotal = Double.parseDouble(orderDetailsString[3]);
-////          String productId = shopList.get(0).getProductList().get((int) (Math.random() * shopList.get(0).getProductList().size())).getProductId();
-//            String productId =  orderDetailsString[4];
-//
-//            salesWorth += orderTotal;
-//           // baseCostSum += baseCost[i];
-//        }
-////        for(int j = 0; j < orderView.length; j++){
-////
-////        }
-//
-//        X = 0.15;            //input param - coefficient of operational costs
-//        numberOfVisits = viewArray.length;          //12883, data_views.csv
-//
-//        // 𝜇𝜄𝜅𝜏ά 𝜅έ𝜌𝛿𝜂 = 𝛼𝜉ί𝛼 𝜋𝜔𝜆ή𝜎𝜀𝜔𝜈 − 𝛼𝜉ί𝛼 𝜋𝜌𝜊𝜄ό𝜈𝜏𝜔𝜈
-//        double grossRevenue = salesWorth - baseCostSum;
-//        // λειτουργικά έξοδα = Χ ∗ αξία προιόντων
-//        double operationalCosts = X * baseCostSum;
-//        // 𝜅𝛼𝜃𝛼𝜌ά 𝜅έ𝜌𝛿𝜂 = 𝜇𝜄𝜅𝜏ά 𝜅έ𝜌𝛿𝜂 − 𝜆𝜀𝜄𝜏𝜊𝜐𝜌𝛾𝜄𝜅ά έ𝜉𝜊𝛿𝛼 =
-//        double gain = grossRevenue - operationalCosts;
-//        System.out.println("Αξια πωλήσεων" +salesWorth);
-//        System.out.println("# επισκέψεων" +numberOfVisits);
-//        System.out.println("Μικτά κέρδη" +grossRevenue);
-//        System.out.println("Λειτουργικά έξοδα" +operationalCosts);
+        System.out.println("End of comparison");
     }
 }

@@ -56,9 +56,8 @@ public class DynamicPricing {
 //            String[] poductsOfEachShop =
             simulationMarketplace.getShopList().get(k).createProducts(productArray);    //products for each shop creation
             //here I will call my calculations 5.7
-//simulationMarketplace.shopsComparison();
-        }
 
+        }
         //export data for NN1 in csv format
         simulationMarketplace.exportNN1DataCSV();
         simulationMarketplace.dataNormaliserCSV(10, 1);
@@ -80,6 +79,7 @@ public class DynamicPricing {
         //read views and combine them with order information
         // #TODO this csv is missing
         simulationMarketplace.readViews(viewArray);
+        simulationMarketplace.shopsComparison();
 
 
         //Case 3:
@@ -140,6 +140,7 @@ public class DynamicPricing {
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfHiddenNodes);
         neuralNetwork2.setWeights(NN2numberOfInputNodes, NN2numberOfOutputNodes);
         RegressionEvaluation regressionEvaluation2 = neuralNetwork2.trainAndEvaluateNN2();
+        //here Shops Comparison
 
         return new RegressionEvaluation[]{regressionEvaluation1, regressionEvaluation2};
 

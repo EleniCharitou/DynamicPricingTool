@@ -92,25 +92,29 @@
                 <tr>
                     <td style="text-align:center;">
                         <div class="input-group">
-                            <input type="number" class="input" id="numOfCustomers" required="" autocomplete="off">
+                            <input type="number" class="input" id="numOfCustomers" required="" autocomplete="off"
+                                   value="1000">
                             <label for="numOfCustomers" class="user-label">Number of customers:</label>
                         </div>
                     </td>
                     <td style="text-align:center;">
                         <div class="input-group">
-                            <input type="number" class="input" id="mOfCustomers" required="" autocomplete="off">
+                            <input type="number" class="input" id="mOfCustomers" required="" autocomplete="off"
+                                   value="0.95">
                             <label for="mOfCustomers" class="user-label">mean:</label>
                         </div>
                     </td>
                     <td style="text-align:center;">
                         <div class="input-group">
-                            <input type="number" class="input" id="stdOfCustomers" required="" autocomplete="off">
+                            <input type="number" class="input" id="stdOfCustomers" required="" autocomplete="off"
+                                   value="0.3">
                             <label for="stdOfCustomers" class="user-label">standard deviation:</label>
                         </div>
                     </td>
                     <td style="text-align:center;">
                         <div class="input-group">
-                            <input type="number" class="input" id="trainingPercentage" required="" autocomplete="off">
+                            <input type="number" class="input" id="trainingPercentage" required="" autocomplete="off"
+                                   value="0.2">
                             <label for="trainingPercentage" class="user-label">Percentage of training data:</label>
                         </div>
                     </td>
