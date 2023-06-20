@@ -5,7 +5,7 @@ import org.deeplearning4j.eval.RegressionEvaluation;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 
 public class DynamicPricing {
 
@@ -79,7 +79,48 @@ public class DynamicPricing {
         //read views and combine them with order information
         // #TODO this csv is missing
         simulationMarketplace.readViews(viewArray);
-        simulationMarketplace.shopsComparison();
+//        simulationMarketplace.shopsComparison();
+
+        Random rp = new Random();
+        double[][] shopsComparison = new double[10][8];
+        double x = 0.15;        //leitourgika e3oda
+        for (int i = 0; i < 200; i++) {
+
+            ArrayList<Integer> pseudorandomProductNumber = new ArrayList<>();
+            for (int j = 0; j < 12883; j++) pseudorandomProductNumber.add(j);
+            Collections.shuffle(pseudorandomProductNumber);
+
+            for (Integer productNumber : pseudorandomProductNumber) {
+                double customerWtpProductPrice = simulationMarketplace.getCustomerList().get(i).getWtpArray()[productNumber];
+
+                ArrayList<Integer> pseudorandomShopNumber = new ArrayList<>();
+                for (int j = 0; j < 10; j++) pseudorandomShopNumber.add(j);
+                Collections.shuffle(pseudorandomShopNumber);
+
+                for (Integer shopNumber : pseudorandomShopNumber) {
+                    shopsComparison[shopNumber][0]++;       // number of visits
+                    double shopProductPrice = simulationMarketplace.getShopList().get(shopNumber).getProductList().get(productNumber).getPrice();
+                    System.out.println("For customer " + i + ", shop " + shopNumber + " and product " + productNumber + ":");
+                    System.out.println("    wtp price: " + customerWtpProductPrice + " and shop's price: " + shopProductPrice);
+                    //topothetisi productId pou agoarastike se ena apo ta shop,ean wtp <= prriceOfShop
+                    if (customerWtpProductPrice >= shopProductPrice) {
+                        System.out.println("WTP FOUND!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        shopsComparison[shopNumber][1]++;        //number of sales
+                        shopsComparison[shopNumber][2] = (shopsComparison[shopNumber][1] * 100) / shopsComparison[shopNumber][0];       //conversionPercentage-pososto metatropwn
+                        shopsComparison[shopNumber][3] = (int) shopsComparison[shopNumber][3] + shopProductPrice;                 //a3ia twn sales
+                        shopsComparison[shopNumber][6] = (int) shopsComparison[shopNumber][6] + simulationMarketplace.getShopList().get(shopNumber).getProductList().get(productNumber).getBaseCost();          //a3ia twn product-baseCost of sales
+                        shopsComparison[shopNumber][4] = (int) shopsComparison[shopNumber][3] - shopsComparison[shopNumber][6];       //mikta kerdh = a3ia sales - a3ia product
+                        shopsComparison[shopNumber][7] = (int) shopsComparison[shopNumber][6] * x;
+                        shopsComparison[shopNumber][5] = (int) shopsComparison[shopNumber][4] - shopsComparison[shopNumber][7];     // kathara kerdh
+
+                    } else {
+                        break;
+                    }
+                }
+                System.out.println(Arrays.deepToString(shopsComparison));
+            }
+
+        }
 
 
         //Case 3:
@@ -87,7 +128,6 @@ public class DynamicPricing {
         //create customers with personal profiles, reading orders and views all-together
         // #TODO this csv is missing
         simulationMarketplace.readOrderViews();
-        //topothetisi productId pou agoarastike se ena apo ta shop,ean wtp <= prriceOfShop
 
 
         // #TODO 2 NN call are made here, lots of unused methods and variables

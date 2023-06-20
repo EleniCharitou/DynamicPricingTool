@@ -85,39 +85,39 @@
         hiddenElement.click();
     }
 
-    function createPieChart(id) {
-        let hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-
-        let customers = customer_data[id].split("\n");
-
-        let customerData = [];
-        let neuralPrice = [];
-        let recency = [];
-        let frequency = [];
-        let monetary = [];
-        let pageViews = [];
-        let timeSpent = [];
-        let personalPrice = [];
-        for (let i = 0; i < customers.length; i++) {
-            customerData = customers[i].split(",");
-
-            // neuralPrice.push(customerData[0]);
-            recency.push(customerData[1]);
-            frequency.push(customerData[2]);
-            monetary.push(customerData[3]);
-            pageViews.push(customerData[4]);
-            timeSpent.push(customerData[5]);
-            // personalPrice.push(customerData[6]);
-        }
-        customerData = [];
-        // customerData.push(neuralPrice);
-        customerData.push(recency);
-        customerData.push(frequency);
-        customerData.push(monetary);
-        customerData.push(pageViews);
-        customerData.push(timeSpent);
-        // customerData.push(personalPrice);
+    function createPieChart(recency, id) {
+        // let hiddenElement = document.createElement('a');
+        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
+        //
+        // let customers = customer_data[id].split("\n");
+        //
+        // let customerData = [];
+        // let neuralPrice = [];
+        // let recency = [];
+        // let frequency = [];
+        // let monetary = [];
+        // let pageViews = [];
+        // let timeSpent = [];
+        // let personalPrice = [];
+        // for (let i = 0; i < customers.length; i++) {
+        //     customerData = customers[i].split(",");
+        //
+        //     // neuralPrice.push(customerData[0]);
+        //     recency.push(customerData[1]);
+        //     frequency.push(customerData[2]);
+        //     monetary.push(customerData[3]);
+        //     pageViews.push(customerData[4]);
+        //     timeSpent.push(customerData[5]);
+        //     // personalPrice.push(customerData[6]);
+        // }
+        // // customerData = [];
+        // // // customerData.push(neuralPrice);
+        // // customerData.push(recency);
+        // // customerData.push(frequency);
+        // // customerData.push(monetary);
+        // // customerData.push(pageViews);
+        // // customerData.push(timeSpent);
+        // // // customerData.push(personalPrice);
 
         let range_1 = 0;
         let range_2 = 0;
@@ -130,23 +130,17 @@
         for (let i = 0; i < 1000; i++) {
             if (recency[i] <= 9.0) {
                 range_1++;
-            }
-            if (recency[i] > 9.0 && recency[i] <= 24.0) {
+            } else if (recency[i] > 9.0 && recency[i] <= 24.0) {
                 range_2++;
-            }
-            if (recency[i] > 24 && recency[i] <= 39) {
+            } else if (recency[i] > 24 && recency[i] <= 39) {
                 range_3++;
-            }
-            if (recency[i] > 39 && recency[i] <= 59) {
+            } else if (recency[i] > 39 && recency[i] <= 59) {
                 range_4++;
-            }
-            if (recency[i] > 59 && recency[i] <= 89) {
+            } else if (recency[i] > 59 && recency[i] <= 89) {
                 range_5++;
-            }
-            if (recency[i] > 89 && recency[i] <= 139) {
+            } else if (recency[i] > 89 && recency[i] <= 139) {
                 range_6++;
-            }
-            if (recency[i] > 139 && recency[i] <= 730) {
+            } else if (recency[i] > 139 && recency[i] <= 730) {
                 range_7++;
             } else {
                 range_8++;
@@ -177,20 +171,20 @@
 
     }
 
-    function createFrequencyPie(id) {
-        let hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-
-        let customers = customer_data[id].split("\n");
-        let customerData = [];
-        let frequency = [];
-
-        for (let i = 0; i < customers.length; i++) {
-            customerData = customers[i].split(",");
-            frequency.push(customerData[2]);
-        }
-        customerData = [];
-        customerData.push(frequency);
+    function createFrequencyPie(frequency, id) {
+        // let hiddenElement = document.createElement('a');
+        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
+        //
+        // let customers = customer_data[id].split("\n");
+        // let customerData = [];
+        // let frequency = [];
+        //
+        // for (let i = 0; i < customers.length; i++) {
+        //     customerData = customers[i].split(",");
+        //     frequency.push(customerData[2]);
+        // }
+        // customerData = [];
+        // customerData.push(frequency);
 
         let range_1 = 0;
         let range_2 = 0;
@@ -203,28 +197,22 @@
         for (let i = 0; i < 1000; i++) {
             if (frequency[i] <= 1) {
                 range_1++;
-            }
-            if (frequency[i] > 1 && frequency[i] <= 4.0) {
+            } else if (frequency[i] > 1 && frequency[i] <= 4.0) {
                 range_2++;
-            }
-            if (frequency[i] > 4 && frequency[i] <= 7) {
+            } else if (frequency[i] > 4 && frequency[i] <= 7) {
                 range_3++;
-            }
-            if (frequency[i] > 7 && frequency[i] <= 10) {
+            } else if (frequency[i] > 7 && frequency[i] <= 10) {
                 range_4++;
-            }
-            if (frequency[i] > 10 && frequency[i] <= 15) {
+            } else if (frequency[i] > 10 && frequency[i] <= 15) {
                 range_5++;
-            }
-            if (frequency[i] > 15 && frequency[i] <= 30) {
+            } else if (frequency[i] > 15 && frequency[i] <= 30) {
                 range_6++;
-            }
-            if (frequency[i] > 30 && frequency[i] <= 60) {
+            } else if (frequency[i] > 30 && frequency[i] <= 60) {
                 range_7++;
             } else {
                 range_8++;
             }
-            console.log(range_5);
+
             //pie price data
             let data = [{
                 values: [range_1, range_2, range_3, range_4, range_5, range_6, range_7, range_8],
@@ -249,20 +237,20 @@
 
     }
 
-    function createMonetaryPie(id) {
-        let hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-
-        let customers = customer_data[id].split("\n");
-        let customerData = [];
-        let monetary = [];
-
-        for (let i = 0; i < customers.length; i++) {
-            customerData = customers[i].split(",");
-            monetary.push(customerData[3]);
-        }
-        customerData = [];
-        customerData.push(monetary);
+    function createMonetaryPie(monetary, id) {
+        // let hiddenElement = document.createElement('a');
+        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
+        //
+        // let customers = customer_data[id].split("\n");
+        // let customerData = [];
+        // let monetary = [];
+        //
+        // for (let i = 0; i < customers.length; i++) {
+        //     customerData = customers[i].split(",");
+        //     monetary.push(customerData[3]);
+        // }
+        // customerData = [];
+        // customerData.push(monetary);
 
         let range_1 = 0;
         let range_2 = 0;
@@ -275,23 +263,17 @@
         for (let i = 0; i < 1000; i++) {
             if (monetary[i] <= 49.99) {
                 range_1++;
-            }
-            if (monetary[i] > 49.99 && monetary[i] <= 99.99) {
+            } else if (monetary[i] > 49.99 && monetary[i] <= 99.99) {
                 range_2++;
-            }
-            if (monetary[i] > 99.99 && monetary[i] <= 149.99) {
+            } else if (monetary[i] > 99.99 && monetary[i] <= 149.99) {
                 range_3++;
-            }
-            if (monetary[i] > 149.99 && monetary[i] <= 199.99) {
+            } else if (monetary[i] > 149.99 && monetary[i] <= 199.99) {
                 range_4++;
-            }
-            if (monetary[i] > 199.99 && monetary[i] <= 299.99) {
+            } else if (monetary[i] > 199.99 && monetary[i] <= 299.99) {
                 range_5++;
-            }
-            if (monetary[i] > 299.99 && monetary[i] <= 499.99) {
+            } else if (monetary[i] > 299.99 && monetary[i] <= 499.99) {
                 range_6++;
-            }
-            if (monetary[i] > 499.99 && monetary[i] <= 999.99) {
+            } else if (monetary[i] > 499.99 && monetary[i] <= 999.99) {
                 range_7++;
             } else {
                 range_8++;
@@ -320,20 +302,20 @@
         }
     }
 
-    function createPageViewsPie(id) {
-        let hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-
-        let customers = customer_data[id].split("\n");
-        let customerData = [];
-        let pageViews = [];
-
-        for (let i = 0; i < customers.length; i++) {
-            customerData = customers[i].split(",");
-            pageViews.push(customerData[4]);
-        }
-        customerData = [];
-        customerData.push(pageViews);
+    function createPageViewsPie(pageViews, id) {
+        // let hiddenElement = document.createElement('a');
+        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
+        //
+        // let customers = customer_data[id].split("\n");
+        // let customerData = [];
+        // let pageViews = [];
+        //
+        // for (let i = 0; i < customers.length; i++) {
+        //     customerData = customers[i].split(",");
+        //     pageViews.push(customerData[4]);
+        // }
+        // customerData = [];
+        // customerData.push(pageViews);
 
         let range_1 = 0;
         let range_2 = 0;
@@ -347,26 +329,19 @@
         for (let i = 0; i < 1000; i++) {
             if (pageViews[i] <= 199) {
                 range_1++;
-            }
-            if (pageViews[i] > 199 && pageViews[i] <= 499) {
+            } else if (pageViews[i] > 199 && pageViews[i] <= 499) {
                 range_2++;
-            }
-            if (pageViews[i] > 499 && pageViews[i] <= 999) {
+            } else if (pageViews[i] > 499 && pageViews[i] <= 999) {
                 range_3++;
-            }
-            if (pageViews[i] > 999 && pageViews[i] <= 1499) {
+            } else if (pageViews[i] > 999 && pageViews[i] <= 1499) {
                 range_4++;
-            }
-            if (pageViews[i] > 1499 && pageViews[i] <= 1999) {
+            } else if (pageViews[i] > 1499 && pageViews[i] <= 1999) {
                 range_5++;
-            }
-            if (pageViews[i] > 1999 && pageViews[i] <= 2999) {
+            } else if (pageViews[i] > 1999 && pageViews[i] <= 2999) {
                 range_6++;
-            }
-            if (pageViews[i] > 2999 && pageViews[i] <= 4999) {
+            } else if (pageViews[i] > 2999 && pageViews[i] <= 4999) {
                 range_7++;
-            }
-            if (pageViews[i] > 4999 && pageViews[i] <= 9999) {
+            } else if (pageViews[i] > 4999 && pageViews[i] <= 9999) {
                 range_8++;
             } else {
                 range_9++;
@@ -395,20 +370,20 @@
         }
     }
 
-    function createTimeSpentPie(id) {
-        let hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-
-        let customers = customer_data[id].split("\n");
-        let customerData = [];
-        let timeSpent = [];
-
-        for (let i = 0; i < customers.length; i++) {
-            customerData = customers[i].split(",");
-            timeSpent.push(customerData[5]);
-        }
-        customerData = [];
-        customerData.push(timeSpent);
+    function createTimeSpentPie(timeSpent, id) {
+        // let hiddenElement = document.createElement('a');
+        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
+        //
+        // let customers = customer_data[id].split("\n");
+        // let customerData = [];
+        // let timeSpent = [];
+        //
+        // for (let i = 0; i < customers.length; i++) {
+        //     customerData = customers[i].split(",");
+        //     timeSpent.push(customerData[5]);
+        // }
+        // customerData = [];
+        // customerData.push(timeSpent);
 
         let range_1 = 0;
         let range_2 = 0;
@@ -422,26 +397,19 @@
         for (let i = 0; i < 1000; i++) {
             if (timeSpent[i] <= 9) {
                 range_1++;
-            }
-            if (timeSpent[i] > 10 && timeSpent[i] <= 29) {
+            } else if (timeSpent[i] > 10 && timeSpent[i] <= 29) {
                 range_2++;
-            }
-            if (timeSpent[i] > 30 && timeSpent[i] <= 49) {
+            } else if (timeSpent[i] > 30 && timeSpent[i] <= 49) {
                 range_3++;
-            }
-            if (timeSpent[i] > 50 && timeSpent[i] <= 99) {
+            } else if (timeSpent[i] > 50 && timeSpent[i] <= 99) {
                 range_4++;
-            }
-            if (timeSpent[i] > 100 && timeSpent[i] <= 199) {
+            } else if (timeSpent[i] > 100 && timeSpent[i] <= 199) {
                 range_5++;
-            }
-            if (timeSpent[i] > 200 && timeSpent[i] <= 499) {
+            } else if (timeSpent[i] > 200 && timeSpent[i] <= 499) {
                 range_6++;
-            }
-            if (timeSpent[i] > 500 && timeSpent[i] <= 999) {
+            } else if (timeSpent[i] > 500 && timeSpent[i] <= 999) {
                 range_7++;
-            }
-            if (timeSpent[i] > 1000 && timeSpent[i] <= 4999) {
+            } else if (timeSpent[i] > 1000 && timeSpent[i] <= 4999) {
                 range_8++;
             } else {
                 range_9++;
@@ -471,11 +439,35 @@
     }
 
     function multiplePies(id) {
-        createPieChart(id);
-        createFrequencyPie(id);
-        createMonetaryPie(id);
-        createPageViewsPie(id);
-        createTimeSpentPie(id);
+        let hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
+
+        let customers = customer_data[id].split("\n");
+
+        let neuralPrice = [];
+        let recency = [];
+        let frequency = [];
+        let monetary = [];
+        let pageViews = [];
+        let timeSpent = [];
+        let personalPrice = [];
+        for (let i = 0; i < customers.length; i++) {
+            customerData = customers[i].split(",");
+
+            // neuralPrice.push(customerData[0]);
+            recency.push(customerData[1]);
+            frequency.push(customerData[2]);
+            monetary.push(customerData[3]);
+            pageViews.push(customerData[4]);
+            timeSpent.push(customerData[5]);
+            // personalPrice.push(customerData[6]);
+        }
+
+        createPieChart(recency, id);
+        createFrequencyPie(frequency, id);
+        createMonetaryPie(monetary, id);
+        createPageViewsPie(pageViews, id);
+        createTimeSpentPie(timeSpent, id);
     }
 
     function download_training_data(id) {
