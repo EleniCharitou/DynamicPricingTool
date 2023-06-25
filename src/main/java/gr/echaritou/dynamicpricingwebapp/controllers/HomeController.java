@@ -3,6 +3,7 @@ package gr.echaritou.dynamicpricingwebapp.controllers;
 import gr.echaritou.dynamicpricingwebapp.*;
 import gr.echaritou.dynamicpricingwebapp.input.UserInput;
 import gr.echaritou.dynamicpricingwebapp.org.deeplearning4j.examples.feedforward.regression.DynamicPricing;
+import gr.echaritou.dynamicpricingwebapp.org.deeplearning4j.examples.feedforward.regression.Marketplace;
 import org.deeplearning4j.eval.RegressionEvaluation;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -138,9 +139,12 @@ public class HomeController {
                 userInput.getLearningRateNN2());
 
         String inputNN2 = new String(Files.readAllBytes(Paths.get("input_NN2.csv")), StandardCharsets.UTF_8);
-
         String training_data = new String(Files.readAllBytes(Paths.get("trainingData.csv")), StandardCharsets.UTF_8);
         String testing_data = new String(Files.readAllBytes(Paths.get("testingData.csv")), StandardCharsets.UTF_8);
+        String shopsComparison = new String(Files.readAllBytes(Paths.get("shopsComparison.csv")), StandardCharsets.UTF_8);
+        String[] customerRanges = Marketplace.rangesForPies();
+
+
         long endTime = System.currentTimeMillis();
         long seconds = (endTime - startTime) / 1000;
 
@@ -159,8 +163,14 @@ public class HomeController {
                 "run_time," +
                 "training_data," +
                 "testing_data," +
-                "customer_data) " +
-                "VALUES(?,?,?,?,?,?,?,?,?)";
+                "customer_data," +
+                "shops_comparison," +
+                "recency," +
+                "frequency," +
+                "monetary," +
+                "pageViews," +
+                "timeSpent) " +
+                "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         JSONObject inputJSON = new JSONObject();
 
@@ -203,6 +213,15 @@ public class HomeController {
             pstmt.setString(7, training_data);
             pstmt.setString(8, testing_data);
             pstmt.setString(9, inputNN2);
+            pstmt.setString(10, shopsComparison);
+            pstmt.setString(11, customerRanges[0]);
+            pstmt.setString(12, customerRanges[1]);
+            pstmt.setString(13, customerRanges[2]);
+            pstmt.setString(14, customerRanges[3]);
+            pstmt.setString(15, customerRanges[4]);
+/*
+            pstmt.setString(11, customerRanges[0]);
+*/
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -249,6 +268,12 @@ public class HomeController {
                 dbRowJSON.put("training_data", rs.getString("training_data"));
                 dbRowJSON.put("testing_data", rs.getString("testing_data"));
                 dbRowJSON.put("customer_data", rs.getString("customer_data"));
+                dbRowJSON.put("shops_comparison", rs.getString("shops_comparison"));
+                dbRowJSON.put("recency", rs.getString("recency"));
+                dbRowJSON.put("frequency", rs.getString("frequency"));
+                dbRowJSON.put("monetary", rs.getString("monetary"));
+                dbRowJSON.put("pageViews", rs.getString("pageViews"));
+                dbRowJSON.put("timeSpent", rs.getString("timeSpent"));
 
                 arrayJSON.put(dbRowJSON);
 

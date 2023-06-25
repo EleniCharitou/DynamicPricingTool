@@ -632,4 +632,153 @@ public class Marketplace {
             }
         }
     }
+
+    public static String[] rangesForPies() {
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";    //use comma as separator
+
+        //arrays with ranges
+        double[] recency = new double[10];
+        double[] frequency = new double[10];
+        double[] monetary = new double[10];
+        double[] pageViews = new double[10];
+        double[] timeSpent = new double[10];
+        try {
+            br = new BufferedReader(new FileReader("input_NN2.csv"));
+
+            while ((line = br.readLine()) != null) {
+
+                //read data
+                String[] dataString = line.split(cvsSplitBy);
+                double[] dataDouble = Arrays.stream(dataString).mapToDouble(Double::parseDouble).toArray();
+
+                for (int i = 0; i < dataDouble.length; i++) {
+                    //recency dataDouble[1]
+                    if (dataDouble[1] <= 9.0) {
+                        recency[0]++;
+                    } else if (dataDouble[1] > 9.0 && dataDouble[1] <= 24.0) {
+                        recency[1]++;
+                    } else if (dataDouble[1] > 24 && dataDouble[1] <= 39) {
+                        recency[2]++;
+                    } else if (dataDouble[1] > 39 && dataDouble[1] <= 59) {
+                        recency[3]++;
+                    } else if (dataDouble[1] > 59 && dataDouble[1] <= 89) {
+                        recency[4]++;
+                    } else if (dataDouble[1] > 89 && dataDouble[1] <= 139) {
+                        recency[5]++;
+                    } else if (dataDouble[1] > 139 && dataDouble[1] <= 730) {
+                        recency[6]++;
+                    } else {
+                        recency[7]++;
+                    }
+                    //frequency
+                    if ((dataDouble[2] * 1000000) <= 1) {
+                        frequency[0]++;
+                    } else if ((dataDouble[2] * 10000) > 1 && (dataDouble[2] * 10000) <= 4.0) {
+                        frequency[1]++;
+                    } else if ((dataDouble[2] * 10000) > 4 && (dataDouble[2] * 10000) <= 7) {
+                        frequency[2]++;
+                    } else if ((dataDouble[2] * 10000) > 7 && (dataDouble[2] * 10000) <= 10) {
+                        frequency[3]++;
+                    } else if ((dataDouble[2] * 10000) > 10 && (dataDouble[2] * 10000) <= 15) {
+                        frequency[4]++;
+                    } else if ((dataDouble[2] * 10000) > 15 && (dataDouble[2] * 10000) <= 30) {
+                        frequency[5]++;
+                    } else if ((dataDouble[2] * 10000) > 30 && (dataDouble[2] * 10000) <= 60) {
+                        frequency[6]++;
+                    } else {
+                        frequency[7]++;
+                    }
+                    //monetary
+                    if (dataDouble[3] <= 49.99) {
+                        monetary[0]++;
+                    } else if (dataDouble[3] > 49.99 && dataDouble[3] <= 99.99) {
+                        monetary[1]++;
+                    } else if (dataDouble[3] > 99.99 && dataDouble[3] <= 149.99) {
+                        monetary[2]++;
+                    } else if (dataDouble[3] > 149.99 && dataDouble[3] <= 199.99) {
+                        monetary[3]++;
+                    } else if (dataDouble[3] > 199.99 && dataDouble[3] <= 299.99) {
+                        monetary[4]++;
+                    } else if (dataDouble[3] > 299.99 && dataDouble[3] <= 499.99) {
+                        monetary[5]++;
+                    } else if (dataDouble[3] > 499.99 && dataDouble[3] <= 999.99) {
+                        monetary[6]++;
+                    } else {
+                        monetary[7]++;
+                    }
+                    //pageViews
+                    if ((dataDouble[4] * 1000000) <= 199) {
+                        pageViews[0]++;
+                    } else if ((dataDouble[4] * 1000000) > 199 && (dataDouble[4] * 1000000) <= 499) {
+                        pageViews[1]++;
+                    } else if ((dataDouble[4] * 1000000) > 499 && (dataDouble[4] * 1000000) <= 999) {
+                        pageViews[2]++;
+                    } else if ((dataDouble[4] * 1000000) > 999 && (dataDouble[4] * 1000000) <= 1499) {
+                        pageViews[3]++;
+                    } else if ((dataDouble[4] * 1000000) > 1499 && (dataDouble[4] * 1000000) <= 1999) {
+                        pageViews[4]++;
+                    } else if ((dataDouble[4] * 1000000) > 1999 && (dataDouble[4] * 1000000) <= 2999) {
+                        pageViews[5]++;
+                    } else if ((dataDouble[4] * 1000000) > 2999 && (dataDouble[4] * 1000000) <= 4999) {
+                        pageViews[6]++;
+                    } else if ((dataDouble[4] * 1000000) > 4999 && (dataDouble[4] * 1000000) <= 9999) {
+                        pageViews[7]++;
+                    } else {
+                        pageViews[8]++;
+                    }
+                    //timeSpent
+                    if ((dataDouble[5] * 10) <= 9) {
+                        timeSpent[0]++;
+                    } else if ((dataDouble[5] * 10) > 10 && (dataDouble[5] * 10) <= 29) {
+                        timeSpent[1]++;
+                    } else if ((dataDouble[5] * 10) > 30 && (dataDouble[5] * 10) <= 49) {
+                        timeSpent[2]++;
+                    } else if ((dataDouble[5] * 10) > 50 && (dataDouble[5] * 10) <= 99) {
+                        timeSpent[3]++;
+                    } else if ((dataDouble[5] * 10) > 100 && (dataDouble[5] * 10) <= 199) {
+                        timeSpent[4]++;
+                    } else if ((dataDouble[5] * 10) > 200 && (dataDouble[5] * 10) <= 499) {
+                        timeSpent[5]++;
+                    } else if ((dataDouble[5] * 10) > 500 && (dataDouble[5] * 10) <= 999) {
+                        timeSpent[6]++;
+                    } else if ((dataDouble[5] * 10) > 1000 && (dataDouble[5] * 10) <= 4999) {
+                        timeSpent[7]++;
+                    } else {
+                        timeSpent[8]++;
+                    }
+                }
+
+            }
+            System.out.println(Arrays.toString(recency));
+            System.out.println(Arrays.toString(frequency));
+            System.out.println(Arrays.toString(monetary));
+            System.out.println(Arrays.toString(pageViews));
+            System.out.println(Arrays.toString(timeSpent));
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        String recencyStr = Arrays.toString(recency);
+        recencyStr = recencyStr.substring(1, recencyStr.length() - 1);
+
+        String frequencyStr = Arrays.toString(frequency);
+        frequencyStr = frequencyStr.substring(1, frequencyStr.length() - 1);
+
+        String monetaryStr = Arrays.toString(monetary);
+        monetaryStr = monetaryStr.substring(1, monetaryStr.length() - 1);
+
+        String pageViewsStr = Arrays.toString(pageViews);
+        pageViewsStr = pageViewsStr.substring(1, pageViewsStr.length() - 1);
+
+        String timeSpentStr = Arrays.toString(timeSpent);
+        timeSpentStr = timeSpentStr.substring(1, timeSpentStr.length() - 1);
+
+        return new String[]{recencyStr, frequencyStr, monetaryStr, pageViewsStr, timeSpentStr};
+
+    }
 }

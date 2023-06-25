@@ -3,7 +3,10 @@ package gr.echaritou.dynamicpricingwebapp.org.deeplearning4j.examples.feedforwar
 import gr.echaritou.dynamicpricingwebapp.input.ShopInput;
 import org.deeplearning4j.eval.RegressionEvaluation;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -83,7 +86,7 @@ public class DynamicPricing {
 
         Random rp = new Random();
         double[][] shopsComparison = new double[10][8];
-        double x = 0.15;        //leitourgika e3oda
+        double x = 0.15;        //sudelesths leitourgikwn e3odwn
         for (int i = 0; i < 200; i++) {
 
             ArrayList<Integer> pseudorandomProductNumber = new ArrayList<>();
@@ -98,30 +101,40 @@ public class DynamicPricing {
                 Collections.shuffle(pseudorandomShopNumber);
 
                 for (Integer shopNumber : pseudorandomShopNumber) {
-                    shopsComparison[shopNumber][0]++;       // number of visits
+                    shopsComparison[shopNumber][0]++;                   // number of visits
                     double shopProductPrice = simulationMarketplace.getShopList().get(shopNumber).getProductList().get(productNumber).getPrice();
-                    System.out.println("For customer " + i + ", shop " + shopNumber + " and product " + productNumber + ":");
-                    System.out.println("    wtp price: " + customerWtpProductPrice + " and shop's price: " + shopProductPrice);
+//                    System.out.println("For customer " + i + ", shop " + shopNumber + " and product " + productNumber + ":");
+//                    System.out.println("    wtp price: " + customerWtpProductPrice + " and shop's price: " + shopProductPrice);
                     //topothetisi productId pou agoarastike se ena apo ta shop,ean wtp <= prriceOfShop
                     if (customerWtpProductPrice >= shopProductPrice) {
-                        System.out.println("WTP FOUND!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                        shopsComparison[shopNumber][1]++;        //number of sales
-                        shopsComparison[shopNumber][2] = (shopsComparison[shopNumber][1] * 100) / shopsComparison[shopNumber][0];       //conversionPercentage-pososto metatropwn
-                        shopsComparison[shopNumber][3] = (int) shopsComparison[shopNumber][3] + shopProductPrice;                 //a3ia twn sales
-                        shopsComparison[shopNumber][6] = (int) shopsComparison[shopNumber][6] + simulationMarketplace.getShopList().get(shopNumber).getProductList().get(productNumber).getBaseCost();          //a3ia twn product-baseCost of sales
-                        shopsComparison[shopNumber][4] = (int) shopsComparison[shopNumber][3] - shopsComparison[shopNumber][6];       //mikta kerdh = a3ia sales - a3ia product
-                        shopsComparison[shopNumber][7] = (int) shopsComparison[shopNumber][6] * x;
-                        shopsComparison[shopNumber][5] = (int) shopsComparison[shopNumber][4] - shopsComparison[shopNumber][7];     // kathara kerdh
-
+//                        System.out.println("WTP FOUND!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        shopsComparison[shopNumber][1]++;               //number of sales
+                        shopsComparison[shopNumber][2] = Math.round(((shopsComparison[shopNumber][1] * 100) / shopsComparison[shopNumber][0]) * 100) / 100;      //conversionPercentage-pososto metatropwn
+                        shopsComparison[shopNumber][3] = Math.round((shopsComparison[shopNumber][3] + shopProductPrice) * 100.0) / 100.0;                      //a3ia twn sales
+                        shopsComparison[shopNumber][6] = Math.round((shopsComparison[shopNumber][6] + simulationMarketplace.getShopList().get(shopNumber).getProductList().get(productNumber).getBaseCost()) * 100) / 100;          //a3ia twn product-baseCost of sales
+                        shopsComparison[shopNumber][4] = Math.round((shopsComparison[shopNumber][3] - shopsComparison[shopNumber][6]) * 100) / 100;       //mikta kerdh = a3ia sales - a3ia product
+                        shopsComparison[shopNumber][7] = Math.round((shopsComparison[shopNumber][6] * x) * 100) / 100;                                    //leitourgika e3oda
+                        shopsComparison[shopNumber][5] = Math.round((shopsComparison[shopNumber][4] - shopsComparison[shopNumber][7]) * 100) / 100;       // kathara kerdh
                     } else {
                         break;
                     }
                 }
-                System.out.println(Arrays.deepToString(shopsComparison));
             }
 
         }
-
+//store shopsComparison in a .csv
+        try {
+            PrintWriter shopsComp = new PrintWriter((new File("shopsComparison.csv")));
+            //for every shop
+            for (double[] doubles : shopsComparison) {
+                shopsComp.append(Arrays.toString(doubles).replace("[", "").replace("]", ""));
+                shopsComp.append("\n");
+            }
+            shopsComp.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
         //Case 3:
         // #TODO this should works for both NNs (NN1 and NN2) but csv missing
@@ -162,6 +175,8 @@ public class DynamicPricing {
         simulationMarketplace.dataNormaliserCSV(7, 2);
 
         System.out.println("NN2");
+        simulationMarketplace.rangesForPies();
+
         //Create the NN2
 //        int NN2numberOfInputNodes = 6;
 //        int NN2numberOfHiddenNodes = 6;

@@ -24,16 +24,18 @@
 
 </head>
 <body>
-<nav id="navbar" class="navbar fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" id="logo" href="#">LOGO</a>
-        <a class="navbar-brand" id="home" href=""${pageContext.request.contextPath}/home">Home</a>
-        <a class="navbar-brand" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
-            Pricing</a>
-        <a class="navbar-brand" id="university" href="#">Aristotle University of Thessaloniki</a>  <!--  or anything -->
-    </div>
-</nav>
-
+<header>
+    <nav id="navbar" class="navbar fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" id="logo" href="#">LOGO</a>
+            <a class="navbar-brand" id="home" href=""${pageContext.request.contextPath}/home">Home</a>
+            <a class="navbar-brand" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
+                Pricing</a>
+            <a class="navbar-brand" id="university" href="#">Aristotle University of Thessaloniki</a>
+            <!--  or anything -->
+        </div>
+    </nav>
+</header>
 <br>
 <br>
 <br>
@@ -53,6 +55,12 @@
 
     const training_data = [];
     const testing_data = [];
+    const shops_comparison = [];
+    const recency = [];
+    const frequency = [];
+    const monetary = [];
+    const pageViews = [];
+    const timeSpent = [];
 
     function showInput(resultID) {
         $('#resultInput' + resultID).toggle();
@@ -85,389 +93,134 @@
         hiddenElement.click();
     }
 
-    function createPieChart(recency, id) {
-        // let hiddenElement = document.createElement('a');
-        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-        //
-        // let customers = customer_data[id].split("\n");
-        //
-        // let customerData = [];
-        // let neuralPrice = [];
-        // let recency = [];
-        // let frequency = [];
-        // let monetary = [];
-        // let pageViews = [];
-        // let timeSpent = [];
-        // let personalPrice = [];
-        // for (let i = 0; i < customers.length; i++) {
-        //     customerData = customers[i].split(",");
-        //
-        //     // neuralPrice.push(customerData[0]);
-        //     recency.push(customerData[1]);
-        //     frequency.push(customerData[2]);
-        //     monetary.push(customerData[3]);
-        //     pageViews.push(customerData[4]);
-        //     timeSpent.push(customerData[5]);
-        //     // personalPrice.push(customerData[6]);
+    function createRecencyPie(recency, id) {
+
+        let data = [{
+            values: [recency[0], recency[1], recency[2], recency[3], recency[4], recency[5], recency[6], recency[7]],
+            labels: ['0-9', '10-24', '25-39', '40-59', '60-89', '90-139', '140-730', '731 and more'],
+            type: 'pie'
+        }];
+        let layout = {
+            autosize: false,
+            width: 350,
+            height: 300,
+            margin: {
+                l: 50,
+                r: 50,
+                b: 50,
+                t: 65
+            },
+            title: "Recency (days)",
+            font: {size: 11},
+        };
+        Plotly.newPlot('recencyPie' + id, data, layout);
         // }
-        // // customerData = [];
-        // // // customerData.push(neuralPrice);
-        // // customerData.push(recency);
-        // // customerData.push(frequency);
-        // // customerData.push(monetary);
-        // // customerData.push(pageViews);
-        // // customerData.push(timeSpent);
-        // // // customerData.push(personalPrice);
-
-        let range_1 = 0;
-        let range_2 = 0;
-        let range_3 = 0;
-        let range_4 = 0;
-        let range_5 = 0;
-        let range_6 = 0;
-        let range_7 = 0;
-        let range_8 = 0;
-        for (let i = 0; i < 1000; i++) {
-            if (recency[i] <= 9.0) {
-                range_1++;
-            } else if (recency[i] > 9.0 && recency[i] <= 24.0) {
-                range_2++;
-            } else if (recency[i] > 24 && recency[i] <= 39) {
-                range_3++;
-            } else if (recency[i] > 39 && recency[i] <= 59) {
-                range_4++;
-            } else if (recency[i] > 59 && recency[i] <= 89) {
-                range_5++;
-            } else if (recency[i] > 89 && recency[i] <= 139) {
-                range_6++;
-            } else if (recency[i] > 139 && recency[i] <= 730) {
-                range_7++;
-            } else {
-                range_8++;
-            }
-
-            //pie price data
-            let data = [{
-                values: [range_1, range_2, range_3, range_4, range_5, range_6, range_7, range_8],
-                labels: ['0-9', '10-24', '25-39', '40-59', '60-89', '90-139', '140-730', '731 and more'],
-                type: 'pie'
-            }];
-// https://plotly.com/javascript/setting-graph-size/
-            let layout = {
-                autosize: false,
-                width: 350,
-                height: 300,
-                margin: {
-                    l: 50,
-                    r: 50,
-                    b: 50,
-                    t: 65
-                },
-                title: "Recency (days)",
-                font: {size: 11},
-            };
-            Plotly.newPlot('recencyPie' + id, data, layout);
-        }
-
     }
 
     function createFrequencyPie(frequency, id) {
-        // let hiddenElement = document.createElement('a');
-        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-        //
-        // let customers = customer_data[id].split("\n");
-        // let customerData = [];
-        // let frequency = [];
-        //
-        // for (let i = 0; i < customers.length; i++) {
-        //     customerData = customers[i].split(",");
-        //     frequency.push(customerData[2]);
-        // }
-        // customerData = [];
-        // customerData.push(frequency);
 
-        let range_1 = 0;
-        let range_2 = 0;
-        let range_3 = 0;
-        let range_4 = 0;
-        let range_5 = 0;
-        let range_6 = 0;
-        let range_7 = 0;
-        let range_8 = 0;
-        for (let i = 0; i < 1000; i++) {
-            if (frequency[i] <= 1) {
-                range_1++;
-            } else if (frequency[i] > 1 && frequency[i] <= 4.0) {
-                range_2++;
-            } else if (frequency[i] > 4 && frequency[i] <= 7) {
-                range_3++;
-            } else if (frequency[i] > 7 && frequency[i] <= 10) {
-                range_4++;
-            } else if (frequency[i] > 10 && frequency[i] <= 15) {
-                range_5++;
-            } else if (frequency[i] > 15 && frequency[i] <= 30) {
-                range_6++;
-            } else if (frequency[i] > 30 && frequency[i] <= 60) {
-                range_7++;
-            } else {
-                range_8++;
-            }
-
-            //pie price data
-            let data = [{
-                values: [range_1, range_2, range_3, range_4, range_5, range_6, range_7, range_8],
-                labels: ['0-1', '1-4', '4-7', '7-10', '10-15', '15-30', '30-60', '60 and more'],
-                type: 'pie'
-            }];
-            let layout = {
-                autosize: false,
-                width: 350,
-                height: 300,
-                margin: {
-                    l: 50,
-                    r: 50,
-                    b: 50,
-                    t: 65
-                },
-                title: "Frequency (orders/year)",
-                font: {size: 11},
-            };
-            Plotly.newPlot('frequencyPie' + id, data, layout);
-        }
-
+        let data = [{
+            values: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], frequency[5], frequency[6], frequency[7]],
+            labels: ['0-1', '1-4', '4-7', '7-10', '10-15', '15-30', '30-60', '60 and more'],
+            type: 'pie'
+        }];
+        let layout = {
+            autosize: false,
+            width: 350,
+            height: 300,
+            margin: {
+                l: 50,
+                r: 50,
+                b: 50,
+                t: 65
+            },
+            title: "Frequency (orders/year)",
+            font: {size: 11},
+        };
+        Plotly.newPlot('frequencyPie' + id, data, layout);
     }
 
     function createMonetaryPie(monetary, id) {
-        // let hiddenElement = document.createElement('a');
-        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-        //
-        // let customers = customer_data[id].split("\n");
-        // let customerData = [];
-        // let monetary = [];
-        //
-        // for (let i = 0; i < customers.length; i++) {
-        //     customerData = customers[i].split(",");
-        //     monetary.push(customerData[3]);
-        // }
-        // customerData = [];
-        // customerData.push(monetary);
 
-        let range_1 = 0;
-        let range_2 = 0;
-        let range_3 = 0;
-        let range_4 = 0;
-        let range_5 = 0;
-        let range_6 = 0;
-        let range_7 = 0;
-        let range_8 = 0;
-        for (let i = 0; i < 1000; i++) {
-            if (monetary[i] <= 49.99) {
-                range_1++;
-            } else if (monetary[i] > 49.99 && monetary[i] <= 99.99) {
-                range_2++;
-            } else if (monetary[i] > 99.99 && monetary[i] <= 149.99) {
-                range_3++;
-            } else if (monetary[i] > 149.99 && monetary[i] <= 199.99) {
-                range_4++;
-            } else if (monetary[i] > 199.99 && monetary[i] <= 299.99) {
-                range_5++;
-            } else if (monetary[i] > 299.99 && monetary[i] <= 499.99) {
-                range_6++;
-            } else if (monetary[i] > 499.99 && monetary[i] <= 999.99) {
-                range_7++;
-            } else {
-                range_8++;
-            }
-            //pie price data
-            let data = [{
-                values: [range_1, range_2, range_3, range_4, range_5, range_6, range_7, range_8],
-                labels: ['0-49.99', '49.99-99.99', '99.99-149.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99'],
-                type: 'pie'
-            }];
-// https://plotly.com/javascript/setting-graph-size/
-            let layout = {
-                autosize: false,
-                width: 350,
-                height: 300,
-                margin: {
-                    l: 50,
-                    r: 50,
-                    b: 50,
-                    t: 65
-                },
-                title: "Monetary (€)",
-                font: {size: 11},
-            };
-            Plotly.newPlot('monetaryPie' + id, data, layout);
-        }
+        let data = [{
+            values: [monetary[0], monetary[1], monetary[2], monetary[3], monetary[4], monetary[5], monetary[6], monetary[7]],
+            labels: ['0-49.99', '49.99-99.99', '99.99-149.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99'],
+            type: 'pie'
+        }];
+        let layout = {
+            autosize: false,
+            width: 350,
+            height: 300,
+            margin: {
+                l: 50,
+                r: 50,
+                b: 50,
+                t: 65
+            },
+            title: "Monetary (€)",
+            font: {size: 11},
+        };
+        Plotly.newPlot('monetaryPie' + id, data, layout);
     }
 
     function createPageViewsPie(pageViews, id) {
-        // let hiddenElement = document.createElement('a');
-        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-        //
-        // let customers = customer_data[id].split("\n");
-        // let customerData = [];
-        // let pageViews = [];
-        //
-        // for (let i = 0; i < customers.length; i++) {
-        //     customerData = customers[i].split(",");
-        //     pageViews.push(customerData[4]);
-        // }
-        // customerData = [];
-        // customerData.push(pageViews);
 
-        let range_1 = 0;
-        let range_2 = 0;
-        let range_3 = 0;
-        let range_4 = 0;
-        let range_5 = 0;
-        let range_6 = 0;
-        let range_7 = 0;
-        let range_8 = 0;
-        let range_9 = 0;
-        for (let i = 0; i < 1000; i++) {
-            if (pageViews[i] <= 199) {
-                range_1++;
-            } else if (pageViews[i] > 199 && pageViews[i] <= 499) {
-                range_2++;
-            } else if (pageViews[i] > 499 && pageViews[i] <= 999) {
-                range_3++;
-            } else if (pageViews[i] > 999 && pageViews[i] <= 1499) {
-                range_4++;
-            } else if (pageViews[i] > 1499 && pageViews[i] <= 1999) {
-                range_5++;
-            } else if (pageViews[i] > 1999 && pageViews[i] <= 2999) {
-                range_6++;
-            } else if (pageViews[i] > 2999 && pageViews[i] <= 4999) {
-                range_7++;
-            } else if (pageViews[i] > 4999 && pageViews[i] <= 9999) {
-                range_8++;
-            } else {
-                range_9++;
-            }
-            //pie price data
-            let data = [{
-                values: [range_1, range_2, range_3, range_4, range_5, range_6, range_7, range_8, range_9],
-                labels: ['0-199', '200-499', '500-999', '1000-1499', '1500-1999', '2000-2999', '3000-4999', '5000-9999', '10000 and more'],
-                type: 'pie'
-            }];
-// https://plotly.com/javascript/setting-graph-size/
-            let layout = {
-                autosize: false,
-                width: 350,
-                height: 300,
-                margin: {
-                    l: 50,
-                    r: 50,
-                    b: 50,
-                    t: 65
-                },
-                title: "Page views per product sold",
-                font: {size: 11},
-            };
-            Plotly.newPlot('pageViewsPie' + id, data, layout);
-        }
+        let data = [{
+            values: [pageViews[0], pageViews[1], pageViews[2], pageViews[3], pageViews[4], pageViews[5], pageViews[6], pageViews[7], pageViews[8]],
+            labels: ['0-199', '200-499', '500-999', '1000-1499', '1500-1999', '2000-2999', '3000-4999', '5000-9999', '10000 and more'],
+            type: 'pie'
+        }];
+        let layout = {
+            autosize: false,
+            width: 350,
+            height: 300,
+            margin: {
+                l: 50,
+                r: 50,
+                b: 50,
+                t: 65
+            },
+            title: "Page views per product sold",
+            font: {size: 11},
+        };
+        Plotly.newPlot('pageViewsPie' + id, data, layout);
     }
 
     function createTimeSpentPie(timeSpent, id) {
-        // let hiddenElement = document.createElement('a');
-        // hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
-        //
-        // let customers = customer_data[id].split("\n");
-        // let customerData = [];
-        // let timeSpent = [];
-        //
-        // for (let i = 0; i < customers.length; i++) {
-        //     customerData = customers[i].split(",");
-        //     timeSpent.push(customerData[5]);
-        // }
-        // customerData = [];
-        // customerData.push(timeSpent);
 
-        let range_1 = 0;
-        let range_2 = 0;
-        let range_3 = 0;
-        let range_4 = 0;
-        let range_5 = 0;
-        let range_6 = 0;
-        let range_7 = 0;
-        let range_8 = 0;
-        let range_9 = 0;
-        for (let i = 0; i < 1000; i++) {
-            if (timeSpent[i] <= 9) {
-                range_1++;
-            } else if (timeSpent[i] > 10 && timeSpent[i] <= 29) {
-                range_2++;
-            } else if (timeSpent[i] > 30 && timeSpent[i] <= 49) {
-                range_3++;
-            } else if (timeSpent[i] > 50 && timeSpent[i] <= 99) {
-                range_4++;
-            } else if (timeSpent[i] > 100 && timeSpent[i] <= 199) {
-                range_5++;
-            } else if (timeSpent[i] > 200 && timeSpent[i] <= 499) {
-                range_6++;
-            } else if (timeSpent[i] > 500 && timeSpent[i] <= 999) {
-                range_7++;
-            } else if (timeSpent[i] > 1000 && timeSpent[i] <= 4999) {
-                range_8++;
-            } else {
-                range_9++;
-            }
-            //pie price data
-            let data = [{
-                values: [range_1, range_2, range_3, range_4, range_5, range_6, range_7, range_8, range_9],
-                labels: ['0-9', '10-29', '30-49', '50-99', '100-199', '200-499', '500-999', '1000-4999', '5000 and more'],
-                type: 'pie'
-            }];
-// https://plotly.com/javascript/setting-graph-size/
-            let layout = {
-                autosize: false,
-                width: 350,
-                height: 300,
-                margin: {
-                    l: 50,
-                    r: 50,
-                    b: 50,
-                    t: 65
-                },
-                title: "Time spent per order (minutes/order)",
-                font: {size: 11},
-            };
-            Plotly.newPlot('timeSpentPie' + id, data, layout);
-        }
+        let data = [{
+            values: [timeSpent[0], timeSpent[1], timeSpent[2], timeSpent[3], timeSpent[4], timeSpent[5], timeSpent[6], timeSpent[7], timeSpent[8]],
+            labels: ['0-9', '10-29', '30-49', '50-99', '100-199', '200-499', '500-999', '1000-4999', '5000 and more'],
+            type: 'pie'
+        }];
+        let layout = {
+            autosize: false,
+            width: 350,
+            height: 300,
+            margin: {
+                l: 50,
+                r: 50,
+                b: 50,
+                t: 65
+            },
+            title: "Time spent per order (minutes/order)",
+            font: {size: 11},
+        };
+        Plotly.newPlot('timeSpentPie' + id, data, layout);
     }
 
     function multiplePies(id) {
-        let hiddenElement = document.createElement('a');
-        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(customer_data[id]);
+        let recen = recency[id];
+        let freq = frequency[id];
+        let monet = monetary[id];
+        let pageV = pageViews[id];
+        let timeSp = timeSpent[id];
 
-        let customers = customer_data[id].split("\n");
-
-        let neuralPrice = [];
-        let recency = [];
-        let frequency = [];
-        let monetary = [];
-        let pageViews = [];
-        let timeSpent = [];
-        let personalPrice = [];
-        for (let i = 0; i < customers.length; i++) {
-            customerData = customers[i].split(",");
-
-            // neuralPrice.push(customerData[0]);
-            recency.push(customerData[1]);
-            frequency.push(customerData[2]);
-            monetary.push(customerData[3]);
-            pageViews.push(customerData[4]);
-            timeSpent.push(customerData[5]);
-            // personalPrice.push(customerData[6]);
-        }
-
-        createPieChart(recency, id);
-        createFrequencyPie(frequency, id);
-        createMonetaryPie(monetary, id);
-        createPageViewsPie(pageViews, id);
-        createTimeSpentPie(timeSpent, id);
+        createRecencyPie(recen, id);
+        createFrequencyPie(freq, id);
+        createMonetaryPie(monet, id);
+        createPageViewsPie(pageV, id);
+        createTimeSpentPie(timeSp, id);
     }
 
     function download_training_data(id) {
@@ -486,6 +239,74 @@
         hiddenElement.target = '_blank';
         hiddenElement.download = 'testing_data_' + (id + 1) + '.csv';
         hiddenElement.click();
+    }
+
+    function shopsComparisonTable(id) {
+
+        let shops = shops_comparison[id].split("\n");
+
+        let visits = [];
+        let sales = [];
+        let conversionRate = [];
+        let salesValue = [];
+        let grossProfit = [];
+        let netProfit = [];
+        let productValue = [];
+        let operatingExpenses = [];
+
+        for (let i = 0; i < shops.length; i++) {
+            let shopsDetails = shops[i].split(",");
+
+            visits.push(shopsDetails[0]);
+            sales.push(shopsDetails[1]);
+            conversionRate.push(shopsDetails[2]);
+            salesValue.push(shopsDetails[3]);
+            grossProfit.push(shopsDetails[4]);
+            netProfit.push(shopsDetails[5]);
+            productValue.push(shopsDetails[6]);
+            operatingExpenses.push(shopsDetails[7]);
+        }
+
+        let values = [
+            ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+            [visits[0], visits[1], visits[2], visits[3], visits[4], visits[5], visits[6], visits[7], visits[8], visits[9]],
+            [sales[0], sales[1], sales[2], sales[3], sales[4], sales[5], sales[6], sales[7], sales[8], sales[9]],
+            [conversionRate[0], conversionRate[1], conversionRate[2], conversionRate[3], conversionRate[4], conversionRate[5], conversionRate[6], conversionRate[7], conversionRate[8], conversionRate[9]],
+            [salesValue[0], salesValue[1], salesValue[2], salesValue[3], salesValue[4], salesValue[5], salesValue[6], salesValue[7], salesValue[8], salesValue[9]],
+            [grossProfit[0], grossProfit[1], grossProfit[2], grossProfit[3], grossProfit[4], grossProfit[5], grossProfit[6], grossProfit[7], grossProfit[8], grossProfit[9]],
+            [netProfit[0], netProfit[1], netProfit[2], netProfit[3], netProfit[4], netProfit[5], netProfit[6], netProfit[7], netProfit[8], netProfit[9]],
+        ]
+
+        let data = [{
+            type: 'table',
+            header: {
+                values: [["<b>Shop<b>"], ["<b>Visits</b>"], ["<b>Sales</b>"], ["<b>Conversion rate</b>"], ["<b>Sales value</b>"], ["<b>Gross Profit</b>"], ["<b>Net Profit</b>"]],
+                align: "center",
+                line: {width: 1, color: 'black'},
+                fill: {color: "grey"},
+                font: {family: "Arial", size: 12, color: "white"}
+            },
+            cells: {
+                values: values,
+                align: "center",
+                line: {color: "black", width: 1},
+                font: {family: "Arial", size: 11, color: ["black"]}
+            }
+        }]
+        let layout = {
+            autosize: false,
+            width: 700,
+            height: 350,
+            margin: {
+                l: 20,
+                r: 20,
+                b: 20,
+                t: 40
+            },
+            title: "Shops comparison",
+            font: {size: 11},
+        };
+        Plotly.newPlot('shopsComparison' + id, data, layout);
     }
 
     $(document).ready(function () {
@@ -507,6 +328,12 @@
                     training_data.push(obj.output[i].training_data);
                     testing_data.push(obj.output[i].testing_data);
                     customer_data.push(obj.output[i].customer_data);
+                    shops_comparison.push(obj.output[i].shops_comparison);
+                    recency.push(obj.output[i].recency);
+                    frequency.push(obj.output[i].frequency);
+                    monetary.push(obj.output[i].monetary);
+                    pageViews.push(obj.output[i].pageViews);
+                    timeSpent.push(obj.output[i].timeSpent);
 
                     let resultId = "result" + i;
                     let resultButton = "resultBtn" + i;
@@ -516,7 +343,7 @@
                     let monetaryPie = "monetaryPie" + i;
                     let pageViewsPie = "pageViewsPie" + i;
                     let timeSpentPie = "timeSpentPie" + i;
-
+                    let shopsComparison = "shopsComparison" + i;
 
                     let inputObj = JSON.parse(obj.output[i].input_fields);
 
@@ -526,12 +353,12 @@
                     if (i !== 0) {
 
                         $("<div id=\"" + resultId + "\" class=\"mt-3\">" +
-                            "<button id=\"" + resultButton + "\" class=\"btn btn-outline-dark w-100\" onClick=\"showInput(" + i + ")\">" +
+                            "<button id=\"" + resultButton + "\" class=\"dropbtn btn btn-outline-dark w-100\" onClick=\"showInput(" + i + ")\">" +
                             obj.output[i].timestamp.slice(0, -2) + " | " +
                             obj.output[i].run_time + "s" +
                             "</button>" +
                             "<div id=\"" + resultInput + "\">" +
-                            "<button onclick=\"download_data_products(" + i + ")\" class='tableResult'>Data Products</button>" +
+                            "<button onclick=\"download_data_products(" + i + ")\" class='tableResult '>Data Products</button>" +
                             "<button onclick=\"download_data_views(" + i + ")\" class='tableResult'>Data Views</button>" +
                             "<button onclick=\"download_data_orders(" + i + ")\" class='tableResult'>Data Orders</button>" +
                             "<button onclick=\"download_training_data(" + i + ")\" class='tableResult'>Training dataset</button>" +
@@ -539,11 +366,19 @@
                             "SeedsNN1: " + inputObj.seedsNN1 +
                             "Customers' characteristics: " +
                             "<button onclick=\"multiplePies(" + i + ")\" class='tableResult'>Customers</button>" +
+                            "<button onclick=\"shopsComparisonTable(" + i + ")\" class='tableResult'>Shops Comparison</button>" +
+                            "<div  class='piesContainer'/>" +
+
                             "<div  id=\"" + recencyPie + "\" class='piesDisplay'/>" +
                             "<div  id=\"" + frequencyPie + "\" class='piesDisplay'/>" +
                             "<div  id=\"" + monetaryPie + "\" class='piesDisplay'/>" +
                             "<div  id=\"" + pageViewsPie + "\" class='piesDisplay'/>" +
                             "<div  id=\"" + timeSpentPie + "\" class='piesDisplay'/>" +
+
+                            "</div>" +
+                            "<div  class='piesContainer'/>" +
+                            "<div  id=\"" + shopsComparison + "\" class='piesDisplay'/>" +
+                            "</div>" +
                             "</div>" +
                             "</div>" +
                             "<br>").insertAfter($('#result' + (i - 1)));
@@ -554,7 +389,7 @@
 
                         $('#placeholder').replaceWith(
                             "<div id=\"" + resultId + "\" class=\"mt-3\">" +
-                            "<button id=\"" + resultButton + "\" class=\"btn btn-outline-dark w-100\" onClick=\"showInput(" + i + ")\">" +
+                            "<button id=\"" + resultButton + "\" class=\"dropbtn btn btn-outline-dark w-100\" onClick=\"showInput(" + i + ")\">" +
                             obj.output[i].timestamp.slice(0, -2) + " | " +
                             obj.output[i].run_time + "s" +
                             "</button>" +
@@ -564,7 +399,7 @@
                             "<button onclick=\"download_data_orders(" + i + ")\" class='tableResult'>Data Orders</button>" +
                             "<button onclick=\"download_training_data(" + i + ")\" class='tableResult'>Training dataset</button>" +
                             "<button onclick=\"download_testing_data(" + i + ")\" class='tableResult'>Testing dataset</button>" +
-                            "<button onclick=\"createPieChart(" + i + ")\" class='tableResult'>Recen</button>" +
+                            "<button onclick=\"createRecencyPie(" + i + ")\" class='tableResult'>Recen</button>" +
                             "<button onclick=\"createFrequencyPie(" + i + ")\" class='tableResult'>Freq</button>" +
                             "<button onclick=\"createMonetaryPie(" + i + ")\" class='tableResult'>Mon</button>" +
                             "<div id=\"" + recencyPie + "\"/>" +

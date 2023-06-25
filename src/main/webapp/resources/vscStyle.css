@@ -2,8 +2,16 @@
             #fbfcfe   //link water
             #fe6235   //portland orange
             #6e6d72   //dark silver */
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
 html, body {
     height: 100%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
 }
 
 nav {
@@ -125,7 +133,7 @@ h2 {
 
 table,
 table td .data {
-    border: 10px solid #000;
+    border: 0px solid #000;
     margin-right: 3%;
 
 }
@@ -491,9 +499,25 @@ body {
     margin: 0.5%;
 }
 
+.dropbtn {
+    align-items: center;
+    /*margin-left: 12.5%;*/
+}
+
 .piesDisplay {
-    margin: 0.5%;
+    margin-right: 1px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    position: relative;
+    object-fit: cover;
+}
+
+.piesContainer {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
 }
 

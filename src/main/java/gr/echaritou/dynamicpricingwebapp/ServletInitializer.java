@@ -39,7 +39,13 @@ public class ServletInitializer extends SpringBootServletInitializer {
                 + " run_time text NOT NULL,\n"
                 + " training_data text NOT NULL,\n"
                 + " testing_data text NOT NULL,\n"
-                + " customer_data text NOT NULL\n"
+                + " customer_data text NOT NULL,\n"
+                + " shops_comparison text NOT NULL,\n"
+                + " recency text NOT NULL,\n"
+                + " frequency text NOT NULL,\n"
+                + " monetary text NOT NULL,\n"
+                + " pageViews text NOT NULL,\n"
+                + " timeSpent text NOT NULL\n"
                 + ");";
 
 
