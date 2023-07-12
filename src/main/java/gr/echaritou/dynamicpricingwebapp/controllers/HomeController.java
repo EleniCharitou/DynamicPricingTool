@@ -159,7 +159,7 @@ public class HomeController {
                 "data_orders," +
                 "data_views," +
                 "input_fields," +
-                "result," +
+                "metrics," +
                 "run_time," +
                 "training_data," +
                 "testing_data," +
@@ -262,7 +262,7 @@ public class HomeController {
                 dbRowJSON.put("data_orders", rs.getString("data_orders"));
                 dbRowJSON.put("data_views", rs.getString("data_views"));
                 dbRowJSON.put("input_fields", rs.getString("input_fields"));
-                dbRowJSON.put("result", rs.getString("result"));
+                dbRowJSON.put("metrics", rs.getString("metrics"));
                 dbRowJSON.put("timestamp", rs.getTimestamp("timestamp"));
                 dbRowJSON.put("run_time", rs.getString("run_time"));
                 dbRowJSON.put("training_data", rs.getString("training_data"));

@@ -34,7 +34,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
                 + " data_orders text NOT NULL,\n"
                 + " data_views text NOT NULL,\n"
                 + " input_fields text NOT NULL,\n"
-                + " result text NOT NULL,\n"
+                + " metrics text NOT NULL,\n"
                 + " timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,\n"
                 + " run_time text NOT NULL,\n"
                 + " training_data text NOT NULL,\n"

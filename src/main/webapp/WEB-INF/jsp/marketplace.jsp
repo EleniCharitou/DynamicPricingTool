@@ -22,9 +22,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <%--CSS--%>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vscStyle.css">
-
-
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/configuration.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
             crossorigin="anonymous"></script>
@@ -35,29 +33,33 @@
 
 </head>
 <body>
-<nav class="navbar fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" id="logo" href="home">LOGO</a>
-        <a class="navbar-brand" id="home" href="home">Home</a>
-        <a class="navbar-brand" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
-            Pricing</a>
-        <a class="navbar-brand" id="university" href="#">Aristotle University of Thessaloniki</a>  <!--  or anything -->
+
+<header>
+    <div class="logo-container">
+        <a href="home"><img class="logo" src="./sources/DynamicPricinglogoBlueGreen.png" alt="logo"/></a>
     </div>
-</nav>
+    <nav class="navbar-links">
+        <li><a class="navbar-link" id="home" href="home"></a></li>
+        <li><a class="navbar-link" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
+            Pricing Simulator</a></li>
+        <li><a class="navbar-link" id="results" href="${pageContext.request.contextPath}/history"> Results </a></li>
+        <li><a class="navbar-link" id="university" href="#">Aristotle University of Thessaloniki</a></li>
+        <!--  or anything -->
+    </nav>
+</header>
 
 
 <div class="modelBody">
-    <%--Spinner-loading--%>
-    <div class="loader" id="loader" style="display: none">
-
-    </div>
     <div id="cover"></div>
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
-            <p class="stats"> Statistics: </p>
+            <div class="listName">
+                <img src="./sources/list.png" style="width: 21px; margin: 10px"/>Input visualisation
+            </div>
+
             <%--pre-result from data_product.csv                --%>
             <div class="flex-container">
                 <div class="card" id="modalData"></div>
@@ -85,376 +87,377 @@
         </div>
 
     </div>
-        <%--Customer's input --%>
-        <div class="input-marketplace" style="margin: 1%; width: 90%">
-            <table class="table firstInput" id="firstInputs">
-                <tbody>
-                <tr>
-                    <td style="text-align:center;">
-                        <div class="input-group">
-                            <input type="number" class="input" id="numOfCustomers" required="" autocomplete="off"
-                                   value="1000">
-                            <label for="numOfCustomers" class="user-label">Number of customers:</label>
-                        </div>
-                    </td>
-                    <td style="text-align:center;">
-                        <div class="input-group">
-                            <input type="number" class="input" id="mOfCustomers" required="" autocomplete="off"
-                                   value="0.95">
-                            <label for="mOfCustomers" class="user-label">mean:</label>
-                        </div>
-                    </td>
-                    <td style="text-align:center;">
-                        <div class="input-group">
-                            <input type="number" class="input" id="stdOfCustomers" required="" autocomplete="off"
-                                   value="0.3">
-                            <label for="stdOfCustomers" class="user-label">standard deviation:</label>
-                        </div>
-                    </td>
-                    <td style="text-align:center;">
-                        <div class="input-group">
-                            <input type="number" class="input" id="trainingPercentage" required="" autocomplete="off"
-                                   value="0.2">
-                            <label for="trainingPercentage" class="user-label">Percentage of training data:</label>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <%--Shops --%>
-        <div class="container">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-10"><h2>Shop Details</h2></div>
-                        <div class="col-sm-1">
-                            <button type="button" class="btn btn-info add-new-shop"><i class="fa fa-plus"></i> Add New
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <table id="tableOfShops" class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Shop</th>
-                        <th>Delivery cost [€]</th>
-                        <th>Delivery time</th>
-<%--                        //duration-waiting--%>
-                        <th>Classic or Advantage</th>
-<%--                        //Delivery method--%>
-                        <th>COD</th>
-                        <%--                        //Payment method--%>
-                        <th>Reviews' average</th>
-                        <%--                        //Average reviews for a specific store/seller--%>
-                        <th>Seller reputation</th>
-                        <th>!!!Average profit difference</th>
-                        <%--                        //pricing strategy--%>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="data">1</td>
-                        <td class="data">5</td>
-                        <td class="data">2.5</td>
-                        <td class="data">true</td>
-                        <td class="data">false</td>
-                        <td class="data">5</td>
-                    <td class="data">4</td>
-                    <td class="data">0</td>
-                    <td class="tableButton">
-                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete #c62828 red darken-3" title="Delete" data-toggle="tooltip"><i
-                                class="material-icons">&#xE872;</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="data">2</td>
-                    <td class="data">5.5</td>
-                    <td class="data">3</td>
-                    <td class="data">true</td>
-                    <td class="data">false</td>
-                    <td class="data">4</td>
-                    <td class="data">4</td>
-                    <td class="data">0.03</td>
-                    <td>
-                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                class="material-icons">&#xE872;</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="data">3</td>
-                    <td class="data">6</td>
-                    <td class="data">2</td>
-                    <td class="data">true</td>
-                    <td class="data">true</td>
-                    <td class="data">4</td>
-                    <td class="data">5</td>
-                    <td class="data">0.03</td>
-                    <td>
-                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                class="material-icons">&#xE872;</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="data">4</td>
-                    <td class="data">4.5</td>
-                    <td class="data">3.5</td>
-                    <td class="data">true</td>
-                    <td class="data">false</td>
-                    <td class="data">2</td>
-                    <td class="data">3</td>
-                    <td class="data">0.005</td>
-                    <td>
-                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                class="material-icons">&#xE872;</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="data">5</td>
-                    <td class="data">5</td>
-                    <td class="data">4</td>
-                    <td class="data">true</td>
-                    <td class="data">false</td>
-                    <td class="data">5</td>
-                    <td class="data">4</td>
-                    <td class="data">0.05</td>
-                    <td>
-                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                class="material-icons">&#xE872;</i></a>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="data">6</td>
-                        <td class="data">5</td>
-                        <td class="data">3</td>
-                        <td class="data">true</td>
-                        <td class="data">true</td>
-                        <td class="data">5</td>
-                        <td class="data">4</td>
-                        <td class="data">-0.05</td>
-                        <td class="tableButton">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE254;</i></a>
-                            <a class="delete #c62828 red darken-3" title="Delete" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="data">7</td>
-                        <td class="data">5.5</td>
-                        <td class="data">5</td>
-                        <td class="data">false</td>
-                        <td class="data">true</td>
-                        <td class="data">4</td>
-                        <td class="data">5</td>
-                        <td class="data">0.05</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="data">8</td>
-                        <td class="data">4</td>
-                        <td class="data">5</td>
-                        <td class="data">true</td>
-                        <td class="data">true</td>
-                        <td class="data">3</td>
-                        <td class="data">3</td>
-                        <td class="data">-0.05</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="data">9</td>
-                        <td class="data">5</td>
-                        <td class="data">3</td>
-                        <td class="data">true</td>
-                        <td class="data">false</td>
-                        <td class="data">5</td>
-                        <td class="data">5</td>
-                        <td class="data">-0.05</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="data">10</td>
-                        <td class="data">5</td>
-                        <td class="data">4</td>
-                        <td class="data">false</td>
-                        <td class="data">false</td>
-                        <td class="data">5</td>
-                        <td class="data">5</td>
-                        <td class="data">-0.03</td>
-                        <td>
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
-                                    class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-        <%--Upload files--%>
-    <h2>Upload files</h2>
-    <div class="card1">
-        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Products</h5>
-        <input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"
-               style="text-align: center; border-radius: 40px; width: 40%; font-size: 17px;"/>
-        <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Product ID | Base cost |
-            Brand power | Price | </p>
-    </div>
-    <div class="card2">
-        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Orders</h5>
-        <input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"
-               style="text-align: center; border-radius: 40px; width: 40%; font-size: 17px;"/>
-        <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Order ID | date of purchase |
-            customer ID | Total of order |</p>
-    </div>
-    <div class="card3">
-        <h5 class="card-title" style="font-weight: bold; width: 20%; font-size: 20px; ">Data Views</h5>
-        <input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"
-               style="text-align: center; border-radius: 40px; width: 40%; font-size: 17px;"/>
-        <p class="card-text" style="width: 45%; font-size: 16px; margin-left: 50px;">| Customer ID | Timestamp</p>
-    </div>
-
-    <%--NN inputs--%>
-    <table class="table" id="nnTable">
-
-        <tbody>
-        <tr>
-            <td style="font-weight: bold; text-align:center;"> NN1</td>
-            <td style="text-align:center;"></td>
-            <td style="font-weight: bold; text-align:center;"> NN2</td>
-            <td style="text-align:center;"></td>
-        </tr>
-        <tr>
-            <td style="text-align:center" for="nn1InputNodes">Input nodes:</td>
-            <td>
-                <input type="number" class="nnInputs" id="nn1InputNodes" name="nnInputs" value="9" style="width: 30%;">
-            </td>
-            <td style="text-align:center" for="nn2InputNodes">Input nodes:</td>
-            <td>
-                <input type="number" class="nnInputs" id="nn2InputNodes" name="nnInputs" value="6" style="width: 30%;">
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center" for="nn1HiddenNodes">Hidden nodes:</td>
-            <td>
-                <input type="number" id="nn1HiddenNodes" name="nnInputs" class="nnInputs" value="6" style="width: 30%;">
-            </td>
-            <td style="text-align:center" for="nn2HiddenNodes">Hidden nodes:</td>
-            <td>
-                <input type="number" id="nn2HiddenNodes" name="nnInputs" class="nnInputs" value="6" style="width: 30%;">
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center" for="nn1OutputNodes">Output nodes:</td>
-            <td>
-                <input type="number" id="nn1OutputNodes" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
-            </td>
-            <td style="text-align:center" for="nn2OutputNodes">Output nodes:</td>
-            <td>
-                <input type="number" id="nn2OutputNodes" name="nnInputs" class="nnInputs" value="1" style="width: 30%;">
-            </td>
-        </tr>
-
-        <tr>
-            <td style="font-weight: bold">
-                Training & evaluation params
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center" for="nn1Seed">Seed :</td>
-            <td>
-                <input type="number" id="nn1Seed" name="nnInputs" class="nnInputs" value="1234" style="width: 30%;">
-            </td>
-            <td style="text-align:center" for="nn2Seed"> Seed :</td>
-            <td>
-                <input type="number" id="nn2Seed" name="nnInputs" class="nnInputs" value="1234" style="width: 30%;">
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center" for="nn1NEpochs">nEpochs :</td>
-            <td>
-                <input type="number" id="nn1NEpochs" name="nnInputs" class="nnInputs" value="15" style="width: 30%;">
-            </td>
-            <td style="text-align:center" for="nn2NEpochs">nEpochs :</td>
-            <td>
-                <input type="number" id="nn2NEpochs" name="nnInputs" class="nnInputs" value="15" style="width: 30%;">
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center" for="nn1NSamples">nSamples:</td>
-            <td>
-                <input type="number" id="nn1NSamples" name="nnInputs" class="nnInputs" value="1000" style="width: 30%;">
-            </td>
-            <td style="text-align:center" for="nn2NSamples">nSamples:</td>
-            <td>
-                <input type="number" id="nn2NSamples" name="nnInputs" class="nnInputs" value="1000" style="width: 30%;">
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center" for="nn1BatchSize">Batch size :</td>
-            <td>
-                <input type="number" id="nn1BatchSize" name="nnInputs" class="nnInputs" value="1000"
-                       style="width: 30%;">
-            </td>
-            <td style="text-align:center" for="nn2BatchSize">Batch size :</td>
-            <td>
-                <input type="number" id="nn2BatchSize" name="nnInputs" class="nnInputs" value="1000"
-                       style="width: 30%;">
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:center" for="nn1LearningRate">Learning Rate :</td>
-            <td>
-                <input type="number" id="nn1LearningRate" name="nnInputs" class="nnInputs" value="0.003"
-                       style="width: 30%;">
-            </td>
-            <td style="text-align:center" for="nn2LearningRate">Learning Rate :</td>
-            <td>
-                <input type="number" id="nn2LearningRate" name="nnInputs" class="nnInputs" value="0.01"
-                       style="width: 30%;">
-            </td>
-        </tr>
-
-        </tbody>
-    </table>
-        <div class="HomeButtons">
-            <button id="test" type="button" class="button3" style="margin-top: 10pt" ,>Submit</button>
-        </div>
-
 </div>
+<%--Customer's input & files upload--%>
+<main>
+
+    <div class="config">
+        <img src="./sources/list.png"/>
+        Configuration
+    </div>
+    <section class="content">
+        <section class="customersChar">
+            <table>
+                <tr>
+                    <th class="listName" id="tooltipTarget"><img width="21px" src="./sources/customer.png"/> Target
+                        market
+                        <span class="tooltiptext"> Target market is the audience we addressed. <br> Percentage of training data: 0.25, means that the 25% of input data
+                                    are going to be used for the training of neural network and the rest 75% are going to be used as testing data,<br> Mean: 0.95 indicates that the
+                                    normal distribution is centered around 0.95, meaning it is more likely for values to be close to 0.95 and<br>Standard deviation of 0.3 in a
+                                    Gaussian distribution suggests that the data points are relatively close to the mean, resulting in a narrower and more concentrated distribution
+                                    compared to distributions with larger standard deviations.
+                                </span>
+                    </th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><label class="label" for="numOfCustomers">Number of customers</label></td>
+                    <td><input class="targetInput" id="numOfCustomers" required="" autocomplete="off" type="text"
+                               value="1000"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="mOfCustomers">Mean</label></td>
+                    <td><input class="targetInput" id="mOfCustomers" required="" autocomplete="off" type="text"
+                               value="0.95"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="stdOfCustomers">Standard deviation</label></td>
+                    <td><input class="targetInput" id="stdOfCustomers" required="" autocomplete="off" type="text"
+                               value="0.3"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="trainingPercentage">Training dataset</label></td>
+                    <td><input class="targetInput" id="trainingPercentage" required autocomplete="off" type="text"
+                               value="0.25"></td>
+                </tr>
+            </table>
+        </section>
+        <section class="uploadFiles">
+            <table>
+                <tr>
+                    <th class="listName"><img width="21px" src="./sources/upload-file.png"/> Upload files</th>
+                    <th class="label" style="margin-left: 25px;"> The uploaded files must have the following columns:
+                    </th>
+                </tr>
+                <tr>
+                    <td><input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"/></td>
+                    <td><label class="label" for="dataProductsID" id="file1">Products: Product ID | Base cost | Brand
+                        power | Price |</label></td>
+                </tr>
+                <tr>
+                    <td><input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"/></td>
+                    <td><label class="label" for="dataOrdersID" id="file2">Orders: Order ID | date of purchase |
+                        customer ID | Total of order |</label></td>
+                </tr>
+                <tr>
+                    <td><input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"/></td>
+                    <td><label class="label" for="dataViewsID" id="file3">Data views: Customer ID | Timestamp |</label>
+                    </td>
+                </tr>
+
+            </table>
+        </section>
+    </section>
+    <section class="shopTable">
+        <div class="listName" id="tooltip">
+            <img width="21px" src="./sources/store.png"/> Market Simulation
+            <span class="tooltiptext">A representative market with 10 shops. The first uses the dynamic pricing strategy
+                        with back-propagation neural network and the others have prices with a specific percentage of profit.
+                    </span>
+        </div>
+        <table id="tableOfShops">
+            <thead>
+            <tr>
+                <th class="shop">Shop</th>
+                <th class="shop">Delivery cost [€]</th>
+                <th class="shop">Delivery time</th>
+                <th class="shop">Classic or Advantage</th>
+                <th class="shop">COD</th>
+                <th class="shop">Reviews' average</th>
+                <th class="shop">Seller reputation</th>
+                <th class="shop">Average profit difference</th>
+                <th class="data">
+                    <a class="add" title="Add" data-toggle="tooltip" id="addNew"><i class="material-icons">&#xE03B;</i></a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="data">1</td>
+                <td class="data">5</td>
+                <td class="data">2.5</td>
+                <td class="data">true</td>
+                <td class="data">false</td>
+                <td class="data">5</td>
+                <td class="data">4</td>
+                <td class="data">0</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="data">2</td>
+                <td class="data">5.5</td>
+                <td class="data">3</td>
+                <td class="data">true</td>
+                <td class="data">false</td>
+                <td class="data">4</td>
+                <td class="data">4</td>
+                <td class="data">0.03</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            <tr>
+                <td class="data">3</td>
+                <td class="data">6</td>
+                <td class="data">2</td>
+                <td class="data">true</td>
+                <td class="data">true</td>
+                <td class="data">4</td>
+                <td class="data">5</td>
+                <td class="data">0.03</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+            <tr>
+                <td class="data">4</td>
+                <td class="data">4.5</td>
+                <td class="data">3.5</td>
+                <td class="data">true</td>
+                <td class="data">false</td>
+                <td class="data">2</td>
+                <td class="data">3</td>
+                <td class="data">0.005</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+            <tr>
+                <td class="data">5</td>
+                <td class="data">5</td>
+                <td class="data">4</td>
+                <td class="data">true</td>
+                <td class="data">false</td>
+                <td class="data">5</td>
+                <td class="data">4</td>
+                <td class="data">0.05</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+            <tr>
+                <td class="data">6</td>
+                <td class="data">5</td>
+                <td class="data">3</td>
+                <td class="data">true</td>
+                <td class="data">true</td>
+                <td class="data">5</td>
+                <td class="data">4</td>
+                <td class="data">-0.05</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+            <tr>
+                <td class="data">7</td>
+                <td class="data">5.5</td>
+                <td class="data">5</td>
+                <td class="data">false</td>
+                <td class="data">true</td>
+                <td class="data">4</td>
+                <td class="data">5</td>
+                <td class="data">0.05</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+            <tr>
+                <td class="data">8</td>
+                <td class="data">4</td>
+                <td class="data">5</td>
+                <td class="data">true</td>
+                <td class="data">true</td>
+                <td class="data">3</td>
+                <td class="data">3</td>
+                <td class="data">-0.05</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+            <tr>
+                <td class="data">9</td>
+                <td class="data">5</td>
+                <td class="data">3</td>
+                <td class="data">true</td>
+                <td class="data">false</td>
+                <td class="data">5</td>
+                <td class="data">5</td>
+                <td class="data">-0.05</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+            <tr>
+                <td class="data">10</td>
+                <td class="data">5</td>
+                <td class="data">4</td>
+                <td class="data">false</td>
+                <td class="data">false</td>
+                <td class="data">5</td>
+                <td class="data">5</td>
+                <td class="data">-0.03</td>
+                <td class="data">
+                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                </td>
+            </tr>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="content">
+        <section class="NN1">
+            <table>
+                <tr>
+                    <th class="listName"><img width="30px" src="./sources/network.png"/> NN1 parameters</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn1InputNodes">Inpute nodes</label></td>
+                    <td><input class="targetInput" id="nn1InputNodes" name="nnInputs" required="" autocomplete="off"
+                               type="text" name="nnInputs" value="9"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn1HiddenNodes">Hidden nodes</label></td>
+                    <td><input class="targetInput" id="nn1HiddenNodes" name="nnInputs" required="" autocomplete="off"
+                               type="text" name="nnInputs" value="6"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn1OutputNodes">Output nodes</label></td>
+                    <td><input class="targetInput" id="nn1OutputNodes" name="nnInputs" required autocomplete="off"
+                               type="text" name="nnInputs" value="1"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" style="font-weight: 500;">Training & evaluation parameters</label></td>
+                    <td style="color: rgba(0, 0, 0, 0);"> action</td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn1Seed">Seed</label></td>
+                    <td><input class="targetInput" id="nn1Seed" name="nnInputs" required autocomplete="off" type="text"
+                               value="1300"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn1NEpochs">nEpochs</label></td>
+                    <td><input class="targetInput" id="nn1NEpochs" name="nnInputs" required autocomplete="off"
+                               type="text" value="15"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn1NSamples">nSamples</label></td>
+                    <td><input class="targetInput" id="nn1NSamples" name="nnInputs" required autocomplete="off"
+                               type="text" value="1000"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn1BatchSize">Batch size</label></td>
+                    <td><input class="targetInput" id="nn1BatchSize" name="nnInputs" required autocomplete="off"
+                               type="text" value="1000"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn1LearningRate">Learning Rate</label></td>
+                    <td><input class="targetInput" id="nn1LearningRate" name="nnInputs" required autocomplete="off"
+                               type="text" value="0.003"></td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="NN2">
+            <table>
+                <tr>
+                    <th class="listName"><img width="30px" src="./sources/network.png"/> NN2 parameters</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn2InputNodes">Inpute nodes</label></td>
+                    <td><input class="targetInput" id="nn2InputNodes" name="nnInputs" required="" autocomplete="off"
+                               type="text" name="nnInputs" value="6"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn2HiddenNodes">Hidden nodes</label></td>
+                    <td><input class="targetInput" id="nn2HiddenNodes" name="nnInputs" required="" autocomplete="off"
+                               type="text" name="nnInputs" value="6"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn2OutputNodes">Output nodes</label></td>
+                    <td><input class="targetInput" id="nn2OutputNodes" name="nnInputs" required autocomplete="off"
+                               type="text" name="nnInputs" value="1"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" style="font-weight: 500;">Training & evaluation parameters</label></td>
+                    <td style="color: rgba(0, 0, 0, 0);"> action</td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn2Seed">Seed</label></td>
+                    <td><input class="targetInput" id="nn2Seed" name="nnInputs" required autocomplete="off" type="text"
+                               value="1200"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn2NEpochs">nEpochs</label></td>
+                    <td><input class="targetInput" id="nn2NEpochs" name="nnInputs" required autocomplete="off"
+                               type="text" value="15"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn2NSamples">nSamples</label></td>
+                    <td><input class="targetInput" id="nn2NSamples" name="nnInputs" required autocomplete="off"
+                               type="text" value="1000"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn2BatchSize">Batch size</label></td>
+                    <td><input class="targetInput" id="nn2BatchSize" name="nnInputs" required autocomplete="off"
+                               type="text" value="1000"></td>
+                </tr>
+                <tr>
+                    <td><label class="label" for="nn2LearningRate">Learning Rate</label></td>
+                    <td><input class="targetInput" id="nn2LearningRate" name="nnInputs" required autocomplete="off"
+                               type="text" value="0.003"></td>
+                </tr>
+            </table>
+        </section>
+        <section class="calculatorIcon">
+            <img src="./sources/calculator.jpg" style="width: 70%; margin: 17% 0% 0% 30%;"/>
+        </section>
+    </section>
+    <div class="submit">
+        <button id="test" type="button">Submit</button>
+    </div>
+    </section>
+</main>
+<footer>
+    <div class="copyrights">
+        © 2023 Copyright Eleni Charitou
+        <!-- <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a> -->
+        <br>Student at Aristotle University of Thessaloniki 2023
+    </div>
+</footer>
 
 <script>
     //Shops actions
@@ -673,9 +676,11 @@
                 },
                 title: "Differences between price, base cost and margin",
                 font: {size: 11},
+                xaxis: {title: '€'},
                 yaxis: {
                     type: 'log',
-                    autorange: true
+                    autorange: true,
+                    title: 'Price,base cost, margin'
                 }
             };
             Plotly.newPlot('marginPriceBaseCost', dataLinear, layoutLinear, {scrollZoom: true});
@@ -805,7 +810,7 @@
             let layoutOrder = {
                 autosize: false,
                 width: 350,
-                height: 350,
+                height: 300,
                 margin: {
                     l: 50,
                     r: 50,
@@ -830,9 +835,18 @@
             };
             let dataTime = [traceTime];
             let layoutTime = {
-                width: 600,
+                width: 500,
+                height: 300,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 65
+                },
                 title: 'Time of purchase',
-                font: {size: 11}
+                font: {size: 11},
+                xaxis: {title: 'Hour of purchase'},
+                yaxis: {title: "Number of purchases"}
             };
             let config = {responsive: true}
 
@@ -912,9 +926,21 @@
             };
             let dataView = [traceViews];
             let layoutViews = {
-                width: 600,
+                width: 500,
+                height: 300,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 65
+                },
                 title: 'Views time slot',
-                font: {size: 11}
+                font: {size: 11},
+                xaxis: {
+                    title: 'Hour of view',
+                    range: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]
+                },
+                yaxis: {title: 'Number of views'}
             };
             let configV = {responsive: true}
 

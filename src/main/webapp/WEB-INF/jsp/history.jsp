@@ -17,7 +17,7 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
     <%--CSS--%>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vscStyle.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/history.css">
     <%--plotly.js   PIE--%>
     <script src='https://cdn.plot.ly/plotly-2.18.2.min.js'></script>
 
@@ -25,21 +25,23 @@
 </head>
 <body>
 <header>
-    <nav id="navbar" class="navbar fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" id="logo" href="#">LOGO</a>
-            <a class="navbar-brand" id="home" href=""${pageContext.request.contextPath}/home">Home</a>
-            <a class="navbar-brand" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
-                Pricing</a>
-            <a class="navbar-brand" id="university" href="#">Aristotle University of Thessaloniki</a>
-            <!--  or anything -->
-        </div>
+    <div class="logo-container">
+        <a href="home"><img class="logo" src="./sources/DynamicPricinglogoBlueGreen.png" alt="logo"/></a>
+    </div>
+    <nav class="navbar-links">
+        <li><a class="navbar-link" id="home" href="home"></a></li>
+        <li><a class="navbar-link" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
+            Pricing Simulator</a></li>
+        <li><a class="navbar-link" id="results" href="${pageContext.request.contextPath}/history"> Results </a></li>
+        <li><a class="navbar-link" id="university" href="#">Aristotle University of Thessaloniki</a></li>
+        <!--  or anything -->
     </nav>
 </header>
 <br>
 <br>
 <br>
-
+<br>
+<br>
 
 <div id="historyDiv">
     <h3 id="placeholder"></h3>
@@ -51,6 +53,7 @@
     const data_products = [];
     const data_views = [];
     const data_orders = [];
+    const metrics = [];
     const customer_data = [];
 
     const training_data = [];
@@ -97,20 +100,21 @@
 
         let data = [{
             values: [recency[0], recency[1], recency[2], recency[3], recency[4], recency[5], recency[6], recency[7]],
-            labels: ['0-9', '10-24', '25-39', '40-59', '60-89', '90-139', '140-730', '731 and more'],
+            labels: ['0-9', '10-24', '25-39', '40-59', '60-89', '90-139', '140-730', '731 and<br> more'],
             type: 'pie'
         }];
         let layout = {
             autosize: false,
-            width: 350,
+            width: 300,
             height: 300,
             margin: {
                 l: 50,
                 r: 50,
                 b: 50,
-                t: 65
+                t: 50
             },
-            title: "Recency (days)",
+            paper_bgcolor: '#f5f5f5',
+            title: "Recency <br><sup>(days)</sup>",
             font: {size: 11},
         };
         Plotly.newPlot('recencyPie' + id, data, layout);
@@ -121,20 +125,21 @@
 
         let data = [{
             values: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], frequency[5], frequency[6], frequency[7]],
-            labels: ['0-1', '1-4', '4-7', '7-10', '10-15', '15-30', '30-60', '60 and more'],
+            labels: ['0-1', '1-4', '4-7', '7-10', '10-15', '15-30', '30-60', '60 and<br> more'],
             type: 'pie'
         }];
         let layout = {
             autosize: false,
-            width: 350,
+            width: 300,
             height: 300,
             margin: {
                 l: 50,
                 r: 50,
                 b: 50,
-                t: 65
+                t: 50
             },
-            title: "Frequency (orders/year)",
+            paper_bgcolor: '#f5f5f5',
+            title: "Frequency <br><sup>(orders/year)</sup>",
             font: {size: 11},
         };
         Plotly.newPlot('frequencyPie' + id, data, layout);
@@ -149,15 +154,16 @@
         }];
         let layout = {
             autosize: false,
-            width: 350,
+            width: 300,
             height: 300,
             margin: {
                 l: 50,
                 r: 50,
                 b: 50,
-                t: 65
+                t: 50
             },
-            title: "Monetary (€)",
+            paper_bgcolor: '#f5f5f5',
+            title: "Monetary <br><sup>(€)</sup>",
             font: {size: 11},
         };
         Plotly.newPlot('monetaryPie' + id, data, layout);
@@ -167,19 +173,20 @@
 
         let data = [{
             values: [pageViews[0], pageViews[1], pageViews[2], pageViews[3], pageViews[4], pageViews[5], pageViews[6], pageViews[7], pageViews[8]],
-            labels: ['0-199', '200-499', '500-999', '1000-1499', '1500-1999', '2000-2999', '3000-4999', '5000-9999', '10000 and more'],
+            labels: ['0-199', '200-499', '500-999', '1000-1499', '1500-1999', '2000-2999', '3000-4999', '5000-9999', '10000 and<br> more'],
             type: 'pie'
         }];
         let layout = {
             autosize: false,
-            width: 350,
+            width: 300,
             height: 300,
             margin: {
                 l: 50,
                 r: 50,
                 b: 50,
-                t: 65
+                t: 50
             },
+            paper_bgcolor: '#f5f5f5',
             title: "Page views per product sold",
             font: {size: 11},
         };
@@ -190,20 +197,21 @@
 
         let data = [{
             values: [timeSpent[0], timeSpent[1], timeSpent[2], timeSpent[3], timeSpent[4], timeSpent[5], timeSpent[6], timeSpent[7], timeSpent[8]],
-            labels: ['0-9', '10-29', '30-49', '50-99', '100-199', '200-499', '500-999', '1000-4999', '5000 and more'],
+            labels: ['0-9', '10-29', '30-49', '50-99', '100-199', '200-499', '500-999', '1000-4999', '5000 and<br> more'],
             type: 'pie'
         }];
         let layout = {
             autosize: false,
-            width: 350,
+            width: 300,
             height: 300,
             margin: {
                 l: 50,
                 r: 50,
                 b: 50,
-                t: 65
+                t: 50
             },
-            title: "Time spent per order (minutes/order)",
+            paper_bgcolor: '#f5f5f5',
+            title: "Time spent per order <br><sup>(minutes/order)</sup>",
             font: {size: 11},
         };
         Plotly.newPlot('timeSpentPie' + id, data, layout);
@@ -294,19 +302,25 @@
             }
         }]
         let layout = {
-            autosize: false,
-            width: 700,
-            height: 350,
+            autosize: true,
             margin: {
                 l: 20,
                 r: 20,
                 b: 20,
                 t: 40
             },
+            paper_bgcolor: '#f5f5f5',
             title: "Shops comparison",
             font: {size: 11},
         };
         Plotly.newPlot('shopsComparison' + id, data, layout);
+    }
+
+    function readMetrics(id) {
+        let metricsLines = metrics;
+        // metrics[id].split(",");
+        console.log(metrics);
+
     }
 
     $(document).ready(function () {
@@ -325,6 +339,7 @@
                     data_products.push(obj.output[i].data_products);
                     data_orders.push(obj.output[i].data_orders);
                     data_views.push(obj.output[i].data_views);
+                    metrics.push(obj.output[i].metrics);
                     training_data.push(obj.output[i].training_data);
                     testing_data.push(obj.output[i].testing_data);
                     customer_data.push(obj.output[i].customer_data);
@@ -350,35 +365,118 @@
                     for (j in inputObj.dataShops) {
                         console.log(inputObj.dataShops[j].avgProfitDiff);
                     }
+                    console.log(metrics);
                     if (i !== 0) {
 
                         $("<div id=\"" + resultId + "\" class=\"mt-3\">" +
-                            "<button id=\"" + resultButton + "\" class=\"dropbtn btn btn-outline-dark w-100\" onClick=\"showInput(" + i + ")\">" +
+                            "<button id=\"" + resultButton + "\" class=\"dropbtn btn btn-outline-dark w-75\" onClick=\"showInput(" + i + ")\">" +
                             obj.output[i].timestamp.slice(0, -2) + " | " +
                             obj.output[i].run_time + "s" +
                             "</button>" +
-                            "<div id=\"" + resultInput + "\">" +
-                            "<button onclick=\"download_data_products(" + i + ")\" class='tableResult '>Data Products</button>" +
-                            "<button onclick=\"download_data_views(" + i + ")\" class='tableResult'>Data Views</button>" +
-                            "<button onclick=\"download_data_orders(" + i + ")\" class='tableResult'>Data Orders</button>" +
-                            "<button onclick=\"download_training_data(" + i + ")\" class='tableResult'>Training dataset</button>" +
-                            "<button onclick=\"download_testing_data(" + i + ")\" class='tableResult'>Testing dataset</button>" +
-                            "SeedsNN1: " + inputObj.seedsNN1 +
-                            "Customers' characteristics: " +
-                            "<button onclick=\"multiplePies(" + i + ")\" class='tableResult'>Customers</button>" +
-                            "<button onclick=\"shopsComparisonTable(" + i + ")\" class='tableResult'>Shops Comparison</button>" +
-                            "<div  class='piesContainer'/>" +
+                            "<div id=\"" + resultInput + "\"  class='dropdownContent'>" +
+                            "<table class='resultsTable'>" +
+                            "<thead>" +
+                            "<tr>" +
+                            "<th class='resultTitle text-wrap'>Customer<br> information</th>" +
+                            "<th class='resultTitle'>Uploaded files</th>" +
+                            "<th class='resultTitle'>NN1</th>" +
+                            "<th class='resultTitle'>Training<br> params</th>" +
+                            "<th class='resultTitle'>NN2</th>" +
+                            "<th class='resultTitle'>Training<br> params</th>" +
+                            "<th class='resultTitle'>Results <br> NN1 evaluation</th>" +
+                            "<th class='resultTitle'>Results <br> NN2 evaluation</th>" +
+                            "<th class='resultTitle' style='width: 20.5%'>Graphs</th>" +
+                            "</tr>" +
+                            "</thead>" +
+                            "<tbody>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "Number: " + inputObj.numberOfCustomers + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_data_products(" + i + ")\" class='resultBtn'>Data Products</button>" + "</td>" +
+                            "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN1 + "</td>" +
+                            "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN1 + "</td>" +
+                            "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN2 + "</td>" +
+                            "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN2 + "</td>" +
+                            "<td class='inputData'>" + "MSE: " + "</td>" +
+                            "<td class='inputData'>" + "MSE: " + "</td>" +
+                            // readMetrics(" + i +")
+                            "<td class='inputData'>" + "<a onclick=\"shopsComparisonTable(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
 
+                            "</tr>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "Mean: " + inputObj.meanOfCustomers + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_data_orders(" + i + ")\" class='resultBtn'>Data Orders</button>" + "</td>" +
+                            "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN1 + "</td>" +
+                            "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN1 + "</td>" +
+                            "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN2 + "</td>" +
+                            "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN2 + "</td>" +
+                            "<td class='inputData'>" + "MAE: " + "</td>" +
+                            "<td class='inputData'>" + "MAE: " + "</td>" +
+                            "<td class='inputData'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
+
+                            "</tr>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "Std: " + inputObj.standardDeviationOfCustomers + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_data_views(" + i + ")\" class='resultBtn'>Data Views</button>" + "</td>" +
+                            "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN1 + "</td>" +
+                            "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN1 + "</td>" +
+                            "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN2 + "</td>" +
+                            "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN2 + "</td>" +
+                            "<td class='inputData'>" + "RMSE: " + "</td>" +
+                            "<td class='inputData'>" + "RMSE: " + "</td>" +
+
+                            "</tr>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_training_data(" + i + ")\" class='resultBtn'>Training dataset</button>" + "</td>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN1 + "</td>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN2 + "</td>" +
+                            "<td class='inputData'>" + "RSE: " + "</td>" +
+                            "<td class='inputData'>" + "RSE: " + "</td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_testing_data(" + i + ")\" class='resultBtn'>Testing dataset</button>" + "</td>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN1 + "</td>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
+                            "<td class='inputData'>" + "R<sup>2</sup>: " + "</td>" +
+                            "<td class='inputData'>" + "R<sup>2</sup>: " + "</td>" +
+                            "</tr>" +
+
+                            "</tbody>" +
+                            "</table>" +
+
+
+                            "<table  class='piesContainer'/>" +
+                            "<tr>" +
+                            "<td>" +
                             "<div  id=\"" + recencyPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "<td>" +
                             "<div  id=\"" + frequencyPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "<td>" +
                             "<div  id=\"" + monetaryPie + "\" class='piesDisplay'/>" +
-                            "<div  id=\"" + pageViewsPie + "\" class='piesDisplay'/>" +
-                            "<div  id=\"" + timeSpentPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "</tr>" +
+                            "<tr>" +
 
-                            "</div>" +
+                            "<td colspan='2'>" +
+                            "<div  id=\"" + pageViewsPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "<td colspan='2'>" +
+                            "<div  id=\"" + timeSpentPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "</tr>" +
+
+                            "</table>" +
                             "<div  class='piesContainer'/>" +
                             "<div  id=\"" + shopsComparison + "\" class='piesDisplay'/>" +
                             "</div>" +
+
                             "</div>" +
                             "</div>" +
                             "<br>").insertAfter($('#result' + (i - 1)));
@@ -389,41 +487,119 @@
 
                         $('#placeholder').replaceWith(
                             "<div id=\"" + resultId + "\" class=\"mt-3\">" +
-                            "<button id=\"" + resultButton + "\" class=\"dropbtn btn btn-outline-dark w-100\" onClick=\"showInput(" + i + ")\">" +
+                            "<button id=\"" + resultButton + "\" class=\"dropbtn btn btn-outline-dark w-75\" onClick=\"showInput(" + i + ")\">" +
                             obj.output[i].timestamp.slice(0, -2) + " | " +
                             obj.output[i].run_time + "s" +
                             "</button>" +
-                            "<div id=\"" + resultInput + "\">" +
-                            "<button onclick=\"download_data_products(" + i + ")\" class='tableResult'>Data Products</button>" +
-                            "<button onclick=\"download_data_views(" + i + ")\" class='tableResult'>Data Views</button>" +
-                            "<button onclick=\"download_data_orders(" + i + ")\" class='tableResult'>Data Orders</button>" +
-                            "<button onclick=\"download_training_data(" + i + ")\" class='tableResult'>Training dataset</button>" +
-                            "<button onclick=\"download_testing_data(" + i + ")\" class='tableResult'>Testing dataset</button>" +
-                            "<button onclick=\"createRecencyPie(" + i + ")\" class='tableResult'>Recen</button>" +
-                            "<button onclick=\"createFrequencyPie(" + i + ")\" class='tableResult'>Freq</button>" +
-                            "<button onclick=\"createMonetaryPie(" + i + ")\" class='tableResult'>Mon</button>" +
-                            "<div id=\"" + recencyPie + "\"/>" +
-                            "<div id=\"" + frequencyPie + "\"/>" +
-                            "<div id=\"" + monetaryPie + "\"/>" +
-                            "Number of customer: " + inputObj.numberOfCustomers +
-                            "Mean: " + inputObj.meanOfCustomers +
-                            "Standard deviation: " + inputObj.standardDeviationOfCustomers +
-                            "Percentage of training data: " + inputObj.dataTrainingPercentage +
-                            "SeedsNN1: " + inputObj.seedsNN1 +
-                            "nEpochsNN1: " + inputObj.nEpochsNN1 +
-                            "nSamplesNN1: " + inputObj.nSamplesNN1 +
-                            "Batch sizeNN1: " + inputObj.batchSizeNN1 +
-                            "Learning rateNN1: " + inputObj.learningRateNN1 +
-                            "SeedsNN2: " + inputObj.seedsNN2 +
-                            "nEpochsNN2: " + inputObj.nEpochsNN2 +
-                            "nSamplesNN2: " + inputObj.nSamplesNN2 +
-                            "Batch sizeNN2: " + inputObj.batchSizeNN2 +
-                            "Learning ratecNN2: " + inputObj.learningRateNN2 +
+                            "<div id=\"" + resultInput + "\"  class='dropdownContent'>" +
+                            "<table class='resultsTable'>" +
+                            "<thead>" +
+                            "<tr>" +
+                            "<th class='resultTitle text-wrap'>Customer<br> information</th>" +
+                            "<th class='resultTitle'>Uploaded files</th>" +
+                            "<th class='resultTitle'>NN1</th>" +
+                            "<th class='resultTitle'>Training<br> params</th>" +
+                            "<th class='resultTitle'>NN2</th>" +
+                            "<th class='resultTitle'>Training<br> params</th>" +
+                            "<th class='resultTitle'>Results <br> NN1 evaluation</th>" +
+                            "<th class='resultTitle'>Results <br> NN2 evaluation</th>" +
+                            "<th class='resultTitle' style='width: 20.5%'>Graphs</th>" +
+                            "</tr>" +
+                            "</thead>" +
+                            "<tbody>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "Number: " + inputObj.numberOfCustomers + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_data_products(" + i + ")\" class='resultBtn'>Data Products</button>" + "</td>" +
+                            "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN1 + "</td>" +
+                            "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN1 + "</td>" +
+                            "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN2 + "</td>" +
+                            "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN2 + "</td>" +
+                            "<td class='inputData'>" + "MSE: " + "</td>" +
+                            "<td class='inputData'>" + "MSE: " + "</td>" +
+                            "<td class='inputData'>" + "<a onclick=\"shopsComparisonTable(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
+
+                            "</tr>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "Mean: " + inputObj.meanOfCustomers + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_data_orders(" + i + ")\" class='resultBtn'>Data Orders</button>" + "</td>" +
+                            "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN1 + "</td>" +
+                            "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN1 + "</td>" +
+                            "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN2 + "</td>" +
+                            "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN2 + "</td>" +
+                            "<td class='inputData'>" + "MAE: " + "</td>" +
+                            "<td class='inputData'>" + "MAE: " + "</td>" +
+                            "<td class='inputData'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
+
+                            "</tr>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "Std: " + inputObj.standardDeviationOfCustomers + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_data_views(" + i + ")\" class='resultBtn'>Data Views</button>" + "</td>" +
+                            "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN1 + "</td>" +
+                            "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN1 + "</td>" +
+                            "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN2 + "</td>" +
+                            "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN2 + "</td>" +
+                            "<td class='inputData'>" + "RMSE: " + "</td>" +
+                            "<td class='inputData'>" + "RMSE: " + "</td>" +
+
+                            "</tr>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_training_data(" + i + ")\" class='resultBtn'>Training dataset</button>" + "</td>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN1 + "</td>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN2 + "</td>" +
+                            "<td class='inputData'>" + "RSE: " + "</td>" +
+                            "<td class='inputData'>" + "RSE: " + "</td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "<button onclick=\"download_testing_data(" + i + ")\" class='resultBtn'>Testing dataset</button>" + "</td>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN1 + "</td>" +
+                            "<td class='inputData'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
+                            "<td class='inputData'>" + "R<sup>2</sup>: " + "</td>" +
+                            "<td class='inputData'>" + "R<sup>2</sup>: " + "</td>" +
+                            "</tr>" +
+
+                            "</tbody>" +
+                            "</table>" +
+
+
+                            "<table  class='piesContainer'/>" +
+                            "<tr>" +
+                            "<td>" +
+                            "<div  id=\"" + recencyPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "<td>" +
+                            "<div  id=\"" + frequencyPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "<td>" +
+                            "<div  id=\"" + monetaryPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "</tr>" +
+                            "<tr>" +
+
+                            "<td colspan='2'>" +
+                            "<div  id=\"" + pageViewsPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "<td colspan='2'>" +
+                            "<div  id=\"" + timeSpentPie + "\" class='piesDisplay'/>" +
+                            "</td>" +
+                            "</tr>" +
+
+                            "</table>" +
+                            "<div  class='piesContainer'/>" +
+                            "<div  id=\"" + shopsComparison + "\" class='piesDisplay'/>" +
+                            "</div>" +
+
                             "</div>" +
                             "</div>" +
                             "<br>");
 
                         $('#' + resultInput).hide();
+
                     }
                 }
 
@@ -439,4 +615,11 @@
 
 
 </body>
+<footer>
+    <div class="copyrights" id="footer">
+        © 2023 Copyright Eleni Charitou
+        <!-- <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a> -->
+        <br>Student at Aristotle University of Thessaloniki 2023
+    </div>
+</footer>
 </html>
