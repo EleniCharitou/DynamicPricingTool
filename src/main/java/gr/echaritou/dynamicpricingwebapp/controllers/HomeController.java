@@ -151,7 +151,7 @@ public class HomeController {
         List<String> stats = new ArrayList<>();
 
         for (int i = 0; i < regressionEvaluations.length; i++) {
-            stats.add(regressionEvaluations[i].stats());
+            stats.add(regressionEvaluations[i].stats().split("\n")[1].replaceAll(" +", " ").trim());
         }
 
         String sql = "INSERT INTO history(" +
@@ -208,7 +208,7 @@ public class HomeController {
             pstmt.setString(2, userInput.getDataOrders());
             pstmt.setString(3, userInput.getDataViews());
             pstmt.setString(4, inputJSON.toString());
-            pstmt.setString(5, stats.toString());
+            pstmt.setString(5, stats.toString().replace("[", "").replace("]", "").trim());
             pstmt.setString(6, String.valueOf(seconds));
             pstmt.setString(7, training_data);
             pstmt.setString(8, testing_data);

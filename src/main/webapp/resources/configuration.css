@@ -301,3 +301,7 @@ footer {
 #tooltip:hover .tooltiptext, #tooltipTarget:hover .tooltiptext {
     visibility: visible;
 }
+
+table td .add {
+    display: none;
+}

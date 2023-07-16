@@ -316,12 +316,6 @@
         Plotly.newPlot('shopsComparison' + id, data, layout);
     }
 
-    function readMetrics(id) {
-        let metricsLines = metrics;
-        // metrics[id].split(",");
-        console.log(metrics);
-
-    }
 
     $(document).ready(function () {
 
@@ -366,6 +360,7 @@
                         console.log(inputObj.dataShops[j].avgProfitDiff);
                     }
                     console.log(metrics);
+
                     if (i !== 0) {
 
                         $("<div id=\"" + resultId + "\" class=\"mt-3\">" +
@@ -398,7 +393,6 @@
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN2 + "</td>" +
                             "<td class='inputData'>" + "MSE: " + "</td>" +
                             "<td class='inputData'>" + "MSE: " + "</td>" +
-                            // readMetrics(" + i +")
                             "<td class='inputData'>" + "<a onclick=\"shopsComparisonTable(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
 
                             "</tr>" +

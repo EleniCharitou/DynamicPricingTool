@@ -165,176 +165,211 @@
                         with back-propagation neural network and the others have prices with a specific percentage of profit.
                     </span>
         </div>
-        <table id="tableOfShops">
-            <thead>
-            <tr>
-                <th class="shop">Shop</th>
-                <th class="shop">Delivery cost [€]</th>
-                <th class="shop">Delivery time</th>
-                <th class="shop">Classic or Advantage</th>
-                <th class="shop">COD</th>
-                <th class="shop">Reviews' average</th>
-                <th class="shop">Seller reputation</th>
-                <th class="shop">Average profit difference</th>
-                <th class="data">
-                    <a class="add" title="Add" data-toggle="tooltip" id="addNew"><i class="material-icons">&#xE03B;</i></a>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="data">1</td>
-                <td class="data">5</td>
-                <td class="data">2.5</td>
-                <td class="data">true</td>
-                <td class="data">false</td>
-                <td class="data">5</td>
-                <td class="data">4</td>
-                <td class="data">0</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            </tr>
 
-            <tr>
-                <td class="data">2</td>
-                <td class="data">5.5</td>
-                <td class="data">3</td>
-                <td class="data">true</td>
-                <td class="data">false</td>
-                <td class="data">4</td>
-                <td class="data">4</td>
-                <td class="data">0.03</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            <tr>
-                <td class="data">3</td>
-                <td class="data">6</td>
-                <td class="data">2</td>
-                <td class="data">true</td>
-                <td class="data">true</td>
-                <td class="data">4</td>
-                <td class="data">5</td>
-                <td class="data">0.03</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td class="data">4</td>
-                <td class="data">4.5</td>
-                <td class="data">3.5</td>
-                <td class="data">true</td>
-                <td class="data">false</td>
-                <td class="data">2</td>
-                <td class="data">3</td>
-                <td class="data">0.005</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td class="data">5</td>
-                <td class="data">5</td>
-                <td class="data">4</td>
-                <td class="data">true</td>
-                <td class="data">false</td>
-                <td class="data">5</td>
-                <td class="data">4</td>
-                <td class="data">0.05</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td class="data">6</td>
-                <td class="data">5</td>
-                <td class="data">3</td>
-                <td class="data">true</td>
-                <td class="data">true</td>
-                <td class="data">5</td>
-                <td class="data">4</td>
-                <td class="data">-0.05</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td class="data">7</td>
-                <td class="data">5.5</td>
-                <td class="data">5</td>
-                <td class="data">false</td>
-                <td class="data">true</td>
-                <td class="data">4</td>
-                <td class="data">5</td>
-                <td class="data">0.05</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td class="data">8</td>
-                <td class="data">4</td>
-                <td class="data">5</td>
-                <td class="data">true</td>
-                <td class="data">true</td>
-                <td class="data">3</td>
-                <td class="data">3</td>
-                <td class="data">-0.05</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td class="data">9</td>
-                <td class="data">5</td>
-                <td class="data">3</td>
-                <td class="data">true</td>
-                <td class="data">false</td>
-                <td class="data">5</td>
-                <td class="data">5</td>
-                <td class="data">-0.05</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            </tr>
-            <tr>
-                <td class="data">10</td>
-                <td class="data">5</td>
-                <td class="data">4</td>
-                <td class="data">false</td>
-                <td class="data">false</td>
-                <td class="data">5</td>
-                <td class="data">5</td>
-                <td class="data">-0.03</td>
-                <td class="data">
-                    <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                    <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                </td>
-            </tr>
-            </tr>
-            </tbody>
-        </table>
+
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-10"><h2>Shop Details</h2></div>
+                        <div class="col-sm-1">
+
+                        </div>
+                    </div>
+                </div>
+                <table id="tableOfShops">
+                    <thead>
+                    <tr>
+                        <th class="shop">Shop</th>
+                        <th class="shop">Delivery cost [€]</th>
+                        <th class="shop">Delivery time</th>
+                        <th class="shop">Classic or Advantage</th>
+                        <th class="shop">COD</th>
+                        <th class="shop">Reviews' average</th>
+                        <th class="shop">Seller reputation</th>
+                        <th class="shop">Average profit difference</th>
+                        <th class="shop">
+                            <button type="button" class="btn btn-info add-new-shop"><i class="fa fa-plus"></i> Add New
+                            </button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="data">1</td>
+                        <td class="data">5</td>
+                        <td class="data">2.5</td>
+                        <td class="data">true</td>
+                        <td class="data">false</td>
+                        <td class="data">5</td>
+                        <td class="data">4</td>
+                        <td class="data">0</td>
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="data">2</td>
+                        <td class="data">5.5</td>
+                        <td class="data">3</td>
+                        <td class="data">true</td>
+                        <td class="data">false</td>
+                        <td class="data">4</td>
+                        <td class="data">4</td>
+                        <td class="data">0.03</td>
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">3</td>
+                        <td class="data">6</td>
+                        <td class="data">2</td>
+                        <td class="data">true</td>
+                        <td class="data">true</td>
+                        <td class="data">4</td>
+                        <td class="data">5</td>
+                        <td class="data">0.03</td>
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">4</td>
+                        <td class="data">4.5</td>
+                        <td class="data">3.5</td>
+                        <td class="data">true</td>
+                        <td class="data">false</td>
+                        <td class="data">2</td>
+                        <td class="data">3</td>
+                        <td class="data">0.005</td>
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">5</td>
+                        <td class="data">5</td>
+                        <td class="data">4</td>
+                        <td class="data">true</td>
+                        <td class="data">false</td>
+                        <td class="data">5</td>
+                        <td class="data">4</td>
+                        <td class="data">0.05</td>
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">6</td>
+                        <td class="data">5</td>
+                        <td class="data">3</td>
+                        <td class="data">true</td>
+                        <td class="data">true</td>
+                        <td class="data">5</td>
+                        <td class="data">4</td>
+                        <td class="data">-0.05</td>
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">7</td>
+                        <td class="data">5.5</td>
+                        <td class="data">5</td>
+                        <td class="data">false</td>
+                        <td class="data">true</td>
+                        <td class="data">4</td>
+                        <td class="data">5</td>
+                        <td class="data">0.05</td>
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">8</td>
+                        <td class="data">4</td>
+                        <td class="data">5</td>
+                        <td class="data">true</td>
+                        <td class="data">true</td>
+                        <td class="data">3</td>
+                        <td class="data">3</td>
+                        <td class="data">-0.05</td>
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">9</td>
+                        <td class="data">5</td>
+                        <td class="data">3</td>
+                        <td class="data">true</td>
+                        <td class="data">false</td>
+                        <td class="data">5</td>
+                        <td class="data">5</td>
+                        <td class="data">-0.05</td>
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="data">10</td>
+                        <td class="data">5</td>
+                        <td class="data">4</td>
+                        <td class="data">false</td>
+                        <td class="data">false</td>
+                        <td class="data">5</td>
+                        <td class="data">5</td>
+                        <td class="data">-0.03</td>
+                        <td class="tableButton">
+                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE254;</i></a>
+                            <a class="delete #c62828 red darken-3" title="Delete" data-toggle="tooltip"><i
+                                    class="material-icons">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </section>
     <section class="content">
         <section class="NN1">
@@ -1062,10 +1097,9 @@
         });
 
 
-
-    $(document).ajaxStart(function () {
-        $('#myModal').show();
-    });
+        $(document).ajaxStart(function () {
+            $('#myModal').show();
+        });
         $(document).ajaxComplete(function () {
             $('#loader').hide();
             $("#cover").fadeOut(100);
