@@ -105,7 +105,7 @@ public class DynamicPricing {
                     double shopProductPrice = simulationMarketplace.getShopList().get(shopNumber).getProductList().get(productNumber).getPrice();
 //                    System.out.println("For customer " + i + ", shop " + shopNumber + " and product " + productNumber + ":");
 //                    System.out.println("    wtp price: " + customerWtpProductPrice + " and shop's price: " + shopProductPrice);
-                    //topothetisi productId pou agoarastike se ena apo ta shop,ean wtp <= prriceOfShop
+                    //topothetisi productId pou agoarastike se ena apo ta shop,ean wtp <= priceOfShop
                     if (customerWtpProductPrice >= shopProductPrice) {
 //                        System.out.println("WTP FOUND!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                         shopsComparison[shopNumber][1]++;               //number of sales

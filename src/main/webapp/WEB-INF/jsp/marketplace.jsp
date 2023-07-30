@@ -17,7 +17,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+    <%--Font family--%>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
     <%-- Bootstrap --%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -26,6 +29,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
             crossorigin="anonymous"></script>
+    <script>
+        const tooltips = document.querySelectorAll('.tt')
+        tooltips.forEach(t => {
+            new bootstrap.Tooltip(t)
+        })
+    </script>
     <%-- jQuery --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <%--plotly.js   PIE--%>
@@ -39,7 +48,8 @@
         <a href="home"><img class="logo" src="./sources/DynamicPricinglogoBlueGreen.png" alt="logo"/></a>
     </div>
     <nav class="navbar-links">
-        <li><a class="navbar-link" id="home" href="home"></a></li>
+        <li><a class="navbar-link" id="logo" href="home"></a></li>
+        <li><a class="navbar-link" id="home" href="${pageContext.request.contextPath}/home"> Home </a></li>
         <li><a class="navbar-link" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
             Pricing Simulator</a></li>
         <li><a class="navbar-link" id="results" href="${pageContext.request.contextPath}/history"> Results </a></li>
@@ -56,8 +66,19 @@
 
         <!-- Modal content -->
         <div class="modal-content">
+            <div>
+                <table style="width: 100%; margin: auto">
+                    <td style="width: 40%">
+                        <div class="loader"></div>
+                    </td>
+                    <td style="width: 60%; margin: auto;">
+                        Please wait, the system is working on your data.<br>
+                        <span style="font-size: 12px">Until the end of the process you can take a look at the general view of your inputs. </span>
+                    </td>
+                </table>
+            </div>
             <div class="listName">
-                <img src="./sources/list.png" style="width: 21px; margin: 10px"/>Input visualisation
+                <img src="./sources/list.png" style="width: 21px; margin: 20px"/>Input visualization
             </div>
 
             <%--pre-result from data_product.csv                --%>
@@ -101,12 +122,17 @@
                 <tr>
                     <th class="listName" id="tooltipTarget"><img width="21px" src="./sources/customer.png"/> Target
                         market
-                        <span class="tooltiptext"> Target market is the audience we addressed. <br> Percentage of training data: 0.25, means that the 25% of input data
+                        <span class="tt" data-bs-placement="top" title="Target market is the audience we addressed. <br> Percentage of training data: 0.25, means that the 25% of input data
                                     are going to be used for the training of neural network and the rest 75% are going to be used as testing data,<br> Mean: 0.95 indicates that the
                                     normal distribution is centered around 0.95, meaning it is more likely for values to be close to 0.95 and<br>Standard deviation of 0.3 in a
                                     Gaussian distribution suggests that the data points are relatively close to the mean, resulting in a narrower and more concentrated distribution
-                                    compared to distributions with larger standard deviations.
-                                </span>
+                                    compared to distributions with larger standard deviations.">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-question-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                </svg>
+            </span>
                     </th>
                     <th></th>
                 </tr>
@@ -136,7 +162,8 @@
             <table>
                 <tr>
                     <th class="listName"><img width="21px" src="./sources/upload-file.png"/> Upload files</th>
-                    <th class="label" style="margin-left: 25px;"> The uploaded files must have the following columns:
+                    <th class="label" style="margin-left: 25px;"> The uploaded csv files must have the following
+                        columns:
                     </th>
                 </tr>
                 <tr>
@@ -161,9 +188,14 @@
     <section class="shopTable">
         <div class="listName" id="tooltip">
             <img width="21px" src="./sources/store.png"/> Market Simulation
-            <span class="tooltiptext">A representative market with 10 shops. The first uses the dynamic pricing strategy
-                        with back-propagation neural network and the others have prices with a specific percentage of profit.
-                    </span>
+            <span class="tt" data-bs-placement="top" title="A representative market with 10 shops. The first uses the dynamic pricing strategy
+                        with back-propagation neural network and the others have prices with a specific percentage of profit.">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-question-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                </svg>
+            </span>
         </div>
 
 
@@ -171,9 +203,7 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-10"><h2>Shop Details</h2></div>
                         <div class="col-sm-1">
-
                         </div>
                     </div>
                 </div>
@@ -188,9 +218,8 @@
                         <th class="shop">Reviews' average</th>
                         <th class="shop">Seller reputation</th>
                         <th class="shop">Average profit difference</th>
-                        <th class="shop">
-                            <button type="button" class="btn btn-info add-new-shop"><i class="fa fa-plus"></i> Add New
-                            </button>
+                        <th class="shop" style="background: #b6d4d0">
+                            <button type="button" class="add-new-shop"><i class="fa fa-plus"></i> Add shop</button>
                         </th>
                     </tr>
                     </thead>
@@ -205,10 +234,11 @@
                         <td class="data">4</td>
                         <td class="data">0</td>
                         <td class="data">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons">&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -223,10 +253,11 @@
                         <td class="data">4</td>
                         <td class="data">0.03</td>
                         <td class="data">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -240,10 +271,11 @@
                         <td class="data">5</td>
                         <td class="data">0.03</td>
                         <td class="data">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -257,10 +289,11 @@
                         <td class="data">3</td>
                         <td class="data">0.005</td>
                         <td class="data">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -274,10 +307,11 @@
                         <td class="data">4</td>
                         <td class="data">0.05</td>
                         <td class="data">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -291,10 +325,11 @@
                         <td class="data">4</td>
                         <td class="data">-0.05</td>
                         <td class="data">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -308,10 +343,11 @@
                         <td class="data">5</td>
                         <td class="data">0.05</td>
                         <td class="data">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -325,10 +361,11 @@
                         <td class="data">3</td>
                         <td class="data">-0.05</td>
                         <td class="data">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -342,10 +379,11 @@
                         <td class="data">5</td>
                         <td class="data">-0.05</td>
                         <td class="data">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -358,11 +396,12 @@
                         <td class="data">5</td>
                         <td class="data">5</td>
                         <td class="data">-0.03</td>
-                        <td class="tableButton">
-                            <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i
+                        <td class="data">
+                            <a class="add" title="Add" data-toggle="tooltip"
+                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
-                            <a class="delete #c62828 red darken-3" title="Delete" data-toggle="tooltip"><i
+                            <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
                                     class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -373,7 +412,7 @@
     </section>
     <section class="content">
         <section class="NN1">
-            <table>
+            <table style="border: none;">
                 <tr>
                     <th class="listName"><img width="30px" src="./sources/network.png"/> NN1 parameters</th>
                     <th></th>
@@ -394,11 +433,15 @@
                                type="text" name="nnInputs" value="1"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" style="font-weight: 500;">Training & evaluation parameters</label></td>
-                    <td style="color: rgba(0, 0, 0, 0);"> action</td>
+                    <td><label class="label" style="font-weight: 700;">Training & evaluation parameters</label></td>
+                    <td style="color: rgba(0, 0, 0, 0);"> &nbsp</td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn1Seed">Seed</label></td>
+                    <td>
+                        <label class="label" for="nn1Seed" data-toggle="tooltip" data-placement="top"
+                               title="The source of a random number generator, used to ensure the repeatability of the experiment.">Number
+                            of seed</label>
+                    </td>
                     <td><input class="targetInput" id="nn1Seed" name="nnInputs" required autocomplete="off" type="text"
                                value="1300"></td>
                 </tr>
@@ -447,8 +490,8 @@
                                type="text" name="nnInputs" value="1"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" style="font-weight: 500;">Training & evaluation parameters</label></td>
-                    <td style="color: rgba(0, 0, 0, 0);"> action</td>
+                    <td><label class="label" style="font-weight: 700;">Training & evaluation parameters</label></td>
+                    <td style="color: rgba(0, 0, 0, 0);"> &nbsp</td>
                 </tr>
                 <tr>
                     <td><label class="label" for="nn2Seed">Seed</label></td>
