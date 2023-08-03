@@ -37,8 +37,6 @@
             Pricing Simulator</a></li>
         <li><a class="navbar-link" id="results" href="${pageContext.request.contextPath}/history"> Results </a></li>
         <li><a class="navbar-link" id="university" href="#">Aristotle University of Thessaloniki</a></li>
-        <li><a class="navbar-link" id="error" href="${pageContext.request.contextPath}/error"> error </a></li>
-
         <!--  or anything -->
     </nav>
 </header>

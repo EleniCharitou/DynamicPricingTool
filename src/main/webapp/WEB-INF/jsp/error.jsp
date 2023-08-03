@@ -41,12 +41,14 @@
   </nav>
 </header>
 <main>
-  <img src="./sources/Oops.svg"/>
-  <p> The page you were looking for does not exist! Click
-    <a class="navbar-link" id="backHome" href="${pageContext.request.contextPath}/home"> here </a>
-    to return to the Home Page.
-  </p>
-
+  <div style="width: 100%; margin: auto;text-align: center;">
+    <img src="./sources/Oops.svg" style="width: 30%; margin-top: 12%"/>
+    <p> The page you were looking for does not exist! Click
+      <a class="navbar-link" id="backHome" href="${pageContext.request.contextPath}/home" style="color: #2199e8">
+        here </a>
+      to return to the Home Page.
+    </p>
+  </div>
 </main>
 
 </body>

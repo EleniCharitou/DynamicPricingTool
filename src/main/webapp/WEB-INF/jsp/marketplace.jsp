@@ -185,6 +185,21 @@
             </table>
         </section>
     </section>
+
+    <div id="notification" class="response" title="Basic dialog" style="display: none;">
+        <div style="display: flex; padding-left: 10px; width: 100%; border-bottom: 1px solid black; text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                 class="bi bi-exclamation-circle" viewBox="0 0 16 16" style="margin-right: 10px">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+            </svg>
+            <p>Attention</p>
+        </div>
+        <p style="margin: 15px; text-align: center;">All the files must be uploaded.
+            <br> Check your inputs and try again.</p>
+        <button id="ok" type="button">OK</button>
+    </div>
+
     <section class="shopTable">
         <div class="listName" id="tooltip">
             <img width="21px" src="./sources/store.png"/> Market Simulation
@@ -418,7 +433,7 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn1InputNodes">Inpute nodes</label></td>
+                    <td><label class="label" for="nn1InputNodes">Input nodes</label></td>
                     <td><input class="targetInput" id="nn1InputNodes" name="nnInputs" required="" autocomplete="off"
                                type="text" name="nnInputs" value="9"></td>
                 </tr>
@@ -438,30 +453,38 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="label" for="nn1Seed" data-toggle="tooltip" data-placement="top"
-                               title="The source of a random number generator, used to ensure the repeatability of the experiment.">Number
+                        <label class="label customTooltip" for="nn1Seed" data-toggle="tooltip"
+                               data-tooltip="The source of a random number generator, used to ensure the repeatability of the experiment.">Number
                             of seed</label>
                     </td>
                     <td><input class="targetInput" id="nn1Seed" name="nnInputs" required autocomplete="off" type="text"
                                value="1300"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn1NEpochs">nEpochs</label></td>
+                    <td><label class="label customTooltip" for="nn1NEpochs" data-toggle="tooltip"
+                               data-tooltip="An epoch is a complete iteration of the dataset.">nEpochs</label></td>
                     <td><input class="targetInput" id="nn1NEpochs" name="nnInputs" required autocomplete="off"
                                type="text" value="15"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn1NSamples">nSamples</label></td>
+                    <%--                    <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params">--%>
+                    <td><label class="label customTooltip" for="nn1NSamples" data-toggle="tooltip"
+                               data-tooltip="Number of the samples are used for this experiment.">Number of
+                        samples</label></td>
                     <td><input class="targetInput" id="nn1NSamples" name="nnInputs" required autocomplete="off"
                                type="text" value="1000"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn1BatchSize">Batch size</label></td>
+                    <td><label class="label customTooltip" for="nn1BatchSize" data-toggle="tooltip"
+                               data-tooltip="For the calculation of the number of parameter updates in each epoch, which is the ratio nSamples/batchSize defines.">Batch
+                        size</label></td>
                     <td><input class="targetInput" id="nn1BatchSize" name="nnInputs" required autocomplete="off"
                                type="text" value="1000"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn1LearningRate">Learning Rate</label></td>
+                    <td><label class="label customTooltip" for="nn1LearningRate" data-toggle="tooltip"
+                               data-tooltip="The learning rate of the neural network, which depends on the range of data values, usually taking values in the interval [0, 1]. Changes in the learning rate are often combined with changes in the activation function.">Learning
+                        Rate</label></td>
                     <td><input class="targetInput" id="nn1LearningRate" name="nnInputs" required autocomplete="off"
                                type="text" value="0.003"></td>
                 </tr>
@@ -475,7 +498,7 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn2InputNodes">Inpute nodes</label></td>
+                    <td><label class="label" for="nn2InputNodes">Input nodes</label></td>
                     <td><input class="targetInput" id="nn2InputNodes" name="nnInputs" required="" autocomplete="off"
                                type="text" name="nnInputs" value="6"></td>
                 </tr>
@@ -494,27 +517,37 @@
                     <td style="color: rgba(0, 0, 0, 0);"> &nbsp</td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn2Seed">Seed</label></td>
+                    <td><label class="label customTooltip" for="nn2Seed" data-toggle="tooltip"
+                               data-tooltip="The source of a random number generator, used to ensure the repeatability of the experiment.">Number
+                        of seed</label></td>
                     <td><input class="targetInput" id="nn2Seed" name="nnInputs" required autocomplete="off" type="text"
                                value="1200"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn2NEpochs">nEpochs</label></td>
+                    <td><label class="label customTooltip" for="nn2NEpochs" data-toggle="tooltip"
+                               data-tooltip="An epoch is a complete iteration of the dataset.">Number of epochs</label>
+                    </td>
                     <td><input class="targetInput" id="nn2NEpochs" name="nnInputs" required autocomplete="off"
                                type="text" value="15"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn2NSamples">nSamples</label></td>
+                    <td><label class="label customTooltip" for="nn2NSamples" data-toggle="tooltip"
+                               data-tooltip="Number of the samples are used for this experiment.">Number of
+                        samples</label></td>
                     <td><input class="targetInput" id="nn2NSamples" name="nnInputs" required autocomplete="off"
                                type="text" value="1000"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn2BatchSize">Batch size</label></td>
+                    <td><label class="label customTooltip" for="nn2BatchSize" data-toggle="tooltip"
+                               data-tooltip="For the calculation of the number of parameter updates in each epoch, which is the ratio nSamples/batchSize defines.">Batch
+                        size</label></td>
                     <td><input class="targetInput" id="nn2BatchSize" name="nnInputs" required autocomplete="off"
                                type="text" value="1000"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="nn2LearningRate">Learning Rate</label></td>
+                    <td><label class="label customTooltip" for="nn2LearningRate" data-toggle="tooltip"
+                               data-tooltip="The learning rate of the neural network, which depends on the range of data values, usually taking values in the interval [0, 1]. Changes in the learning rate are often combined with changes in the activation function.">Learning
+                        Rate</label></td>
                     <td><input class="targetInput" id="nn2LearningRate" name="nnInputs" required autocomplete="off"
                                type="text" value="0.003"></td>
                 </tr>
@@ -641,6 +674,21 @@
 
 //Submit all inputs
         $('#test').on('click', function () {
+            if (document.getElementById("dataProductsID").files.length == 0 || document.getElementById("dataOrdersID").files.length == 0 || document.getElementById("dataViewsID").files.length == 0) {
+                // alert("Files must be defined!!! ")
+                let divs = document.getElementById('notification');
+                divs.style.display = 'block';
+            }
+            const targetDiv = document.getElementById("notification");
+            const btn = document.getElementById("ok");
+            btn.onclick = function () {
+                if (targetDiv.style.display !== "none") {
+                    targetDiv.style.display = "none";
+                } else {
+                    targetDiv.style.display = "block";
+                }
+            };
+
 
             $('#modalData').html("<b>Hello</b>");
 

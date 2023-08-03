@@ -42,21 +42,20 @@
         <!--  or anything -->
     </nav>
 </header>
-<br>
-<br>
-<br>
-<br>
-<br>
+<main>
+    <div class="config">
+        <img src="./sources/list.png"/> Experiments
+    </div>
 
-<div id="historyDiv">
-    <h3 id="placeholder"></h3>
-</div>
+    <div id="historyDiv">
+        <h3 id="placeholder"></h3>
+    </div>
 
 
-<script>
+    <script>
 
-    const data_products = [];
-    const data_views = [];
+        const data_products = [];
+        const data_views = [];
     const data_orders = [];
     const metrics = [];
     const customer_data = [];
@@ -101,134 +100,139 @@
         hiddenElement.click();
     }
 
-    function createRecencyPie(recency, id) {
+        function createRecencyPie(recency, id) {
 
-        let data = [{
-            values: [recency[0], recency[1], recency[2], recency[3], recency[4], recency[5], recency[6], recency[7]],
-            labels: ['0-9', '10-24', '25-39', '40-59', '60-89', '90-139', '140-730', '731 and<br> more'],
-            type: 'pie',
-            texttemplate: "%{label}: %{value} (%{percent})",
-            textposition: "inside",
-            insidetextorientation: "radial"
-        }];
-        let layout = {
-            autosize: false,
-            width: 300,
-            height: 300,
-            margin: {
-                l: 50,
-                r: 50,
-                b: 50,
-                t: 50
+            let data = [{
+                values: [recency[0], recency[1], recency[2], recency[3], recency[4], recency[5], recency[6], recency[7]],
+                labels: ['0-9', '10-24', '25-39', '40-59', '60-89', '90-139', '140-730', '731 and<br> more'],
+                type: 'pie',
+                texttemplate: "%{label}: (%{percent})",
+                textposition: "inside",
+                insidetextorientation: "radial",
+                hoverinfo: 'label+percent'
+            }];
+            let layout = {
+                autosize: false,
+                width: 300,
+                height: 300,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 50
             },
             paper_bgcolor: '#f5f5f5',
             title: "Recency <br><sup>(days)</sup>",
             font: {size: 11},
         };
-        Plotly.newPlot('recencyPie' + id, data, layout);
-        // }
-    }
+            Plotly.newPlot('recencyPie' + id, data, layout);
+            // }
+        }
 
-    function createFrequencyPie(frequency, id) {
+        function createFrequencyPie(frequency, id) {
 
-        let data = [{
-            values: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], frequency[5], frequency[6], frequency[7]],
-            labels: ['0-1', '1-4', '4-7', '7-10', '10-15', '15-30', '30-60', '60 and<br> more'],
-            type: 'pie',
-            texttemplate: "%{label}: %{value} (%{percent})",
-            textposition: "inside",
-            insidetextorientation: "radial"
-        }];
-        let layout = {
-            autosize: false,
-            width: 300,
-            height: 300,
-            margin: {
-                l: 50,
-                r: 50,
-                b: 50,
-                t: 50
+            let data = [{
+                values: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], frequency[5], frequency[6], frequency[7]],
+                labels: ['0-1', '1-4', '4-7', '7-10', '10-15', '15-30', '30-60', '60 and<br> more'],
+                type: 'pie',
+                texttemplate: "%{label}: (%{percent})",
+                textposition: "inside",
+                insidetextorientation: "radial",
+                hoverinfo: 'label+percent'
+            }];
+            let layout = {
+                autosize: false,
+                width: 300,
+                height: 300,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 50
             },
             paper_bgcolor: '#f5f5f5',
             title: "Frequency <br><sup>(orders/year)</sup>",
             font: {size: 11}
-        };
-        Plotly.newPlot('frequencyPie' + id, data, layout);
-    }
+            };
+            Plotly.newPlot('frequencyPie' + id, data, layout);
+        }
 
-    function createMonetaryPie(monetary, id) {
+        function createMonetaryPie(monetary, id) {
 
-        let data = [{
-            values: [monetary[0], monetary[1], monetary[2], monetary[3], monetary[4], monetary[5], monetary[6], monetary[7]],
-            labels: ['0-49.99', '49.99-99.99', '99.99-149.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99'],
-            type: 'pie',
-            texttemplate: "%{label}: %{value} (%{percent})",
-            textposition: "inside",
-            insidetextorientation: "radial"
-        }];
-        let layout = {
-            autosize: false,
-            width: 300,
-            height: 300,
-            margin: {
-                l: 50,
-                r: 50,
-                b: 50,
-                t: 50
+            let data = [{
+                values: [monetary[0], monetary[1], monetary[2], monetary[3], monetary[4], monetary[5], monetary[6], monetary[7]],
+                labels: ['0-49.99', '49.99-99.99', '99.99-149.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99'],
+                type: 'pie',
+                texttemplate: "%{label}: (%{percent})",
+                textposition: "inside",
+                insidetextorientation: "radial",
+                hoverinfo: 'label+percent'
+            }];
+            let layout = {
+                autosize: false,
+                width: 300,
+                height: 300,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 50
             },
             paper_bgcolor: '#f5f5f5',
             title: "Monetary <br><sup>(€)</sup>",
             font: {size: 11}
-        };
-        Plotly.newPlot('monetaryPie' + id, data, layout);
-    }
+            };
+            Plotly.newPlot('monetaryPie' + id, data, layout);
+        }
 
-    function createPageViewsPie(pageViews, id) {
+        function createPageViewsPie(pageViews, id) {
 
-        let data = [{
-            values: [pageViews[0], pageViews[1], pageViews[2], pageViews[3], pageViews[4], pageViews[5], pageViews[6], pageViews[7], pageViews[8]],
-            labels: ['0-199', '200-499', '500-999', '1000-1499', '1500-1999', '2000-2999', '3000-4999', '5000-9999', '10000 and<br> more'],
-            type: 'pie',
-            texttemplate: "%{label}: %{value} (%{percent})",
-            textposition: "inside",
-            insidetextorientation: "radial"
-        }];
-        let layout = {
-            autosize: false,
-            width: 300,
-            height: 300,
-            margin: {
-                l: 50,
-                r: 50,
-                b: 50,
-                t: 50
+            let data = [{
+                values: [pageViews[0], pageViews[1], pageViews[2], pageViews[3], pageViews[4], pageViews[5], pageViews[6], pageViews[7], pageViews[8]],
+                labels: ['0-199', '200-499', '500-999', '1000-1499', '1500-1999', '2000-2999', '3000-4999', '5000-9999', '10000 and<br> more'],
+                type: 'pie',
+                texttemplate: "%{label}: (%{percent})",
+                textposition: "inside",
+                insidetextorientation: "radial",
+                hoverinfo: 'label+percent'
+            }];
+            let layout = {
+                autosize: false,
+                width: 300,
+                height: 300,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 50
             },
             paper_bgcolor: '#f5f5f5',
             title: "Page views per product sold",
             font: {size: 11},
-        };
-        Plotly.newPlot('pageViewsPie' + id, data, layout);
-    }
+            };
+            Plotly.newPlot('pageViewsPie' + id, data, layout);
+        }
 
-    function createTimeSpentPie(timeSpent, id) {
+        function createTimeSpentPie(timeSpent, id) {
 
-        let data = [{
-            values: [timeSpent[0], timeSpent[1], timeSpent[2], timeSpent[3], timeSpent[4], timeSpent[5], timeSpent[6], timeSpent[7], timeSpent[8]],
-            labels: ['0-9', '10-29', '30-49', '50-99', '100-199', '200-499', '500-999', '1000-4999', '5000 and<br> more'],
-            type: 'pie',
-            texttemplate: "%{label}: %{value} (%{percent})",
-            textposition: "inside",
-            insidetextorientation: "radial"
-        }];
-        let layout = {
-            autosize: false,
-            width: 300,
-            height: 300,
-            margin: {
-                l: 50,
-                r: 50,
-                b: 50,
-                t: 50
+            let data = [{
+                values: [timeSpent[0], timeSpent[1], timeSpent[2], timeSpent[3], timeSpent[4], timeSpent[5], timeSpent[6], timeSpent[7], timeSpent[8]],
+                labels: ['0-9', '10-29', '30-49', '50-99', '100-199', '200-499', '500-999', '1000-4999', '5000 and<br> more'],
+                type: 'pie',
+                texttemplate: "%{label}: (%{percent})",
+                textposition: "inside",
+                insidetextorientation: "radial",
+                hoverinfo: 'label+percent'
+            }];
+            let layout = {
+                autosize: false,
+                width: 300,
+                height: 300,
+                margin: {
+                    l: 50,
+                    r: 50,
+                    b: 50,
+                    t: 50
             },
             paper_bgcolor: '#f5f5f5',
             title: "Time spent per order <br><sup>(minutes/order)</sup>",
@@ -284,7 +288,7 @@
         let data = [{
             type: 'table',
             header: {
-                values: [["<b>Shop<b>"], ["<b>Visits</b>"], ["<b>Sales</b>"], ["<b>Conversion rate</b>"], ["<b>Sales value</b>"], ["<b>Gross Profit</b>"], ["<b>Net Profit</b>"]],
+                values: [["<b>Shop<b>"], ["<b>Visits</b>"], ["<b>Sales (€) </b>"], ["<b>Conversion rate (%) </b>"], ["<b>Sales value (€) </b>"], ["<b>Gross Profit (€) </b>"], ["<b>Net Profit (€)</b>"]],
                 align: "center",
                 line: {width: 0.5, color: '#064C58'},
                 fill: {color: "#064C58"},
@@ -349,24 +353,24 @@
         for (let i = 0; i < shops.length; i++) {
             let shopsDetails = shops[i].split(",");
 
-            visits.push(shopsDetails[0]);
-            sales.push(shopsDetails[1]);
-            conversionRate.push(shopsDetails[2]);
-            salesValue.push(shopsDetails[3]);
-            grossProfit.push(shopsDetails[4]);
-            netProfit.push(shopsDetails[5]);
-            productValue.push(shopsDetails[6]);
-            operatingExpenses.push(shopsDetails[7]);
+            visits.push(parseFloat(shopsDetails[0]).toLocaleString('de-DE'));
+            sales.push(parseFloat(shopsDetails[1]).toLocaleString('de-DE'));
+            conversionRate.push(parseFloat(shopsDetails[2]).toLocaleString('de-DE'));
+            salesValue.push(parseFloat(shopsDetails[3]).toLocaleString('de-DE'));
+            grossProfit.push(parseFloat(shopsDetails[4]).toLocaleString('de-DE'));
+            netProfit.push(parseFloat(shopsDetails[5]).toLocaleString('de-DE'));
+            productValue.push(parseFloat(shopsDetails[6]).toLocaleString('de-DE'));
+            operatingExpenses.push(parseFloat(shopsDetails[7]).toLocaleString('de-DE'));
             shopsComparisonTable(visits, sales, conversionRate, salesValue, grossProfit, netProfit, productValue, operatingExpenses, id);
             lineChartShops(grossProfit, netProfit, id);
         }
         console.log(visits);
     }
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $.ajax({
-            type: "POST",
+            $.ajax({
+                type: "POST",
             url: "getHistory",
             contentType: "application/json",
             data: {},
@@ -414,7 +418,7 @@
 
                     if (i !== 0) {
 
-                        $("<div id=\"" + resultId + "\" class=\"mt-3\">" +
+                        $(" <div id=\"" + resultId + "\" class=\"mt-3\">" +
                             "<button id=\"" + resultButton + "\" class=\"dropbtn btn btn-outline-dark w-75\" onClick=\"showInput(" + i + ")\">" +
                             "Experiment: " + (i + 1) + "<pre/> " +
                             "Date: " + obj.output[i].timestamp.slice(0, -2) + "      " +
@@ -432,7 +436,7 @@
                             "<th class='resultTitle'>Training<br> params</th>" +
                             "<th class='resultTitle'>Results <br> NN1 evaluation</th>" +
                             "<th class='resultTitle'>Results <br> NN2 evaluation</th>" +
-                            "<th class='resultTitle' style='width: 20.5%'>Graphs</th>" +
+                            "<th class='resultTitle' style='width: 10%'>Graphs</th>" +
                             "</tr>" +
                             "</thead>" +
                             "<tbody>" +
@@ -443,8 +447,8 @@
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN1 + "</td>" +
                             "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN2 + "</td>" +
-                            "<td class='inputData'>" + "MSE: " + metricsNN1[1] + "</td>" +
-                            "<td class='inputData'>" + "MSE: " + metricsNN2[1] + "</td>" +
+                            "<td class='inputData'>" + "MSE: " + parseFloat(metricsNN1[1]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "MSE: " + parseFloat(metricsNN2[1]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData' rowspan='2'>" + "<a onclick=\"shopsResults(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
 
                             "</tr>" +
@@ -455,8 +459,8 @@
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN1 + "</td>" +
                             "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN2 + "</td>" +
-                            "<td class='inputData'>" + "MAE: " + metricsNN1[2] + "</td>" +
-                            "<td class='inputData'>" + "MAE: " + metricsNN2[2] + "</td>" +
+                            "<td class='inputData'>" + "MAE: " + parseFloat(metricsNN1[2]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "MAE: " + parseFloat(metricsNN2[2]).toLocaleString('de-DE') + "</td>" +
 
                             "</tr>" +
                             "<tr>" +
@@ -466,8 +470,8 @@
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN1 + "</td>" +
                             "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN2 + "</td>" +
-                            "<td class='inputData'>" + "RMSE: " + metricsNN1[3] + "</td>" +
-                            "<td class='inputData'>" + "RMSE: " + metricsNN2[3] + "</td>" +
+                            "<td class='inputData'>" + "RMSE: " + parseFloat(metricsNN1[3]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "RMSE: " + parseFloat(metricsNN2[3]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData' rowspan='3'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
 
                             "</tr>" +
@@ -478,8 +482,8 @@
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN2 + "</td>" +
-                            "<td class='inputData'>" + "RSE: " + metricsNN1[4] + "</td>" +
-                            "<td class='inputData'>" + "RSE: " + metricsNN2[4] + "</td>" +
+                            "<td class='inputData'>" + "RSE: " + parseFloat(metricsNN1[4]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "RSE: " + parseFloat(metricsNN2[4]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
                             "<tr>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
@@ -488,8 +492,8 @@
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
-                            "<td class='inputData'>" + "R<sup>2</sup>: " + metricsNN1[5] + "</td>" +
-                            "<td class='inputData'>" + "R<sup>2</sup>: " + metricsNN2[5] + "</td>" +
+                            "<td class='inputData'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
 
                             "</tbody>" +
@@ -553,7 +557,7 @@
                             "<th class='resultTitle'>Training<br> params</th>" +
                             "<th class='resultTitle'>Results <br> NN1 evaluation</th>" +
                             "<th class='resultTitle'>Results <br> NN2 evaluation</th>" +
-                            "<th class='resultTitle' style='width: 20.5%'>Graphs</th>" +
+                            "<th class='resultTitle' style='width: 10%'>Graphs</th>" +
                             "</tr>" +
                             "</thead>" +
                             "<tbody>" +
@@ -564,8 +568,8 @@
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN1 + "</td>" +
                             "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN2 + "</td>" +
-                            "<td class='inputData'>" + "MSE: " + metricsNN1[1] + "</td>" +
-                            "<td class='inputData'>" + "MSE: " + metricsNN2[1] + "</td>" +
+                            "<td class='inputData'>" + "MSE: " + parseFloat(metricsNN1[1]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "MSE: " + parseFloat(metricsNN2[1]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData' rowspan='2'>" + "<a onclick=\"shopsResults(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
 
                             "</tr>" +
@@ -576,8 +580,8 @@
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN1 + "</td>" +
                             "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN2 + "</td>" +
-                            "<td class='inputData'>" + "MAE: " + metricsNN1[2] + "</td>" +
-                            "<td class='inputData'>" + "MAE: " + metricsNN2[2] + "</td>" +
+                            "<td class='inputData'>" + "MAE: " + parseFloat(metricsNN1[2]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "MAE: " + parseFloat(metricsNN2[2]).toLocaleString('de-DE') + "</td>" +
 
                             "</tr>" +
                             "<tr>" +
@@ -587,8 +591,8 @@
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN1 + "</td>" +
                             "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN2 + "</td>" +
-                            "<td class='inputData'>" + "RMSE: " + metricsNN1[3] + "</td>" +
-                            "<td class='inputData'>" + "RMSE: " + metricsNN2[3] + "</td>" +
+                            "<td class='inputData'>" + "RMSE: " + parseFloat(metricsNN1[3]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "RMSE: " + parseFloat(metricsNN2[3]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData' rowspan='3'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
 
                             "</tr>" +
@@ -599,8 +603,8 @@
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN2 + "</td>" +
-                            "<td class='inputData'>" + "RSE: " + metricsNN1[4] + "</td>" +
-                            "<td class='inputData'>" + "RSE: " + metricsNN2[4] + "</td>" +
+                            "<td class='inputData'>" + "RSE: " + parseFloat(metricsNN1[4]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "RSE: " + parseFloat(metricsNN2[4]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
                             "<tr>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
@@ -609,8 +613,8 @@
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
-                            "<td class='inputData'>" + "R<sup>2</sup>: " + metricsNN1[5] + "</td>" +
-                            "<td class='inputData'>" + "R<sup>2</sup>: " + +metricsNN2[5] + "</td>" +
+                            "<td class='inputData'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
 
                             "</tbody>" +
@@ -663,7 +667,7 @@
 
 </script>
 
-
+</main>
 </body>
 <footer>
     <div class="copyrights" id="footer">

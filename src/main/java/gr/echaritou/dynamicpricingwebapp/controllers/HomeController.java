@@ -289,9 +289,4 @@ public class HomeController {
         return outputJSON.toString();
 
     }
-
-    @GetMapping("/error")
-    public String showErrorPage() {
-        return "error";
-    }
 }

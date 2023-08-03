@@ -97,6 +97,8 @@ ul {
     font-size: 16px;
     font-weight: 50;
     color: #05060fc2;
+    position: relative;
+    cursor: pointer;
 }
 
 
@@ -131,7 +133,7 @@ ul {
     padding: 10px 10px 5px 10px;
     justify-content: space-between;
     margin-left: 30px;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
     border-radius: 0.2px;
     border: 0.5px solid #064C58;
 }
@@ -189,14 +191,15 @@ ul {
 
 .edit::before, .edit::after,
 .add::before, .add::after,
-.delete::before, .delete::after {
+.delete::before, .delete::after,
+.customTooltip::before, .customTooltip::after {
     --scale: 0;
     --arrow-size: 7px;
     --tooltip-color: #b6d4d0;
 
     position: absolute;
-    top: -.25rem;
-    left: 50%;
+    top: -.35rem;
+    left: 40%;
     transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
     transition: 100ms transform;
     transform-origin: bottom center;
@@ -204,28 +207,32 @@ ul {
 
 .edit::before,
 .add::before,
-.delete::before {
-    --translate-y: calc(-100% - var(--arrow-size));
+.delete::before,
+.customTooltip::before {
+    --translate-y: calc(-95% - var(--arrow-size));
 
     content: attr(data-tooltip);
     color: #064C58;
     padding: .5rem;
     border-radius: .3rem;
     text-align: center;
-    max-width: 500px;
+    max-width: 300px;
     background: var(--tooltip-color);
     font-size: 10px;
 }
 
 .edit:hover::before, .edit:hover::after,
 .add:hover::before, .add:hover::after,
-.delete:hover::before, .delete:hover::after {
+.delete:hover::before, .delete:hover::after,
+.customTooltip:hover::before, .customTooltip:hover::after {
     --scale: 1;
+    white-space: normal;
 }
 
 .edit::after,
 .add::after,
-.delete::after {
+.delete::after,
+.customTooltip::after {
     --translate-y: calc(-1 * var(--arrow-size));
 
     content: '';
@@ -242,10 +249,6 @@ ul {
 
 a:hover {
     color: #064C58;
-}
-
-.edit:hover {
-
 }
 
 .add-new-shop {
@@ -449,3 +452,32 @@ table td .add {
     display: none;
 }
 
+#notification {
+    padding: 20px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 500px 500px 500px 5000px rgba(0, 0, 255, .2);
+    transform: translateX(-50%);
+    z-index: 9999;
+}
+
+#ok {
+    border: none;
+    border-radius: 3px;
+    width: 35px;
+    color: white;
+    background-color: #064C58;
+    margin: 0px;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
