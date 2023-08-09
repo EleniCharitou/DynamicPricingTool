@@ -29,12 +29,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
             crossorigin="anonymous"></script>
-    <script>
-        const tooltips = document.querySelectorAll('.tt')
-        tooltips.forEach(t => {
-            new bootstrap.Tooltip(t)
-        })
-    </script>
     <%-- jQuery --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <%--plotly.js   PIE--%>
@@ -120,19 +114,20 @@
         <section class="customersChar">
             <table>
                 <tr>
-                    <th class="listName" id="tooltipTarget"><img width="21px" src="./sources/customer.png"/> Target
-                        market
-                        <span class="tt" data-bs-placement="top" title="Target market is the audience we addressed. <br> Percentage of training data: 0.25, means that the 25% of input data
-                                    are going to be used for the training of neural network and the rest 75% are going to be used as testing data,<br> Mean: 0.95 indicates that the
-                                    normal distribution is centered around 0.95, meaning it is more likely for values to be close to 0.95 and<br>Standard deviation of 0.3 in a
+                    <th class="listName"><img width="21px" src="./sources/customer.png"/> Target market
+                        <span class="exclamationMark" data-toggle="tooltip"
+                              data-tooltip="Target market is the audience we addressed. Percentage of training data: 0.25, means that the 25% of input data
+                                    are going to be used for the training of neural network and the rest 75% are going to be used as testing data, Mean: 0.95 indicates that the
+                                    normal distribution is centered around 0.95, meaning it is more likely for values to be close to 0.95 and Standard deviation of 0.3 in a
                                     Gaussian distribution suggests that the data points are relatively close to the mean, resulting in a narrower and more concentrated distribution
                                     compared to distributions with larger standard deviations.">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                     class="bi bi-question-circle" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-                </svg>
-            </span>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                            </svg>
+                        </span>
                     </th>
                     <th></th>
                 </tr>
@@ -203,12 +198,13 @@
     <section class="shopTable">
         <div class="listName" id="tooltip">
             <img width="21px" src="./sources/store.png"/> Market Simulation
-            <span class="tt" data-bs-placement="top" title="A representative market with 10 shops. The first uses the dynamic pricing strategy
+            <span class="exclamationMark" data-toggle="tooltip"
+                  data-tooltip="A representative market with 10 shops. The first shop uses the dynamic pricing strategy
                         with back-propagation neural network and the others have prices with a specific percentage of profit.">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                     class="bi bi-question-circle" viewBox="0 0 16 16">
+                     class="bi bi-exclamation-circle" viewBox="0 0 16 16">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
                 </svg>
             </span>
         </div>
@@ -227,12 +223,30 @@
                     <tr>
                         <th class="shop">Shop</th>
                         <th class="shop">Delivery cost [€]</th>
-                        <th class="shop">Delivery time</th>
-                        <th class="shop">Classic or Advantage</th>
-                        <th class="shop">COD</th>
-                        <th class="shop">Reviews' average</th>
-                        <th class="shop">Seller reputation</th>
-                        <th class="shop">Average profit difference</th>
+                        <th class="shop exclamationMark" data-toggle="tooltip"
+                            data-tooltip="The average delivery time in days.">Delivery time
+                        </th>
+                        <th class="shop  exclamationMark" data-toggle="tooltip"
+                            data-tooltip="Assigned a value of 'true' if the shop supports additional delivery methods, such as Saturday delivery and/or clever point, otherwise assigned a value of 'false' if the shop supports only standard delivery methods.">
+                            Delivery method
+                        </th>
+                        <th class="shop exclamationMark" data-toggle="tooltip"
+                            data-tooltip="It takes the value 'true' if the shop supports cash on delivery, otherwise the value 'false' if it does not.">
+                            Payment method
+                        </th>
+                        <th class="shop exclamationMark" data-toggle="tooltip"
+                            data-tooltip="The average number of reviews submitted for this store. It takes values in the range [1,5] where 1 corresponds to the worst possible review and 5 to the best possible review.">
+                            Average number of reviews
+                        </th>
+                        <th class="shop exclamationMark" data-toggle="tooltip"
+                            data-tooltip="This relates to the credibility, reputation and brand name of the store, i.e. the name of the specific store in the market.
+                            It takes values in the range [1,5], where '1' corresponds to the worst possible reputation and '5' to the best.">
+                            Seller reputation
+                        </th>
+                        <th class="shop exclamationMark" data-toggle="tooltip"
+                            data-tooltip="It takes the value of '0', if the shop follows a Dynamic pricing strategy or other value which represents the specific percentage of the shop's profit.">
+                            Pricing strategy
+                        </th>
                         <th class="shop" style="background: #b6d4d0">
                             <button type="button" class="add-new-shop"><i class="fa fa-plus"></i> Add shop</button>
                         </th>

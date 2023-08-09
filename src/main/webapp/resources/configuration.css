@@ -61,6 +61,7 @@ nav {
 .navbar-link:hover {
     color: #064C58;
     text-decoration: none;
+    border-bottom: 2.5px solid #064C58;
 }
 
 .config {
@@ -118,6 +119,51 @@ ul {
     margin-left: 10px;
 }
 
+.exclamationMark {
+    cursor: pointer;
+    justify-content: center;
+    position: relative;
+}
+
+.exclamationMark::before, .exclamationMark::after {
+    --scale: 0;
+    --tooltip-color: #b6d4d0;
+
+    position: absolute;
+    top: -.35rem;
+    left: 40%;
+    transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+    transition: 100ms transform;
+    transform-origin: bottom center;
+}
+
+.exclamationMark::before {
+    --translate-y: calc(-95%);
+
+    content: attr(data-tooltip);
+    color: #064C58;
+    padding: .5rem;
+    border-radius: .3rem;
+    text-align: center;
+    max-width: 800px;
+    background: var(--tooltip-color);
+    font-size: 10px;
+}
+
+.exclamationMark:hover::before, .exclamationMark:hover::after {
+    --scale: 1;
+    white-space: normal;
+    width: 350px;
+    border-radius: .3rem;
+}
+
+.exclamationMark::after {
+    --translate-y: calc(-1);
+    content: '';
+    border-top-color: var(--tooltip-color);
+    transform-origin: top center;
+}
+
 #dataProductsID, #dataOrdersID, #dataViewsID {
     height: 28px;
     font-size: 14px;
@@ -164,6 +210,14 @@ ul {
     padding: 5px 10px 5px 10px;
     font-size: 16px;
     font-weight: 500;
+    cursor: pointer;
+    position: relative;
+}
+
+.shop:hover::before, .shop:hover::after {
+    --scale: 1;
+    white-space: normal;
+    max-inline-size: 100%;
 }
 
 .data, #tableOfShops tbody, #tableOfShops tr, #tableOfShops td {

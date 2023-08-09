@@ -48,7 +48,17 @@
     </div>
 
     <div id="historyDiv">
-        <h3 id="placeholder"></h3>
+        <div id="placeholder">
+            <div class="spinner">
+                <div class="loader">
+                    <div class="justify-content-center jimu-primary-loading"></div>
+                </div>
+                <div class="loaderText">
+                    Experiments' data are loading.
+                    <br>Please wait.
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -56,9 +66,9 @@
 
         const data_products = [];
         const data_views = [];
-    const data_orders = [];
-    const metrics = [];
-    const customer_data = [];
+        const data_orders = [];
+        const metrics = [];
+        const customer_data = [];
 
     const training_data = [];
     const testing_data = [];
