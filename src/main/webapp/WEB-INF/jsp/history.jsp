@@ -37,9 +37,8 @@
         <li><a class="navbar-link" id="home" href="${pageContext.request.contextPath}/home"> Home </a></li>
         <li><a class="navbar-link" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
             Pricing Simulator</a></li>
-        <li><a class="navbar-link" id="results" href="${pageContext.request.contextPath}/history"> Results </a></li>
-        <li><a class="navbar-link" id="university" href="#">Aristotle University of Thessaloniki</a></li>
-        <!--  or anything -->
+        <li class="active"><a class="navbar-link" id="results" href="${pageContext.request.contextPath}/history">
+            Results </a></li>
     </nav>
 </header>
 <main>
@@ -298,7 +297,7 @@
         let data = [{
             type: 'table',
             header: {
-                values: [["<b>Shop<b>"], ["<b>Visits</b>"], ["<b>Sales (€) </b>"], ["<b>Conversion rate (%) </b>"], ["<b>Sales value (€) </b>"], ["<b>Gross Profit (€) </b>"], ["<b>Net Profit (€)</b>"]],
+                values: [["<b>Shop<b>"], ["<b>Visits</b>"], ["<b>Sales</b>"], ["<b>Conversion rate (%) </b>"], ["<b>Sales value (€) </b>"], ["<b>Gross Profit (€) </b>"], ["<b>Net Profit (€)</b>"]],
                 align: "center",
                 line: {width: 0.5, color: '#064C58'},
                 fill: {color: "#064C58"},
@@ -343,17 +342,19 @@
         };
         let dataLine = [trace1, trace2];
         let chartLayout = {
-            title: 'Shops profit comparison'
+            title: 'Shops profit comparison',
+            xaxis: {title: 'Shop'},
+            yaxis: {title: '€'}
         }
         Plotly.newPlot('lineShopsComparison' + id, dataLine, chartLayout);
     }
 
-    function shopsResults(id) {
-        let shops = shops_comparison[id].split("\n");
+        function shopsResults(id) {
+            let shops = shops_comparison[id].split("\n");
 
-        let visits = [];
-        let sales = [];
-        let conversionRate = [];
+            let visits = [];
+            let sales = [];
+            let conversionRate = [];
         let salesValue = [];
         let grossProfit = [];
         let netProfit = [];
@@ -444,9 +445,9 @@
                             "<th class='resultTitle'>Training<br> params</th>" +
                             "<th class='resultTitle'>NN2</th>" +
                             "<th class='resultTitle'>Training<br> params</th>" +
-                            "<th class='resultTitle'>Results <br> NN1 evaluation</th>" +
-                            "<th class='resultTitle'>Results <br> NN2 evaluation</th>" +
-                            "<th class='resultTitle' style='width: 10%'>Graphs</th>" +
+                            "<th class='resultTitle' style='background-color: #b6d4d0'>Results <br> NN1 evaluation</th>" +
+                            "<th class='resultTitle' style='background-color: #b6d4d0'>Results <br> NN2 evaluation</th>" +
+                            "<th class='resultTitle' style='width: 10%;background-color: #b6d4d0'>Graphs</th>" +
                             "</tr>" +
                             "</thead>" +
                             "<tbody>" +
@@ -457,9 +458,9 @@
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN1 + "</td>" +
                             "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN2 + "</td>" +
-                            "<td class='inputData'>" + "MSE: " + parseFloat(metricsNN1[1]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "MSE: " + parseFloat(metricsNN2[1]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData' rowspan='2'>" + "<a onclick=\"shopsResults(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "MSE: " + parseFloat(metricsNN1[1]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "MSE: " + parseFloat(metricsNN2[1]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' rowspan='2' style='background-color: #d5e4e2'>" + "<a onclick=\"shopsResults(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
 
                             "</tr>" +
                             "<tr>" +
@@ -469,8 +470,8 @@
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN1 + "</td>" +
                             "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN2 + "</td>" +
-                            "<td class='inputData'>" + "MAE: " + parseFloat(metricsNN1[2]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "MAE: " + parseFloat(metricsNN2[2]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "MAE: " + parseFloat(metricsNN1[2]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "MAE: " + parseFloat(metricsNN2[2]).toLocaleString('de-DE') + "</td>" +
 
                             "</tr>" +
                             "<tr>" +
@@ -480,9 +481,9 @@
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN1 + "</td>" +
                             "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN2 + "</td>" +
-                            "<td class='inputData'>" + "RMSE: " + parseFloat(metricsNN1[3]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "RMSE: " + parseFloat(metricsNN2[3]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData' rowspan='3'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "RMSE: " + parseFloat(metricsNN1[3]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "RMSE: " + parseFloat(metricsNN2[3]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' rowspan='3' style='background-color: #d5e4e2'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
 
                             "</tr>" +
                             "<tr>" +
@@ -492,8 +493,8 @@
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN2 + "</td>" +
-                            "<td class='inputData'>" + "RSE: " + parseFloat(metricsNN1[4]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "RSE: " + parseFloat(metricsNN2[4]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "RSE: " + parseFloat(metricsNN1[4]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "RSE: " + parseFloat(metricsNN2[4]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
                             "<tr>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
@@ -502,8 +503,8 @@
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
-                            "<td class='inputData'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
 
                             "</tbody>" +
@@ -565,9 +566,9 @@
                             "<th class='resultTitle'>Training<br> params</th>" +
                             "<th class='resultTitle'>NN2</th>" +
                             "<th class='resultTitle'>Training<br> params</th>" +
-                            "<th class='resultTitle'>Results <br> NN1 evaluation</th>" +
-                            "<th class='resultTitle'>Results <br> NN2 evaluation</th>" +
-                            "<th class='resultTitle' style='width: 10%'>Graphs</th>" +
+                            "<th class='resultTitle' style='background-color: #b6d4d0'>Results <br> NN1 evaluation</th>" +
+                            "<th class='resultTitle' style='background-color: #b6d4d0'>Results <br> NN2 evaluation</th>" +
+                            "<th class='resultTitle' style='width: 10%; background-color: #b6d4d0'>Graphs</th>" +
                             "</tr>" +
                             "</thead>" +
                             "<tbody>" +
@@ -578,9 +579,9 @@
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN1 + "</td>" +
                             "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN2 + "</td>" +
-                            "<td class='inputData'>" + "MSE: " + parseFloat(metricsNN1[1]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "MSE: " + parseFloat(metricsNN2[1]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData' rowspan='2'>" + "<a onclick=\"shopsResults(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "MSE: " + parseFloat(metricsNN1[1]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "MSE: " + parseFloat(metricsNN2[1]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' rowspan='2' style='background-color: #d5e4e2'>" + "<a onclick=\"shopsResults(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
 
                             "</tr>" +
                             "<tr>" +
@@ -590,8 +591,8 @@
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN1 + "</td>" +
                             "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN2 + "</td>" +
-                            "<td class='inputData'>" + "MAE: " + parseFloat(metricsNN1[2]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "MAE: " + parseFloat(metricsNN2[2]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "MAE: " + parseFloat(metricsNN1[2]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "MAE: " + parseFloat(metricsNN2[2]).toLocaleString('de-DE') + "</td>" +
 
                             "</tr>" +
                             "<tr>" +
@@ -601,9 +602,9 @@
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN1 + "</td>" +
                             "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN2 + "</td>" +
-                            "<td class='inputData'>" + "RMSE: " + parseFloat(metricsNN1[3]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "RMSE: " + parseFloat(metricsNN2[3]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData' rowspan='3'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "RMSE: " + parseFloat(metricsNN1[3]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "RMSE: " + parseFloat(metricsNN2[3]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' rowspan='3' style='background-color: #d5e4e2'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
 
                             "</tr>" +
                             "<tr>" +
@@ -613,8 +614,8 @@
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN2 + "</td>" +
-                            "<td class='inputData'>" + "RSE: " + parseFloat(metricsNN1[4]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "RSE: " + parseFloat(metricsNN2[4]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "RSE: " + parseFloat(metricsNN1[4]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "RSE: " + parseFloat(metricsNN2[4]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
                             "<tr>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
@@ -623,8 +624,8 @@
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
-                            "<td class='inputData'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2;'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
 
                             "</tbody>" +

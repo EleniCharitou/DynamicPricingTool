@@ -58,7 +58,7 @@ nav {
     position: relative;
 }
 
-.navbar-link:hover {
+.active, .navbar-link:hover {
     color: #064C58;
     text-decoration: none;
     border-bottom: 2.5px solid #064C58;

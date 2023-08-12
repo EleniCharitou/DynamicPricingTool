@@ -36,7 +36,6 @@
     <li><a class="navbar-link" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
       Pricing Simulator</a></li>
     <li><a class="navbar-link" id="results" href="${pageContext.request.contextPath}/history"> Results </a></li>
-    <li><a class="navbar-link" id="university" href="#">Aristotle University of Thessaloniki</a></li>
     <!--  or anything -->
   </nav>
 </header>

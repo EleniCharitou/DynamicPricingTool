@@ -44,11 +44,10 @@
     <nav class="navbar-links">
         <li><a class="navbar-link" id="logo" href="home"></a></li>
         <li><a class="navbar-link" id="home" href="${pageContext.request.contextPath}/home"> Home </a></li>
-        <li><a class="navbar-link" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
+        <li class="active"><a class="navbar-link" id="dynamicPricing"
+                              href="${pageContext.request.contextPath}/marketplace">Dynamic
             Pricing Simulator</a></li>
         <li><a class="navbar-link" id="results" href="${pageContext.request.contextPath}/history"> Results </a></li>
-        <li><a class="navbar-link" id="university" href="#">Aristotle University of Thessaloniki</a></li>
-        <!--  or anything -->
     </nav>
 </header>
 
@@ -156,25 +155,29 @@
         <section class="uploadFiles">
             <table>
                 <tr>
-                    <th class="listName"><img width="21px" src="./sources/upload-file.png"/> Upload files</th>
-                    <th class="label" style="margin-left: 25px;"> The uploaded csv files must have the following
-                        columns:
+                    <th class="listName" style="padding-bottom: 0px; padding-bottom: 0px"><img width="21px"
+                                                                                               src="./sources/upload-file.png"/>
+                        Upload files
+                        <p class="label" style="margin-left: 25px; font-size: 12px; padding-top: 0px;"> Please upload
+                            '.csv' files with the
+                            following columns:</p>
                     </th>
                 </tr>
                 <tr>
-                    <td><input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"/></td>
                     <td><label class="label" for="dataProductsID" id="file1">Products: Product ID | Base cost | Brand
                         power | Price |</label></td>
+                    <td><input type="file" id="dataProductsID" class="form-control" name="file1" accept=".csv"/></td>
                 </tr>
                 <tr>
-                    <td><input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"/></td>
                     <td><label class="label" for="dataOrdersID" id="file2">Orders: Order ID | date of purchase |
                         customer ID | Total of order |</label></td>
+                    <td><input type="file" id="dataOrdersID" class="form-control" name="file2" accept=".csv"/></td>
                 </tr>
                 <tr>
-                    <td><input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"/></td>
                     <td><label class="label" for="dataViewsID" id="file3">Data views: Customer ID | Timestamp |</label>
                     </td>
+                    <td><input type="file" id="dataViewsID" class="form-control" name="file3" accept=".csv"/></td>
+
                 </tr>
 
             </table>

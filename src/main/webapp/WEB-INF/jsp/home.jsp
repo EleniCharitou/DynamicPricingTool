@@ -32,13 +32,24 @@
     </div>
     <nav class="navbar-links">
         <li><a class="navbar-link" id="logo" href="home"></a></li>
-        <li><a class="navbar-link" id="home" href="${pageContext.request.contextPath}/home"> Home </a></li>
+        <li class="active"><a class="navbar-link" id="home" href="${pageContext.request.contextPath}/home"> Home </a>
+        </li>
         <li><a class="navbar-link" id="dynamicPricing" href="${pageContext.request.contextPath}/marketplace">Dynamic
             Pricing Simulator</a></li>
         <li><a class="navbar-link" id="results" href="${pageContext.request.contextPath}/history"> Results </a></li>
-        <li><a class="navbar-link" id="university" href="#">Aristotle University of Thessaloniki</a></li>
-        <!--  or anything -->
     </nav>
+    <script>
+        // Add active class to the current button (highlight it)
+        let header = document.getElementById("navbar-links");
+        let btns = header.getElementsByClassName("navbar-link");
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                let current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
+            });
+        }
+    </script>
 </header>
 <main>
 
@@ -131,8 +142,8 @@
         </div>
     </section>
     <section class="logos">
-        <a href="https://issel.ee.auth.gr/en/13-2/"><img class="issel" src="./sources/issel.png"/></a>
-        <a href="http://ee.auth.gr/en/"><img class="auth" src="./sources/thmmy.png"/></a>
+        <a href="https://issel.ee.auth.gr/en/13-2/" target="_blank"><img class="issel" src="./sources/issel.png"/></a>
+        <a href="http://ee.auth.gr/en/" target="_blank"><img class="auth" src="./sources/thmmy.png"/></a>
     </section>
     <img class="illustration" src="./sources/illustration.jpg" alt=""/>
 </main>
