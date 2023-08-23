@@ -115,11 +115,8 @@
                 <tr>
                     <th class="listName"><img width="21px" src="./sources/customer.png"/> Target market
                         <span class="exclamationMark" data-toggle="tooltip"
-                              data-tooltip="Target market is the audience we addressed. Percentage of training data: 0.25, means that the 25% of input data
-                                    are going to be used for the training of neural network and the rest 75% are going to be used as testing data, Mean: 0.95 indicates that the
-                                    normal distribution is centered around 0.95, meaning it is more likely for values to be close to 0.95 and Standard deviation of 0.3 in a
-                                    Gaussian distribution suggests that the data points are relatively close to the mean, resulting in a narrower and more concentrated distribution
-                                    compared to distributions with larger standard deviations.">
+                              data-tooltip="Target market is the audience we addressed and bellow we specify the values
+                              for the willingness to purchase of the customers, which follows Gaussian distribution">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-exclamation-circle" viewBox="0 0 16 16">
@@ -131,22 +128,46 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <td><label class="label" for="numOfCustomers">Number of customers</label></td>
+                    <td><label class="label" for="numOfCustomers">
+                        <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
+                              data-tooltip="Number of customers refers to the hypothetical customers of our market.">
+                        Number of customers
+                        </span>
+                    </label></td>
                     <td><input class="targetInput" id="numOfCustomers" required="" autocomplete="off" type="text"
                                value="1000"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="mOfCustomers">Mean</label></td>
+                    <td><label class="label" for="mOfCustomers">
+                        <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
+                              data-tooltip="Mean is used for the calculation of the wtp. For example, 0.95 indicates that the
+                        normal distribution is centered around this number and the used formula is “mean = 0.95 * referencePrice”">
+                            Mean
+                        </span>
+                    </label></td>
                     <td><input class="targetInput" id="mOfCustomers" required="" autocomplete="off" type="text"
                                value="0.95"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="stdOfCustomers">Standard deviation</label></td>
+                    <td><label class="label" for="stdOfCustomers">
+                        <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
+                              data-tooltip="Standard deviation is also used for the calculation of the wtp. For example,
+                              0.3 in a Gaussian distribution suggests that the data points are relatively close to the mean,
+                              more specific it belongs to the span [wtp(min),wtp(max)]=[0.65*referencePrice,1.25*referencePrice]">
+                            Standard deviation
+                        </span>
+                    </label></td>
                     <td><input class="targetInput" id="stdOfCustomers" required="" autocomplete="off" type="text"
                                value="0.3"></td>
                 </tr>
                 <tr>
-                    <td><label class="label" for="trainingPercentage">Training dataset</label></td>
+                    <td><label class="label" for="trainingPercentage">
+                        <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
+                              data-tooltip="Is the percentage of training data. For example 0.25, means that the 25% of
+                              input data are going to be used for the training of neural network and the rest 75% of them are going to be used as testing data.">
+                        Training dataset
+                        </span>
+                    </label></td>
                     <td><input class="targetInput" id="trainingPercentage" required autocomplete="off" type="text"
                                value="0.25"></td>
                 </tr>
@@ -833,9 +854,9 @@
 
 // print alert NumberOfProducts in modal
             //alert("Number of Products " + lines.length);
-            $('#modalData').html("Number of Products: " + lines.length);
-            $('#averageBaseCost').html("Average base cost: " + averageBaseCost.toFixed(2));
-            $('#averagePrice').html("Average price per product: " + averagePrice.toFixed(2));
+            $('#modalData').html("Number of Products: " + parseFloat(lines.length).toLocaleString('de-DE'));
+            $('#averageBaseCost').html("Average base cost: " + parseFloat(averageBaseCost.toFixed(2)).toLocaleString('de-DE'));
+            $('#averagePrice').html("Average price per product: " + parseFloat(averagePrice.toFixed(2)).toLocaleString('de-DE'));
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Read data from data_orders.csv
             let orders = testArray[1].split("\r\n");
@@ -996,8 +1017,8 @@
             Plotly.newPlot('scatterTime', dataTime, layoutTime, config);
 
 // print in modal
-            $('#orders').html("Number of Orders: " + orders.length);
-            $('#averageTotal').html("Average total of order: " + averageTotal.toFixed(2));       //mean of orders euros
+            $('#orders').html("Number of Orders: " + parseFloat(orders.length).toLocaleString('de-DE'));
+            $('#averageTotal').html("Average total of order: " + parseFloat(averageTotal.toFixed(2)).toLocaleString('de-DE'));       //mean of orders euros
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Read data from data_views.csv
             let views = testArray[2].split("\r\n");
