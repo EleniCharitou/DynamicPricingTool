@@ -10,6 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Marketplace</title>
+    <link rel="icon" type="image/x-icon" href="./sources/logo-05.png" style="width: 100%;">
     <%--Links for table, site: https://webdesignerwall.com/wdw-snippet/table-with-add-and-delete-and-edit-actions?fbclid=IwAR3xA6UKsPeE3ah_4bOcMcqPiGsQrHdvyTmHapgeoIKoks-7izrqifL3w5k--%>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -39,7 +40,7 @@
 
 <header>
     <div class="logo-container">
-        <a href="home"><img class="logo" src="./sources/DynamicPricinglogoBlueGreen.png" alt="logo"/></a>
+        <a href="home"><img class="logo" src="./sources/logo-05.png" alt="logo"/></a>
     </div>
     <nav class="navbar-links">
         <li><a class="navbar-link" id="logo" href="home"></a></li>
@@ -221,7 +222,7 @@
 
     <section class="shopTable">
         <div class="listName" id="tooltip">
-            <img width="21px" src="./sources/store.png"/> Market Simulation
+            <img width="21px" src="./sources/store.png"/> Market simulation
             <span class="exclamationMark" data-toggle="tooltip"
                   data-tooltip="A representative market with 10 shops. The first shop uses the dynamic pricing strategy
                         with back-propagation neural network and the others have prices with a specific percentage of profit.">

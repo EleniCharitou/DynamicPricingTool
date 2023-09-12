@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
+    <link rel="icon" type="image/x-icon" href="./sources/logo-05.png" style="width: 100%;">
     <%--Font family--%>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +29,7 @@
 <body>
 <header>
     <div class="logo-container">
-        <a href="home"><img class="logo" src="./sources/DynamicPricinglogoBlueGreen.png" alt="logo"/></a>
+        <a href="home"><img class="logo" src="./sources/logo-05.png" alt="logo"/></a>
     </div>
     <nav class="navbar-links">
         <li><a class="navbar-link" id="logo" href="home"></a></li>
@@ -91,20 +92,23 @@
             <br><br><br><br><br><br>
             <h2>Dynamic pricing model</h2>
             <p class="text-left" id="introduction">
-                Some words about the thesis and the model which is used.
-                .................
-                Some words about the thesis and the model which is used.
-                Some words about the thesis and the model which is used.
-                Some words about the thesis and the model which is used.
-                Some words about the thesis and the model which is used.
-                Some words about the thesis and the model which is used.
-                Some words about the thesis and the model which is used.
-                Some words about the thesis and the model which is used.
-                Some words about the thesis and the model which is used.
-                Some words about the thesis and the model which is used.
-                Some words about the thesis and the model which is used.
+                In recent years, e-commerce is growing rapidly and is being established as one of the dominant
+                ways of making commercial transactions. Pricing and policies strategies employed by businesses
+                are one of the key decisions for surviving in this highly competitive market, achieving goals and
+                maximizing profits.
+                For this reason, various dynamic pricing algorithms have been implemented and adapted to the
+                continuously changing conditions of the online market. These algorithms are based on the
+                abundance of data available to the online stores about market conditions as well as customers'
+                preferences and consumption habits. Utilizing the above data and integrating them into dynamic
+                pricing strategies can give a significant competitive advantage to businesses. However, so far these
+                techniques have been applied to limited business areas, e.g. airline and hotel bookings.
+                In a previous thesis was developed a system with dynamic pricing methods for online stores that
+                take into account demand, competition, available stock as well as user profiles. The system created
+                combines the mentioned data and uses neural networks in conjunction with optimization and
+                personalization methods and algorithms in order to set dynamically the price for each product per
+                customer in order to optimise the conversion rate.
             </p>
-            <img src="./sources/Group 1.png"/>
+            <img src="./sources/DynamicPricing.png"/>
         </div>
     </section>
     <section class="presentation">
