@@ -377,7 +377,7 @@
                         <td class="data">true</td>
                         <td class="data">5</td>
                         <td class="data">4</td>
-                        <td class="data">-0.05</td>
+                        <td class="data">0.04</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
                                data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
@@ -413,7 +413,7 @@
                         <td class="data">true</td>
                         <td class="data">3</td>
                         <td class="data">3</td>
-                        <td class="data">-0.05</td>
+                        <td class="data">0.06</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
                                data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
@@ -431,7 +431,7 @@
                         <td class="data">false</td>
                         <td class="data">5</td>
                         <td class="data">5</td>
-                        <td class="data">-0.05</td>
+                        <td class="data">0.004</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
                                data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
@@ -449,7 +449,7 @@
                         <td class="data">false</td>
                         <td class="data">5</td>
                         <td class="data">5</td>
-                        <td class="data">-0.03</td>
+                        <td class="data">0.02</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
                                data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>

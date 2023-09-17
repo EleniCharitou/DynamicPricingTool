@@ -82,7 +82,6 @@ public class DynamicPricing {
         //read views and combine them with order information
         // #TODO this csv is missing
         simulationMarketplace.readViews(viewArray);
-//        simulationMarketplace.shopsComparison();
 
         Random rp = new Random();
         double[][] shopsComparison = new double[10][8];

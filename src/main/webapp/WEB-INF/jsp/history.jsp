@@ -284,7 +284,6 @@
     }
 
     function shopsComparisonTable(visits, sales, conversionRate, salesValue, grossProfit, netProfit, productValue, operatingExpenses, id) {
-
         let values = [
             ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
             [visits[0], visits[1], visits[2], visits[3], visits[4], visits[5], visits[6], visits[7], visits[8], visits[9]],
@@ -328,6 +327,7 @@
     }
 
     function lineChartShops(grossProfit, netProfit, id) {
+
         // line chart
         let trace1 = {
             x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -356,35 +356,39 @@
             let visits = [];
             let sales = [];
             let conversionRate = [];
-        let salesValue = [];
-        let grossProfit = [];
-        let netProfit = [];
-        let productValue = [];
-        let operatingExpenses = [];
+            let salesValue = [];
+            let grossProfit = [];
+            let netProfit = [];
+            let productValue = [];
+            let operatingExpenses = [];
+            let grossProf = [];
+            let netProf = [];
+            for (let i = 0; i < shops.length; i++) {
+                let shopsDetails = shops[i].split(",");
 
-        for (let i = 0; i < shops.length; i++) {
-            let shopsDetails = shops[i].split(",");
+                visits.push(parseFloat(shopsDetails[0]).toLocaleString('de-DE'));
+                sales.push(parseFloat(shopsDetails[1]).toLocaleString('de-DE'));
+                conversionRate.push(parseFloat(shopsDetails[2]).toLocaleString('de-DE'));
+                salesValue.push(parseFloat(shopsDetails[3]).toLocaleString('de-DE'));
+                grossProfit.push(parseFloat(shopsDetails[4]).toLocaleString('de-DE'));
+                netProfit.push(parseFloat(shopsDetails[5]).toLocaleString('de-DE'));
+                productValue.push(parseFloat(shopsDetails[6]).toLocaleString('de-DE'));
+                operatingExpenses.push(parseFloat(shopsDetails[7]).toLocaleString('de-DE'));
 
-            visits.push(parseFloat(shopsDetails[0]).toLocaleString('de-DE'));
-            sales.push(parseFloat(shopsDetails[1]).toLocaleString('de-DE'));
-            conversionRate.push(parseFloat(shopsDetails[2]).toLocaleString('de-DE'));
-            salesValue.push(parseFloat(shopsDetails[3]).toLocaleString('de-DE'));
-            grossProfit.push(parseFloat(shopsDetails[4]).toLocaleString('de-DE'));
-            netProfit.push(parseFloat(shopsDetails[5]).toLocaleString('de-DE'));
-            productValue.push(parseFloat(shopsDetails[6]).toLocaleString('de-DE'));
-            operatingExpenses.push(parseFloat(shopsDetails[7]).toLocaleString('de-DE'));
-            shopsComparisonTable(visits, sales, conversionRate, salesValue, grossProfit, netProfit, productValue, operatingExpenses, id);
-            lineChartShops(grossProfit, netProfit, id);
+                grossProf.push(parseFloat(shopsDetails[4]));
+                netProf.push(parseFloat(shopsDetails[5]));
+                shopsComparisonTable(visits, sales, conversionRate, salesValue, grossProfit, netProfit, productValue, operatingExpenses, id);
+                lineChartShops(grossProf, netProf, id);
+            }
+            console.log(visits);
         }
-        console.log(visits);
-    }
 
         $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-            url: "getHistory",
-            contentType: "application/json",
+                url: "getHistory",
+                contentType: "application/json",
             data: {},
             success: function (result) {
 
@@ -504,8 +508,11 @@
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
+                            //  "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
+                            //  "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "&nbsp;" + "</td>" +
+
                             "</tr>" +
 
                             "</tbody>" +
@@ -625,8 +632,11 @@
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2;' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
+                            // "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
+                            // "<td class='inputData exclamationMark' style='background-color: #d5e4e2;' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "&nbsp;" + "</td>" +
+                            "<td class='inputData' style='background-color: #d5e4e2'>" + "&nbsp;" + "</td>" +
+
                             "</tr>" +
 
                             "</tbody>" +
