@@ -501,7 +501,8 @@
                 </tr>
                 <tr>
                     <td><label class="label customTooltip" for="nn1NEpochs" data-toggle="tooltip"
-                               data-tooltip="An epoch is a complete iteration of the dataset.">nEpochs</label></td>
+                               data-tooltip="An epoch is a complete iteration of the dataset.">Number of epochs</label>
+                    </td>
                     <td><input class="targetInput" id="nn1NEpochs" name="nnInputs" required autocomplete="off"
                                type="text" value="15"></td>
                 </tr>
