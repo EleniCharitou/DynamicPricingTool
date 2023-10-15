@@ -132,7 +132,7 @@ ul {
 
     position: absolute;
     top: -.35rem;
-    left: 40%;
+    left: 50%;
     transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
     transition: 100ms transform;
     transform-origin: bottom center;

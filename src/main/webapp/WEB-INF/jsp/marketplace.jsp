@@ -164,8 +164,8 @@
                 <tr>
                     <td><label class="label" for="trainingPercentage">
                         <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
-                              data-tooltip="Is the percentage of training data. For example 0.25, means that the 25% of
-                              input data are going to be used for the training of neural network and the rest 75% of them are going to be used as testing data.">
+                              data-tooltip="Is the percentage of training data. For example, 0.25 means that 25% of
+                              input data are going to be used for the training of neural network and the rest 75% of them are going to be used as testing data">
                         Training dataset
                         </span>
                     </label></td>
@@ -247,7 +247,9 @@
                     <thead>
                     <tr>
                         <th class="shop">Shop</th>
-                        <th class="shop">Delivery cost [€]</th>
+                        <th class="shop exclamationMark" data-toggle="tooltip"
+                            data-tooltip="The delivery costs in euro[€].">Delivery cost
+                        </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
                             data-tooltip="The average delivery time in days.">Delivery time
                         </th>
@@ -289,7 +291,7 @@
                         <td class="data">0</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons">&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons">&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -308,7 +310,7 @@
                         <td class="data">0.03</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons" tool>&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -326,7 +328,7 @@
                         <td class="data">0.03</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons" tool>&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -344,7 +346,7 @@
                         <td class="data">0.005</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons" tool>&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -362,7 +364,7 @@
                         <td class="data">0.05</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons" tool>&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -380,7 +382,7 @@
                         <td class="data">0.04</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons" tool>&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -398,7 +400,7 @@
                         <td class="data">0.05</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons" tool>&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -416,7 +418,7 @@
                         <td class="data">0.06</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons" tool>&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -434,7 +436,7 @@
                         <td class="data">0.004</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons" tool>&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -452,7 +454,7 @@
                         <td class="data">0.02</td>
                         <td class="data">
                             <a class="add" title="Add" data-toggle="tooltip"
-                               data-tooltip="Save shop's params/changes"><i class="material-icons" tool>&#xE03B;</i></a>
+                               data-tooltip="Save shop's changes"><i class="material-icons" tool>&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params"><i
                                     class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip" data-tooltip="Delete shop"><i
@@ -842,7 +844,7 @@
                 },
                 title: "Differences between price, base cost and margin",
                 font: {size: 11},
-                xaxis: {title: '€'},
+                xaxis: {title: 'Products'},
                 yaxis: {
                     type: 'log',
                     autorange: true,
