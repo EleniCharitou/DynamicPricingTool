@@ -95,54 +95,57 @@
                 In recent years, e-commerce is growing rapidly and is being established as one of the dominant
                 ways of making commercial transactions. Pricing and policies strategies employed by businesses
                 are one of the key decisions for surviving in this highly competitive market, achieving goals and
-                maximizing profits.
-                For this reason, various dynamic pricing algorithms have been implemented and adapted to the
+                maximizing profits. <span id="dots">...</span><span id="more">
+                <br> For this reason, various dynamic pricing algorithms have been implemented and adapted to the
                 continuously changing conditions of the online market. These algorithms are based on the
                 abundance of data available to the online stores about market conditions as well as customers'
                 preferences and consumption habits. Utilizing the above data and integrating them into dynamic
                 pricing strategies can give a significant competitive advantage to businesses. However, so far these
                 techniques have been applied to limited business areas, e.g. airline and hotel bookings.
                 In a previous thesis was developed a system with dynamic pricing methods for online stores that
-                take into account demand, competition, available stock as well as user profiles. The system created
+                take into account demand, competition, available stock as well as user profiles. The system
                 combines the mentioned data and uses neural networks in conjunction with optimization and
                 personalization methods and algorithms in order to set dynamically the price for each product per
-                customer in order to optimise the conversion rate.
+                customer in order to optimise the conversion rate. </span>
             </p>
-            <img src="./sources/DynamicPricing.png"/>
+            <button onclick="myFunction()" id="myBtn">Read more</button>
+            <br>
+            <img src="./sources/DynamicPricing.png" style="padding: 30px 0px 0px 0px"/>
+            <br>
+            <p>RESEARCH-ARTICLE:
+                <a href="https://dl.acm.org/doi/abs/10.1145/3477282.3477283" target="_blank"
+                   style="color: #064C58; margin: 0px; "> Personalized dynamic pricing with RFM modeling </a>
+            </p>
         </div>
     </section>
     <section class="presentation">
         <div class="intro-text">
             <h2>Why is Pricing Analytics Software useful?</h2>
             <p class="text-left"> Pricing analytics software is an automated tool that allows you to analyse the
-                effectiveness and profitability of a
-                pricing strategy. Pricing analytics software helps optimize decision-making within eCommerce businesses.
-                The software collects data on
-                multiple pricing metrics, such as sales, profits, price changes or user behaviours, and how they change
-                over time. It also considers
-                how variations in supply and demand within the market affect the eCommerce business. This data stream is
-                then easily analysed and
-                represented to provide key information on the profitability of prices. This will help you implement more
-                effective and consistent
-                changes to your pricing strategy.Its functionality means pricing analytics software is crucial in the
-                current context. Pricing is
-                becoming increasingly complex due to the ever-growing online market, the speed with which changes occur
-                at a global level, and the
-                current period of inflation. Pricing becomes increasingly complicated the larger the catalogue of
-                eCommerce products and the audiences
+                effectiveness and profitability of a pricing strategy. Pricing analytics software helps optimize
+                decision-making within eCommerce businesses.
+                The software collects data on multiple pricing metrics, such as sales, profits, price changes or user
+                behaviours, and how they change over time. It also considers how variations in supply and demand within
+                the market affect the eCommerce business. <span id="dot">...</span><span id="readMore">
+                <br>This data stream is then easily analysed and represented to
+                provide key information on the profitability of prices. This will help you implement more effective and
+                consistent changes to your pricing strategy.Its functionality means pricing analytics software is
+                crucial in the current context. Pricing is becoming increasingly complex due to the ever-growing online
+                market, the speed with which changes occur at a global level, and the current period of inflation.
+                Pricing becomes increasingly complicated the larger the catalogue of eCommerce products and the audiences
                 it targets. You can harness the benefits of applying Big Data to pricing with a pricing analytics tool
-                which will organize, study, and
-                compare thousands of proprietary and competitors' data. Benefits of pricing analytics software for your
-                eCommerce. In addition to the
-                advantages mentioned above, pricing analytics software can help you in the following ways in your
-                day-to-day business. Easily identify
+                which will organize, study, and compare thousands of proprietary and competitors' data. Benefits of
+                pricing analytics software for your eCommerce. In addition to the advantages mentioned above, pricing
+                analytics software can help you in the following ways in your day-to-day business. Easily identify
                 opportunities or weaknesses in your pricing strategy, and new market trends. <br> <br>
                 &bull; Identify which sales channels are most profitable and which types of pricing work best. <br><br>
                 &bull; Plan effective and profitable promotions. <br><br>
                 Learn more about different customer groups. By studying variables such as willingness to pay, you can
                 better segment the prices aimed at each type of client.
-                <br><br><br><br><br><br>
+                </span>
             </p>
+
+            <button onclick="myFunction_read()" id="myBtn_2">Read more</button>
         </div>
     </section>
     <section class="logos">
@@ -262,8 +265,40 @@
             });
 
 
-        });
-    </script>
+    });
+
+    function myFunction() {
+        let dots = document.getElementById("dots");
+        let moreText = document.getElementById("more");
+        let btnText = document.getElementById("myBtn");
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less";
+            moreText.style.display = "inline";
+        }
+    }
+
+    function myFunction_read() {
+        let dot = document.getElementById("dot");
+        let readMore = document.getElementById("readMore");
+        let btnText_2 = document.getElementById("myBtn_2");
+
+        if (dot.style.display === "none") {
+            dot.style.display = "inline";
+            btnText_2.innerHTML = "Read more";
+            readMore.style.display = "none";
+        } else {
+            dot.style.display = "none";
+            btnText_2.innerHTML = "Read less";
+            readMore.style.display = "inline";
+        }
+    }
+</script>
 
 
 </body>

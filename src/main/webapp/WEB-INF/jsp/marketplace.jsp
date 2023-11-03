@@ -98,7 +98,6 @@
             <div class="flex-container">
                 <div id="views"></div>
             </div>
-            <div id="final"></div>
         </div>
 
     </div>
@@ -139,6 +138,18 @@
                                value="1000"></td>
                 </tr>
                 <tr>
+                    <td>
+                        <label class="label black">
+                        <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
+                              data-tooltip="Willingness to pay (WTP) is the maximum price that a customer is willing to
+                              pay for a product or service. It follows Normal distribution and it is calculated with mean
+                              and standard deviation.">
+                         Willingness to Pay:
+                        </span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
                     <td><label class="label" for="mOfCustomers">
                         <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
                               data-tooltip="Mean is used for the calculation of the wtp. For example, 0.95 indicates that the
@@ -161,17 +172,7 @@
                     <td><input class="targetInput" id="stdOfCustomers" required="" autocomplete="off" type="text"
                                value="0.3"></td>
                 </tr>
-                <tr>
-                    <td><label class="label" for="trainingPercentage">
-                        <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
-                              data-tooltip="Is the percentage of training data. For example, 0.25 means that 25% of
-                              input data are going to be used for the training of neural network and the rest 75% of them are going to be used as testing data">
-                        Training dataset
-                        </span>
-                    </label></td>
-                    <td><input class="targetInput" id="trainingPercentage" required autocomplete="off" type="text"
-                               value="0.25"></td>
-                </tr>
+
             </table>
         </section>
         <section class="uploadFiles">
@@ -248,30 +249,36 @@
                     <tr>
                         <th class="shop">Shop</th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
-                            data-tooltip="The delivery costs in euro[€].">Delivery cost
+                            data-tooltip="The delivery costs in euro[€].">Delivery cost [€]
                         </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
-                            data-tooltip="The average delivery time in days.">Delivery time
+                            data-tooltip="The average delivery time in days.">Delivery time [days]
                         </th>
                         <th class="shop  exclamationMark" data-toggle="tooltip"
-                            data-tooltip="Assigned a value of 'true' if the shop supports additional delivery methods, such as Saturday delivery and/or clever point, otherwise assigned a value of 'false' if the shop supports only standard delivery methods.">
+                            data-tooltip="Assigned a value of 'true' if the shop supports additional delivery methods,
+                            such as Saturday delivery and/or clever point, otherwise assigned a value of 'false' if the
+                            shop supports only standard delivery methods.">
                             Delivery method
                         </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
-                            data-tooltip="It takes the value 'true' if the shop supports cash on delivery, otherwise the value 'false' if it does not.">
+                            data-tooltip="It takes the value 'true' if the shop supports cash on delivery, otherwise the
+                            value 'false' if it does not.">
                             Payment method
                         </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
-                            data-tooltip="The average number of reviews submitted for this store. It takes values in the range [1,5] where 1 corresponds to the worst possible review and 5 to the best possible review.">
+                            data-tooltip="The average number of reviews submitted for this store. It takes values in the
+                            range [1,5] where 1 corresponds to the worst possible review and 5 to the best possible review.">
                             Average number of reviews
                         </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
-                            data-tooltip="This relates to the credibility, reputation and brand name of the store, i.e. the name of the specific store in the market.
-                            It takes values in the range [1,5], where '1' corresponds to the worst possible reputation and '5' to the best.">
+                            data-tooltip="This relates to the credibility, reputation and brand name of the store, i.e.
+                            the name of the specific store in the market. It takes values in the range [1,5], where '1'
+                            corresponds to the worst possible reputation and '5' to the best.">
                             Seller reputation
                         </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
-                            data-tooltip="It takes the value of '0', if the shop follows a Dynamic pricing strategy or other value which represents the specific percentage of the shop's profit.">
+                            data-tooltip="It takes the value of '0', if the shop follows a Dynamic pricing strategy or
+                            other value which represents the specific percentage of the shop's profit.">
                             Pricing strategy
                         </th>
                         <th class="shop" style="background: #b6d4d0">
@@ -470,7 +477,22 @@
         <section class="NN1">
             <table style="border: none;">
                 <tr>
-                    <th class="listName"><img width="30px" src="./sources/network.png"/> NN1 parameters</th>
+                    <th class="listName"><img width="30px" src="./sources/network.png"/> Neural networks</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><label class="label" for="trainingPercentage">
+                        <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
+                              data-tooltip="Is the percentage of training data. For example, 0.8 means that 80% of
+                              input data are going to be used for the training of neural network and the rest 20% of them are going to be used as testing data">
+                        Training dataset
+                        </span>
+                    </label></td>
+                    <td><input class="targetInput" id="trainingPercentage" required autocomplete="off" type="text"
+                               value="0.8"></td>
+                </tr>
+                <tr>
+                    <th class="listName params"> NN1 parameters</th>
                     <th></th>
                 </tr>
                 <tr>
@@ -536,7 +558,11 @@
         <section class="NN2">
             <table>
                 <tr>
-                    <th class="listName"><img width="30px" src="./sources/network.png"/> NN2 parameters</th>
+                    <td style="height: 89px;">&nbsp;</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th class="listName params"> NN2 parameters</th>
                     <th></th>
                 </tr>
                 <tr>
@@ -1207,12 +1233,6 @@
                 }),
                 success: function (result) {
                     console.log(result[0] + ' ' + result[1]);
-                    // let final = 'Column MSE MAE RMSE RSE R^2 col_0 1.00908e-08 1.00908e-08 1.00453e-04 1.00000e+00 4.69345e-04 ,Column MSE MAE RMSE RSE R^2 col_0 1.00256e-08 1.00256e-08 1.00128e-04 1.00000e+00 4.64134e-04';
-                    // let finalTable = final.split(",");
-                    // console.log(final);
-                    // console.log(finalTable);
-                    //
-                    // $('#final').html("Final results: " + finalTable);
                     let nn1Results = result[0];
                     let nn2Results = result[1];
 

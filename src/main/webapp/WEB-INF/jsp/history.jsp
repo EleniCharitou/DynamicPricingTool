@@ -161,8 +161,8 @@
                     t: 50
             },
             paper_bgcolor: '#f5f5f5',
-            title: "Frequency <br><sup>(orders/year)</sup>",
-            font: {size: 11}
+                title: "Frequency <br><sup>(orders/year)</sup>",
+                font: {size: 11}
             };
             Plotly.newPlot('frequencyPie' + id, data, layout);
         }
@@ -171,7 +171,7 @@
 
             let data = [{
                 values: [monetary[0], monetary[1], monetary[2], monetary[3], monetary[4], monetary[5], monetary[6], monetary[7]],
-                labels: ['0-49.99', '49.99-99.99', '99.99-149.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99', '149.99-199.99'],
+                labels: ['0-49', '49-99', '99-', '149-199', '149-199', '149-199', '149-199', '149-199', '149-199'],
                 type: 'pie',
                 texttemplate: "%{label}: (%{percent})",
                 textposition: "inside",
@@ -208,17 +208,17 @@
             }];
             let layout = {
                 autosize: false,
-                width: 300,
-                height: 300,
+                width: 350,
+                height: 350,
                 margin: {
                     l: 50,
                     r: 50,
                     b: 50,
                     t: 50
-            },
-            paper_bgcolor: '#f5f5f5',
-            title: "Page views per product sold",
-            font: {size: 11},
+                },
+                paper_bgcolor: '#f5f5f5',
+                title: "Page views per product sold",
+                font: {size: 11},
             };
             Plotly.newPlot('pageViewsPie' + id, data, layout);
         }
@@ -236,18 +236,18 @@
             }];
             let layout = {
                 autosize: false,
-                width: 300,
-                height: 300,
+                width: 330,
+                height: 330,
                 margin: {
                     l: 50,
                     r: 50,
                     b: 50,
                     t: 50
-            },
-            paper_bgcolor: '#f5f5f5',
-            title: "Time spent per order <br><sup>(minutes/order)</sup>",
-            font: {size: 11},
-        };
+                },
+                paper_bgcolor: '#f5f5f5',
+                title: "Time spent per order <br><sup>(minutes/order)</sup>",
+                font: {size: 11},
+            };
         Plotly.newPlot('timeSpentPie' + id, data, layout);
     }
 
@@ -326,29 +326,29 @@
         Plotly.newPlot('shopsComparison' + id, data, layout);
     }
 
-    function lineChartShops(grossProfit, netProfit, id) {
+        function lineChartShops(grossProfit, netProfit, id) {
 
-        // line chart
-        let trace1 = {
-            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            y: [netProfit[0], netProfit[1], netProfit[2], netProfit[3], netProfit[4], netProfit[5], netProfit[6], netProfit[7], netProfit[8], netProfit[9]],
-            type: 'scatter',
-            name: 'Net profit'
-        };
-        let trace2 = {
-            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            y: [grossProfit[0], grossProfit[1], grossProfit[2], grossProfit[3], grossProfit[4], grossProfit[5], grossProfit[6], grossProfit[7], grossProfit[8], grossProfit[9]],
-            type: 'scatter',
-            name: 'Gross profit'
-        };
-        let dataLine = [trace1, trace2];
-        let chartLayout = {
-            title: 'Shops profit comparison',
-            xaxis: {title: 'Shop'},
-            yaxis: {title: '€'}
+            // line chart
+            let trace1 = {
+                x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                y: [netProfit[0], netProfit[1], netProfit[2], netProfit[3], netProfit[4], netProfit[5], netProfit[6], netProfit[7], netProfit[8], netProfit[9]],
+                type: 'bar',
+                name: 'Net profit'
+            };
+            let trace2 = {
+                x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                y: [grossProfit[0], grossProfit[1], grossProfit[2], grossProfit[3], grossProfit[4], grossProfit[5], grossProfit[6], grossProfit[7], grossProfit[8], grossProfit[9]],
+                type: 'bar',
+                name: 'Gross profit'
+            };
+            let dataLine = [trace1, trace2];
+            let chartLayout = {
+                title: 'Shops profit comparison',
+                xaxis: {title: 'Shop'},
+                yaxis: {title: '€'}
+            }
+            Plotly.newPlot('lineShopsComparison' + id, dataLine, chartLayout);
         }
-        Plotly.newPlot('lineShopsComparison' + id, dataLine, chartLayout);
-    }
 
         function shopsResults(id) {
             let shops = shops_comparison[id].split("\n");
@@ -450,8 +450,7 @@
                             "<th class='resultTitle'>Training<br> params</th>" +
                             "<th class='resultTitle'>NN2</th>" +
                             "<th class='resultTitle'>Training<br> params</th>" +
-                            "<th class='resultTitle' style='background-color: #b6d4d0'>Results <br> NN1 evaluation</th>" +
-                            "<th class='resultTitle' style='background-color: #b6d4d0'>Results <br> NN2 evaluation</th>" +
+                            "<th class='resultTitle' style='background-color: #b6d4d0'>NN2 evaluation</th>" +
                             "<th class='resultTitle' style='width: 10%;background-color: #b6d4d0'>Graphs</th>" +
                             "</tr>" +
                             "</thead>" +
@@ -463,7 +462,6 @@
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN1 + "</td>" +
                             "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2'  data-toggle='tooltip' data-tooltip='Mean Square Error: measures the average squared difference between the predicted and actual values. A lower MSE indicates better performance, with 0 being the best possible value.'>" + "MSE: " + parseFloat(metricsNN1[1]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Mean Square Error: measures the average squared difference between the predicted and actual values. A lower MSE indicates better performance, with 0 being the best possible value.'>" + "MSE: " + parseFloat(metricsNN2[1]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData' rowspan='2' style='background-color: #d5e4e2'>" + "<a onclick=\"shopsResults(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
 
@@ -475,7 +473,6 @@
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN1 + "</td>" +
                             "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Mean Absolute Error : calculates the average absolute difference between the predicted and actual values. Like MSE, a lower MAE value indicates better performance.'>" + "MAE: " + parseFloat(metricsNN1[2]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Mean Absolute Error : calculates the average absolute difference between the predicted and actual values. Like MSE, a lower MAE value indicates better performance.'>" + "MAE: " + parseFloat(metricsNN2[2]).toLocaleString('de-DE') + "</td>" +
 
                             "</tr>" +
@@ -486,7 +483,6 @@
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN1 + "</td>" +
                             "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Root Mean Squared Error : Take the square root of the MSE to get the RMSE. It provides an interpretable metric in the same unit as the target variable.'>" + "RMSE: " + parseFloat(metricsNN1[3]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Root Mean Squared Error : Take the square root of the MSE to get the RMSE. It provides an interpretable metric in the same unit as the target variable.'>" + "RMSE: " + parseFloat(metricsNN2[3]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData' rowspan='3' style='background-color: #d5e4e2'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
 
@@ -498,7 +494,6 @@
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Residual Standard Error : Calculate the standard deviation of the residuals, which are the differences between the predicted values and the true target values. It represents the average difference between the observed and predicted values.'>" + "RSE: " + parseFloat(metricsNN1[4]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Residual Standard Error : Calculate the standard deviation of the residuals, which are the differences between the predicted values and the true target values. It represents the average difference between the observed and predicted values.'>" + "RSE: " + parseFloat(metricsNN2[4]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
                             "<tr>" +
@@ -508,9 +503,6 @@
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
-                            //  "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
-                            //  "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData' style='background-color: #d5e4e2'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData' style='background-color: #d5e4e2'>" + "&nbsp;" + "</td>" +
 
                             "</tr>" +
@@ -574,8 +566,7 @@
                             "<th class='resultTitle'>Training<br> params</th>" +
                             "<th class='resultTitle'>NN2</th>" +
                             "<th class='resultTitle'>Training<br> params</th>" +
-                            "<th class='resultTitle' style='background-color: #b6d4d0'>Results <br> NN1 evaluation</th>" +
-                            "<th class='resultTitle' style='background-color: #b6d4d0'>Results <br> NN2 evaluation</th>" +
+                            "<th class='resultTitle' style='background-color: #b6d4d0'>NN2 evaluation</th>" +
                             "<th class='resultTitle' style='width: 10%; background-color: #b6d4d0'>Graphs</th>" +
                             "</tr>" +
                             "</thead>" +
@@ -587,7 +578,6 @@
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN1 + "</td>" +
                             "<td class='inputData'>" + "Input nodes: " + inputObj.inputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "Seeds: " + inputObj.seedsNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Mean Square Error: measures the average squared difference between the predicted and actual values. A lower MSE indicates better performance, with 0 being the best possible value.'>" + "MSE: " + parseFloat(metricsNN1[1]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Mean Square Error: measures the average squared difference between the predicted and actual values. A lower MSE indicates better performance, with 0 being the best possible value.'>" + "MSE: " + parseFloat(metricsNN2[1]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData' rowspan='2' style='background-color: #d5e4e2'>" + "<a onclick=\"shopsResults(" + i + ")\"><img class='resultIcon' src='./sources/shops.png'/></a>" + "</td>" +
 
@@ -599,7 +589,6 @@
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN1 + "</td>" +
                             "<td class='inputData'>" + "Hidden nodes: " + inputObj.hiddenNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nEpochs: " + inputObj.nEpochsNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Mean Absolute Error : calculates the average absolute difference between the predicted and actual values. Like MSE, a lower MAE value indicates better performance.'>" + "MAE: " + parseFloat(metricsNN1[2]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Mean Absolute Error : calculates the average absolute difference between the predicted and actual values. Like MSE, a lower MAE value indicates better performance.'>" + "MAE: " + parseFloat(metricsNN2[2]).toLocaleString('de-DE') + "</td>" +
 
                             "</tr>" +
@@ -610,7 +599,6 @@
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN1 + "</td>" +
                             "<td class='inputData'>" + "Output nodes: " + inputObj.outputNodesNN2 + "</td>" +
                             "<td class='inputData'>" + "nSamples: " + inputObj.nSamplesNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Root Mean Squared Error : Take the square root of the MSE to get the RMSE. It provides an interpretable metric in the same unit as the target variable.'>" + "RMSE: " + parseFloat(metricsNN1[3]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Root Mean Squared Error : Take the square root of the MSE to get the RMSE. It provides an interpretable metric in the same unit as the target variable.'>" + "RMSE: " + parseFloat(metricsNN2[3]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData' rowspan='3' style='background-color: #d5e4e2'>" + "<a onclick=\"multiplePies(" + i + ")\" data-toggle='modal' data-target='#GSCCModal'><img class='resultIcon' src='./sources/graph.png'/></a>" + "</td>" +
 
@@ -622,7 +610,6 @@
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN1 + "</td>" +
                             "<td class='inputData'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData'>" + "Batch size: " + inputObj.batchSizeNN2 + "</td>" +
-                            "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Residual Standard Error : Calculate the standard deviation of the residuals, which are the differences between the predicted values and the true target values. It represents the average difference between the observed and predicted values.'>" + "RSE: " + parseFloat(metricsNN1[4]).toLocaleString('de-DE') + "</td>" +
                             "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='Residual Standard Error : Calculate the standard deviation of the residuals, which are the differences between the predicted values and the true target values. It represents the average difference between the observed and predicted values.'>" + "RSE: " + parseFloat(metricsNN2[4]).toLocaleString('de-DE') + "</td>" +
                             "</tr>" +
                             "<tr>" +
@@ -634,7 +621,6 @@
                             "<td class='inputData'>" + "Learning rate: " + inputObj.learningRateNN2 + "</td>" +
                             // "<td class='inputData exclamationMark' style='background-color: #d5e4e2' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN1[5]).toLocaleString('de-DE') + "</td>" +
                             // "<td class='inputData exclamationMark' style='background-color: #d5e4e2;' data-toggle='tooltip' data-tooltip='R-squared : is a statistical measure that represents the proportion of the variance in the dependent variable (output) that can be explained by the independent variables (inputs). It ranges between 0 and 1, where 1 represents a perfect fit and values closer to 1 indicate better performance, while values close to 0 suggest poor performance'>" + "R<sup>2</sup>: " + parseFloat(metricsNN2[5]).toLocaleString('de-DE') + "</td>" +
-                            "<td class='inputData' style='background-color: #d5e4e2'>" + "&nbsp;" + "</td>" +
                             "<td class='inputData' style='background-color: #d5e4e2'>" + "&nbsp;" + "</td>" +
 
                             "</tr>" +
