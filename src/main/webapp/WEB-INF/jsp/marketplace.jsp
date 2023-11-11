@@ -258,17 +258,20 @@
                             data-tooltip="Assigned a value of 'true' if the shop supports additional delivery methods,
                             such as Saturday delivery and/or clever point, otherwise assigned a value of 'false' if the
                             shop supports only standard delivery methods.">
-                            Delivery method
+                            <%--                            Delivery method--%>
+                            Extra delivery option
                         </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
                             data-tooltip="It takes the value 'true' if the shop supports cash on delivery, otherwise the
                             value 'false' if it does not.">
-                            Payment method
+                            <%--                            Payment method--%>
+                            Cash on delivery
+
                         </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
                             data-tooltip="The average number of reviews submitted for this store. It takes values in the
                             range [1,5] where 1 corresponds to the worst possible review and 5 to the best possible review.">
-                            Average number of reviews
+                            Seller reviews
                         </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
                             data-tooltip="This relates to the credibility, reputation and brand name of the store, i.e.
@@ -278,7 +281,7 @@
                         </th>
                         <th class="shop exclamationMark" data-toggle="tooltip"
                             data-tooltip="It takes the value of '0', if the shop follows a Dynamic pricing strategy or
-                            other value which represents the specific percentage of the shop's profit.">
+                            other value in the range [0,1] which represents the specific percentage of the shop's profit.">
                             Pricing strategy
                         </th>
                         <th class="shop" style="background: #b6d4d0">
@@ -483,13 +486,13 @@
                 <tr>
                     <td><label class="label" for="trainingPercentage">
                         <span class="exclamationMark" style="position: initial" data-toggle="tooltip"
-                              data-tooltip="Is the percentage of training data. For example, 0.8 means that 80% of
-                              input data are going to be used for the training of neural network and the rest 20% of them are going to be used as testing data">
+                              data-tooltip="Is the percentage of training data. For example, 0.75 means that 750% of
+                              input data are going to be used for the training of neural network and the rest 35% of them are going to be used as testing data">
                         Training dataset
                         </span>
                     </label></td>
                     <td><input class="targetInput" id="trainingPercentage" required autocomplete="off" type="text"
-                               value="0.8"></td>
+                               value="0.75"></td>
                 </tr>
                 <tr>
                     <th class="listName params"> NN1 parameters</th>
@@ -547,8 +550,9 @@
                 </tr>
                 <tr>
                     <td><label class="label customTooltip" for="nn1LearningRate" data-toggle="tooltip"
-                               data-tooltip="The learning rate of the neural network, which depends on the range of data values, usually taking values in the interval [0, 1]. Changes in the learning rate are often combined with changes in the activation function.">Learning
-                        Rate</label></td>
+                               data-tooltip="The learning rate of the neural network, which depends on the range of data values, usually taking values in the interval [0, 1]. Changes in the learning rate are often combined with changes in the activation function.">
+                        Learning rate
+                    </label></td>
                     <td><input class="targetInput" id="nn1LearningRate" name="nnInputs" required autocomplete="off"
                                type="text" value="0.003"></td>
                 </tr>
@@ -614,8 +618,9 @@
                 </tr>
                 <tr>
                     <td><label class="label customTooltip" for="nn2LearningRate" data-toggle="tooltip"
-                               data-tooltip="The learning rate of the neural network, which depends on the range of data values, usually taking values in the interval [0, 1]. Changes in the learning rate are often combined with changes in the activation function.">Learning
-                        Rate</label></td>
+                               data-tooltip="The learning rate of the neural network, which depends on the range of data values, usually taking values in the interval [0, 1]. Changes in the learning rate are often combined with changes in the activation function.">
+                        Learning rate
+                    </label></td>
                     <td><input class="targetInput" id="nn2LearningRate" name="nnInputs" required autocomplete="off"
                                type="text" value="0.003"></td>
                 </tr>

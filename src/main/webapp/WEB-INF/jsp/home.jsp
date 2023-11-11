@@ -110,7 +110,7 @@
             </p>
             <button onclick="myFunction()" id="myBtn">Read more</button>
             <br>
-            <img src="./sources/DynamicPricing.png" style="padding: 30px 0px 0px 0px"/>
+            <img src="./sources/DynamicPricing.png" style="padding: 30px 0px 0px 0px; width: 50%"/>
             <br>
             <p>RESEARCH-ARTICLE:
                 <a href="https://dl.acm.org/doi/abs/10.1145/3477282.3477283" target="_blank"
