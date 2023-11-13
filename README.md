@@ -27,7 +27,7 @@ strategies, an interface for graphical visualization of user inputs and a corres
 mvn spring-boot:run
 ```
 
-* Open browser and navigate to https://localhost:8080/home
+* Open browser and navigate to http://localhost:8080/home
 
 
 
