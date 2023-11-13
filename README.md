@@ -18,11 +18,9 @@ strategies, an interface for graphical visualization of user inputs and a corres
 
 ## How to run the application
 
-* Download the project
 * Clone repo
 * Open terminal in the folder created
 * Run:
-
 ```
 mvn spring-boot:run
 ```
