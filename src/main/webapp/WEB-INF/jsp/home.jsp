@@ -162,13 +162,8 @@
         <br>Student at Aristotle University of Thessaloniki 2023
     </div>
 </footer>
-<!-- <video autoplay muted loop id="myVideo" width="100%">
-    <source src="slow.mp4" type="video/mp4">
-    Your browser does not support HTML5 video.
-</video> -->
 
 
-<%--<div id="tester" style="width:600px;height:250px;"></div>--%>
 
 
 <script>
@@ -224,47 +219,6 @@
                     });
                 }
             });
-
-// plot Normal Distribution------------------------------------------------------------------------------------------
-            //TESTER = document.getElementById('tester');
-            /*Plotly.newPlot( document.getElementById('tester'), [{
-                x: [1, 2, 3, 4, 5],
-                y: [1, 2, 4, 8, 16] }], {
-                margin: { t: 0 } } );*/
-
-
-//notification------------------------------------------------------------------------------------------
-            document.addEventListener("DOMContentLoaded", function () {
-                $('#liveToast').toast();
-            });
-//------------------------------------------------------------------------------------------
-            $('#searchButton').on('click', function () {
-                firstValue = $('#first_value').val();
-                secondValue = $('#second_value').val();
-
-                $.ajax({
-                    type: "POST",
-                    url: "getData",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        first_value: firstValue,
-                        second_value: secondValue
-                    }),
-                    success: function (result) {
-                        // console.log(result);
-                        /*alert(result.outputString);*/
-
-                        $('#toast_body').text(result.outputString);
-
-                        $('#liveToast').toast("show");
-                    },
-                    error: function (xhr) {
-                        console.log("Error getting response in AJAX");
-                    }
-                });
-            });
-
-
     });
 
     function myFunction() {

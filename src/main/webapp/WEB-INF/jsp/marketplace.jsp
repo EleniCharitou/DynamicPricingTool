@@ -534,7 +534,6 @@
                                type="text" value="15"></td>
                 </tr>
                 <tr>
-                    <%--                    <a class="edit" title="Edit" data-toggle="tooltip" data-tooltip="Edit shop's params">--%>
                     <td><label class="label customTooltip" for="nn1NSamples" data-toggle="tooltip"
                                data-tooltip="Number of the samples are used for this experiment.">Number of
                         samples</label></td>

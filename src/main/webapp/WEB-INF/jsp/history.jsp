@@ -263,6 +263,7 @@
         createMonetaryPie(monet, id);
         createPageViewsPie(pageV, id);
         createTimeSpentPie(timeSp, id);
+        $("#piesTable" + id).show();
     }
 
     function download_training_data(id) {
@@ -515,7 +516,12 @@
                             "</div>" +
                             // "<span onclick=\"this.parentNode.style.visibility = 'collapse';\">" + "y" + "</span>" +
                             "</div>" +
-                            "<table  class='piesContainer'/>" +
+                            "<table id='piesTable" + i + "' class='piesContainer' style='display:none'/>" +
+                            "<tr>" +
+                            "<td colspan='3' style='text-align: center; margin: 10px;'>" +
+                            "Customers' characteristics " +
+                            "</td>" +
+                            "</tr>" +
                             "<tr>" +
                             "<td>" +
                             "<div  id=\"" + recencyPie + "\" class='piesDisplay'/>" +
@@ -632,13 +638,12 @@
                             "<div  id=\"" + lineShopsComparison + "\" class='piesDisplay'/>" +
                             "</div>" +
                             "</div>" +
-                            "<table  class='piesContainer'/>" +
+                            "<table id='piesTable" + i + "' class='piesContainer' style='display:none'/>" +
                             "<tr>" +
-                            "<td colspan='3'>" +
+                            "<td colspan='3' style='text-align: center; margin: 10px;'>" +
                             "Customers' characteristics " +
                             "</td>" +
                             "</tr>" +
-
                             "<tr>" +
                             "<td>" +
                             "<div  id=\"" + recencyPie + "\" class='piesDisplay'/>" +
